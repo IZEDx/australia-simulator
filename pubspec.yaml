@@ -3,7 +3,7 @@ description: Get the f*ck out of my house.
 version: 0.0.1
 
 environment:
-  sdk: '>=1.24 <2.0.0'
+  sdk: '>=1.24.0 <2.0.0'
 
 #dependencies:
 #  path: ^1.4.1
