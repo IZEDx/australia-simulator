@@ -15,6 +15,12 @@ Die Logik für die Gegner erhöht die technische Komplexität enorm, deswegen st
 
 ## __AF-3:__ DOM-Tree basiert
 
+_Australia Simulator_ verwendet ein MVC Model, bei dem der DOM-Tree das View darstellt und entsprechend das Spiel rendert und Inputs akzeptiert. 
+
+Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose Elemente, die benötigt werden für die Spielobjekte, die dann frei in der Spielwelt bewegt und animiert werden können.
+
+Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer neu-erstellt werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-update: transform``` lassen sich Performance-relevante Elemente (z.B. Spieler und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen.
+
 ## __AF-4:__ Target device: Smartphone
 
 ## __AF-5:__ Mobile First Prinzip
