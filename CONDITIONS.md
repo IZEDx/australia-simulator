@@ -23,6 +23,6 @@ Die Logik für die Gegner erhöht die technische Komplexität enorm, deswegen st
 
 ## __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen
 
-## __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu relaisieren
+## __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren
 
 ## __AF-9:__ Dokumentation
