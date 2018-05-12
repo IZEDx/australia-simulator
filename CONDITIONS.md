@@ -30,7 +30,7 @@ Für Desktop bietet sich allerdings darüberhinaus auch noch eine Pfeiltasten Be
 
 ## __AF-5:__ Mobile First Prinzip
 
-Für erweiterte UI Interaktionen, wie z.B. das wegdrücken von Medals am Anfang einer Runde bieten sich neben klassischen Eingabearten (Close-Button obere rechte Ecke vom Widget) außerdem Touchscreen Interaktionen an, wie das Wegswipen vom Widget. Da wo es angebracht ist, wollen wir die Interaktionen für Touchscreens vereinfachen.
+Für erweiterte UI Interaktionen, wie z.B. das wegdrücken von Modals am Anfang einer Runde bieten sich neben klassischen Eingabearten (Close-Button obere rechte Ecke vom Widget) außerdem Touchscreen Interaktionen an, wie das Wegswipen vom Widget. Da wo es angebracht ist, wollen wir die Interaktionen für Touchscreens vereinfachen.
 
 ## __AF-6:__ Das Spiel muss schnell und intuitiv erfassbar sein und Spielfreude erzeugen
 
