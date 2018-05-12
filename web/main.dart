@@ -1,5 +1,3 @@
-import 'dart:html';
+import "package:australia_simulator/australiasim.dart";
 
-void main() {
-  querySelector('#output').text = 'Your Dart app is running.';
-}
+main() => new GameController();
