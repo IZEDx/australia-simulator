@@ -1,5 +1,9 @@
 part of australiasim;
 
 class GameController {
-  final view = new GameView();
+  final view = new GameView()
+
+  GameController() {
+    
+  }
 }
