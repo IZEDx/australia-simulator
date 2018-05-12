@@ -23,12 +23,23 @@ Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer neu-erstellt we
 
 ## __AF-4:__ Target device: Smartphone
 
+_Australia Simulator_ wird eine responsive PWA und somit auf iOS und Android, ebenso wie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns eine Point-and-Move Steuerung ausgedacht, bei der der Spieler mit der Maus oder per Touchscreen irgendwo auf der Karte gedrückt hält und der Character bewegt sich dorthin. Sollte der Spieler wieder los lassen bleibt der Character stehen.
+
+Für Desktop bietet sich allerdings darüberhinaus auch noch eine Pfeiltasten Bedienung an.
+
+
 ## __AF-5:__ Mobile First Prinzip
+
+Für erweiterte UI Interaktionen, wie z.B. das wegdrücken von Modals am Anfang einer Runde bieten sich neben klassischen Eingabearten (Close-Button obere rechte Ecke vom Widget) außerdem Touchscreen Interaktionen an, wie das Wegswipen vom Widget. Da wo es angebracht ist, wollen wir die Interaktionen für Touchscreens vereinfachen.
 
 ## __AF-6:__ Das Spiel muss schnell und intuitiv erfassbar sein und Spielfreude erzeugen
 
+Das gesamte Spiel kann man nur mit einer einzigen Eingabemethode spielen und es ist entsprechend intuitiv aufzugreifen. Wie viel Spielspaß dieses Spiel am Ende tatsächlich erzeugen kann und wielange das Spiel diesen aufrecht erhalten kann, können wir nicht vorhersagen.
+
 ## __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen
+
+_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, wobei die jeweilige Karte in der Größe festgelegt werden kann aber dann Zufallsgeneriert wird. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner, Geschwindigkeit/Einschüchterung des Spielers, Anzahl des Essens/Wohlfühlsfaktor der Gegner.
 
 ## __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren
 
-## __AF-9:__ Dokumentation
+Es ist vorgesehen den Levelfortschritt im localStorage abzuspeichern, damit der Spieler dort weitermachen kann, wo er aufgehört hat. Weitere Daten, wie Einstellungen für das Spiel etc. können ebenfalls im localStorage abgespeichert werden.
