@@ -1,9 +1,11 @@
 part of australiasim;
 
 class GameController {
-  final view = new GameView()
+  GameMode mode;
+  GameView view;
 
   GameController() {
-    
+    mode = new GameMode();
+    view = new GameView(mode);
   }
 }
