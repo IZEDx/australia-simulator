@@ -1,14 +1,15 @@
 part of australiasim;
 
 class Actor {
-  World world;
-  Vector2 _location;
-  Vector2 _rotation;
-  Vector2 _scale;
+  World world = null;
+  Vector2 _location = new Vector2(0.0, 0.0);
+  Vector2 _rotation = new Vector2(0.0, 0.0);
+  Vector2 _scale = new Vector2(1.0, 1.0);
 
-  Actor(World this.world, Vector2 location) {
-    this._location = location;
+  Actor() {
   }
+
+  bool get valid => world != null;
 
   set location(Vector2 loc) => _location = loc;
   Vector2 get location => _location;
