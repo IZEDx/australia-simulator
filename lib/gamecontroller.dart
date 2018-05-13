@@ -7,5 +7,12 @@ class GameController {
   GameController() {
     mode = new GameMode();
     view = new GameView(mode);
+
+    view.setup();
+    view.onInput((pos) => print(pos));
+  }
+
+  onInteraction() {
+
   }
 }
