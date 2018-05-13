@@ -36,7 +36,7 @@ Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert si
 
 ### 3.1 - Model
 
-Das Model umfasst das GameMode Entity, eine World Entity, sowie Objekte, welche sich in einem Level befinden und von einer Basisklasse (Actor) erben. Actor enthält die grundlegenden Informationen über ein Spielobjekt (Spielfigur, Teile der Welt, ...), um es in einem Level positionieren sowie Kollision abfragen zu können.
+Das Model umfasst das GameMode Entity, eine World Entity, sowie Objekte, welche sich in einem Level befinden und von einer Basisklasse (Actor) erben. Actor enthält die grundlegenden Informationen über ein Spielobjekt (Spielfigur, Teile der Welt, ...), um es in einem Level zu positionieren, sowie Kollision abfragen zu können.
 
 So wird zu Beginn eines Spieles die Welt von dem Gamemode aufgebaut (Architektur / Props, Gegner, Player spawnen). 
 Zu jeder Zeit kommuniziert der GameController nur mit dem GameMode, welches das Spiel verwaltet und die Interaktionen der Nutzer an seine Spielfigur weiterleitet.
