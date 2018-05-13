@@ -9,7 +9,7 @@ Außerdem wird durch die PWA ein Service Worker benötigt, der relevante Dateien
 
 In _Australia Simulator_ muss der Spieler versuchen verschiedene wilde und gefährliche Tiere aus seinem Haus zu verscheuchen, ohne dabei die Tiere zu berühren. 
 
-Die Tiere/Gegner müssen also entsprechend vor dem Spieler abhauen ("es hat mehr Angst als du") und gegebenfalls im Haus idlen oder nach Essen suchen.
+Die Tiere/Gegner müssen also entsprechend vor dem Spieler abhauen ("es hat mehr Angst als du") und gegebenfalls im Haus idlen bzw. sich zufällig bewegen.
 
 Die Logik für die Gegner erhöht die technische Komplexität enorm, deswegen steht noch offen, wie ausführlich diese implementiert werden kann.
 
@@ -38,7 +38,7 @@ Das gesamte Spiel kann man nur mit einer einzigen Eingabemethode spielen und es 
 
 ## __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen
 
-_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, wobei die jeweilige Karte in der Größe festgelegt werden kann aber dann Zufallsgeneriert wird. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner, Geschwindigkeit/Einschüchterung des Spielers, Anzahl des Essens/Wohlfühlsfaktor der Gegner.
+_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, wobei die jeweilige Karte in der Größe festgelegt werden kann aber dann Zufallsgeneriert wird. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner und dem Wohlfühlsfaktor der Gegner, sowie der zugehörigen Steigungsrate.
 
 ## __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren
 
