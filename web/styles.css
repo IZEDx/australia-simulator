@@ -15,7 +15,7 @@ main {
   height: 100%;
 }
 
-input-overlay {
+#input {
   display: block;
   position: absolute;
   left: 0;
@@ -25,7 +25,7 @@ input-overlay {
   pointer-events: none;
 }
 
-input-overlay.active {
+#input.active {
   pointer-events: all;
   background: radial-gradient(#666,#333);
   opacity: 0.2;
@@ -43,11 +43,11 @@ header {
   line-height: 40px;
 }
 
-aus-house {
+#world {
   position: absolute;
   display: block;
   background-color: rgba(0,0,0,0.55);
-  transition: transform 0.5s;
+  transition: transform 0.1s;
   will-change: transform;
   width: 500px;
   height: 500px;
@@ -56,22 +56,27 @@ aus-house {
   transform: translate(-50px, -50px);
 }
 
-aus-actor {
+.actor {
   position: absolute;
   display: block;
-  width: 40px;
-  height: 40px;
+  transition: left 0.1s, top 0.1s;
+  will-change: left, top;
+  width: 50px;
+  height: 50px;
   transform: translate(-50%, -50%);
-  left: 0;
-  top: 0;
+  left: 25px;
+  top: 25px;
 }
 
-aus-actor#character {
+.actor#character {
+  will-change: unset;
   border-radius: 100%;
   background-color: #fff;
+  left: 50%;
+  top: 50%;
 }
 
-aus-actor#character.active {
+.actor#character.active {
   background-color: #0f0;
 }
 

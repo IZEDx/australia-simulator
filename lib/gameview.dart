@@ -2,29 +2,67 @@ part of australiasim;
 
 class GameView {
   GameMode gamemode;
-  final world = querySelector("#world");
-  final character = querySelector("#character");
+  Element character = null;
+  Element world = null;
+
+  final game = querySelector("#game");
   final input = querySelector("#input");
 
   GameView(GameMode this.gamemode) {
+    this.reset();
+    this.setup();
   }
 
-  setup() {
+  reset() {
+    if (world != null) {
+      game.setInnerHtml("");
+      world = null;
+      character = null;
+    }
     input.classes.remove("active");
   }
 
-  onInput(cb(Vector2 worldPos)) {
-    input.onTouchStart.listen((e) {
+  setup() {
+    if (world == null) {
+      game.appendHtml("<div id='world' />");
+      world = querySelector("#world");
+    }
+    if (character == null) {
+      game.appendHtml("<div class='actor' id='character' />");
+      character = querySelector("#character");
+    }
+    input.classes.add("active");
+
+    this.move(new Vector2(cellsize / 2, cellsize / 2));
+  }
+
+  onInput(onInput(Vector2 worldPos), onInputStop()) {
+    relay(TouchEvent e) {
       e.preventDefault();
+      onInput(new Vector2(
+        e.touches[0].page.x - world.offset.left, 
+        e.touches[0].page.y - world.offset.top
+      ));
+    }
+
+    input.onTouchStart.listen((e) {
       character.classes.add("active");
+      relay(e);
     });
+
     input.onTouchMove.listen((e) {
       e.preventDefault();
-      cb(new Vector2(e.touches[0].page.x - world.offset.left, e.touches[0].page.y - world.offset.top));
+      relay(e);
     });
+
     input.onTouchEnd.listen((e) {
       e.preventDefault();
       character.classes.remove("active");
+      onInputStop();
     });
+  }
+
+  move(Vector2 pos) {
+    world.style.transform = "translate(-${pos.x}px, -${pos.y}px)";
   }
 }
