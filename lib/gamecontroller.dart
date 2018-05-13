@@ -9,18 +9,51 @@ class GameController {
     mode = new GameMode();
     view = new GameView(mode);
 
-    const speed = 10.0;
+    const maxspeed = 40.0;
+    var speed = 0.0;
     var pos = new Vector2(0.0,0.0);
     var target = pos;
-    view.onInput((t) => target = t, () => target.setZero());
+    onInput((t) {
+      target = t;
+      if (speed < maxspeed) speed += 1.0;
+    }, () { 
+      target.setZero(); 
+      speed = 0.0; 
+    });
 
     movementTick = new Timer.periodic(new Duration(milliseconds: 100), (t) {
       pos.add(target.normalized() * speed);
+      if (pos.x < 25) pos.x = 25.0;
+      if (pos.y < 25) pos.y = 25.0;
+      if (pos.x > 475) pos.x = 475.0;
+      if (pos.y > 475) pos.y = 475.0;
       view.move(pos);
     });
   }
 
-  onInteraction() {
+  onInput(onInput(Vector2 worldPos), onInputStop()) {
+    relay(TouchEvent e) {
+      e.preventDefault();
+      onInput(new Vector2(
+        e.touches[0].page.x - view.world.offset.left, 
+        e.touches[0].page.y - view.world.offset.top
+      ));
+    }
 
+    view.input.onTouchStart.listen((e) {
+      view.character.classes.add("active");
+      relay(e);
+    });
+
+    view.input.onTouchMove.listen((e) {
+      e.preventDefault();
+      relay(e);
+    });
+
+    view.input.onTouchEnd.listen((e) {
+      e.preventDefault();
+      view.character.classes.remove("active");
+      onInputStop();
+    });
   }
 }

@@ -71,13 +71,14 @@ header {
 .actor#character {
   will-change: unset;
   border-radius: 100%;
+  transition: background-color 0.2s;
   background-color: #fff;
   left: 50%;
   top: 50%;
 }
 
 .actor#character.active {
-  background-color: #0f0;
+  background-color: rgba(0,255,0,0.5);
 }
 
 .hidden {
