@@ -5,6 +5,8 @@ _Australia Simulator_ wird als Progressive Web App mit einem Serviceworker konzi
 
 Außerdem wird durch die PWA ein Service Worker benötigt, der relevante Dateien für das Spiel aktiv cachen kann, sodass das Spiel dann auch im Offline-Modus funktioniert.
 
+Multiplayer-Funktionen sind nicht eingeplant.
+
 ## __AF-2:__ Balance zwischen technischer Komplexität und Spielkonzept
 
 In _Australia Simulator_ muss der Spieler versuchen verschiedene wilde und gefährliche Tiere aus seinem Haus zu verscheuchen, ohne dabei die Tiere zu berühren. 
@@ -15,15 +17,15 @@ Die Logik für die Gegner erhöht die technische Komplexität enorm, deswegen st
 
 ## __AF-3:__ DOM-Tree basiert
 
-_Australia Simulator_ verwendet ein MVC Model, bei dem der DOM-Tree das View darstellt und entsprechend das Spiel rendert und Inputs akzeptiert. 
+_Australia Simulator_ verwendet ein MVC Model, bei dem der DOM-Tree das View darstellt und entsprechend das Spiel rendert und auf events im Model reagiert.
 
-Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose Elemente, die benötigt werden für die Spielobjekte, die dann frei in der Spielwelt bewegt und animiert werden können.
+Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose Elemente, die benötigt werden für die Spielobjekte und frei in der Spielwelt bewegt und animiert werden können.
 
-Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer neu-erstellt werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-update``` lassen sich Performance-relevante Elemente (z.B. Spielwelt und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen.
+Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer komplett geupdated werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-update``` lassen sich Performance-relevante Elemente (z.B. Spielwelt und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen.
 
 ## __AF-4:__ Target device: Smartphone
 
-_Australia Simulator_ wird eine responsive PWA und somit auf iOS und Android, ebenso wie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns eine Point-and-Move Steuerung ausgedacht, bei der der Spieler mit der Maus oder per Touchscreen irgendwo auf der Karte gedrückt hält und der Character bewegt sich dorthin. Sollte der Spieler wieder los lassen oder von einem Hinderniss blockiert werden bleibt der Character stehen.
+_Australia Simulator_ wird eine responsive PWA und somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns eine Touch-and-Move Steuerung ausgedacht, bei der der Spieler mit der Maus oder per Touchscreen irgendwo auf der Karte gedrückt hält und der Character bewegt sich dorthin. Sollte der Spieler wieder los lassen oder von einem Hinderniss blockiert werden bleibt der Character stehen.
 
 Für Desktop bietet sich allerdings darüberhinaus auch noch eine Pfeiltasten Bedienung an.
 
@@ -34,11 +36,11 @@ Für erweiterte UI Interaktionen, wie z.B. das wegdrücken von Modals am Anfang 
 
 ## __AF-6:__ Das Spiel muss schnell und intuitiv erfassbar sein und Spielfreude erzeugen
 
-Das gesamte Spiel kann man nur mit einer einzigen Eingabemethode spielen und es ist entsprechend intuitiv aufzugreifen. Wie viel Spielspaß dieses Spiel am Ende tatsächlich erzeugen kann und wielange das Spiel diesen aufrecht erhalten kann, muss in einem späteren Schritt balanciert werden.
+Das gesamte Spiel kann mit nur einer einzigen Eingabemethode gespielt werden und ist entsprechend intuitiv aufzugreifen. Wie viel Spielspaß dieses Spiel am Ende tatsächlich erzeugen kann und wielange das Spiel diesen aufrecht erhalten kann, muss in einem späteren Schritt balanciert werden.
 
 ## __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen
 
-_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, wobei die jeweilige Karte in der Größe festgelegt werden kann aber dann Zufallsgeneriert wird. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner und dem Wohlfühlsfaktor der Gegner, sowie der zugehörigen Steigungsrate.
+_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, welche extra konfiguriert werden können, wobei die jeweilige Karte in der Größe festgelegt werden kann. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner und dem Wohlfühlsfaktor der Gegner, sowie der zugehörigen Steigungsrate.
 
 ## __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren
 
