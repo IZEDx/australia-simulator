@@ -32,11 +32,11 @@ Der GameView ist für DOM-Manipulation vorgesehen, deswegen erstellt er das Spie
 
 Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert sich an bekannten Spiele-Engines wie z.B. der Unreal Engine, allerdings sehr stark auf die Bedürfnisse für dieses Projekt zugeschnitten.
 
-![UML-Diagramm](https://files.ized.io/0155.png)
+![UML-Diagramm](https://files.ized.io/0156.png)
 
 ### 3.1 - Model
 
-Das Model umfasst das GameMode Entity, einem World Entity sowie Objekten, welche sich in einem Level befinden und von einer Basisklasse (Actor) erben, welche die grundlegenden Informationen über ein Objekt enthält, um sie in einem Level positionieren zu können.
+Das Model umfasst das GameMode Entity, eine World Entity, sowie Objekte, welche sich in einem Level befinden und von einer Basisklasse (Actor) erben. Actor enthält die grundlegenden Informationen über ein Spielobjekt (Spielfigur, Teile der Welt, ...), um es in einem Level zu positionieren, sowie Kollision abfragen zu können.
 
 So wird zu Beginn eines Spieles die Welt von dem Gamemode aufgebaut (Architektur / Props, Gegner, Player spawnen). 
 Zu jeder Zeit kommuniziert der GameController nur mit dem GameMode, welches das Spiel verwaltet und die Interaktionen der Nutzer an seine Spielfigur weiterleitet.
