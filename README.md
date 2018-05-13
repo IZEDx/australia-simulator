@@ -1,8 +1,10 @@
-# Australia Simulator!
 
+# Australia Simulator!
 ### Get the F*ck out of my House!
 
-[Anforderungen](./CONDITIONS.md) | [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)
+![Game](https://files.ized.io/qrcode.png)
+
+[Anforderungen](./REQUIREMENTS.md) | [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)
 
 ## 1 - Einleitung
 
@@ -12,7 +14,7 @@ Willkommen in Australien.
 
 ### 2.1 - Anforderungen
 
-Die gegebenen Anforderungen an das Konzept und der technischen Umsetzung finden sich in den [CONDITIONS](./CONDITIONS.md).
+Die gegebenen Anforderungen an das Konzept und der technischen Umsetzung finden sich in den [REQUIREMENTS](./REQUIREMENTS.md).
 
 ### 2.2 - Spielkonzept: Australia Simulator
 
@@ -30,7 +32,19 @@ Der GameView ist für DOM-Manipulation vorgesehen, deswegen erstellt er das Spie
 
 Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert sich an bekannten Spiele-Engines wie z.B. der Unreal Engine, allerdings sehr stark auf die Bedürfnisse für dieses Projekt zugeschnitten.
 
+![UML-Diagramm](https://files.ized.io/0155.png)
+
 ### 3.1 - Model
+
+Das Model umfasst das GameMode Entity, einem World Entity sowie Objekten, welche sich in einem Level befinden und von einer Basisklasse (Actor) erben, welche die grundlegenden Informationen über ein Objekt enthält, um sie in einem Level positionieren zu können.
+
+So wird zu Beginn eines Spieles die Welt von dem Gamemode aufgebaut (Architektur / Props, Gegner, Player spawnen). 
+Zu jeder Zeit kommuniziert der GameController nur mit dem GameMode, welches das Spiel verwaltet und die Interaktionen der Nutzer an seine Spielfigur weiterleitet.
+
+Während das Spiel läuft werden alle beweglichen Objekte (Spielfiguren) "getickt" (hot loop) um die nötigen Berechnungen zu machen, die für das Spiel benötigt werden (positionsupdate, collision, ...).
+
+Zu einem Levelwechsel wird zuerst das aktuelle Level gecleared und dann durch eine neue World ersetzt.
+
 
 ### 3.2 - View
 
