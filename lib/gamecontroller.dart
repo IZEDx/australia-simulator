@@ -9,20 +9,17 @@ class GameController {
     mode = new GameMode();
     view = new GameView(mode);
 
-    const maxspeed = 40.0;
-    var speed = 0.0;
+    var speed = 5.0;
     var pos = new Vector2(0.0,0.0);
     var target = pos;
     onInput((t) {
       target = t;
-      if (speed < maxspeed) speed += 1.0;
     }, () { 
       target.setZero(); 
-      speed = 0.0; 
     });
 
-    movementTick = new Timer.periodic(new Duration(milliseconds: 100), (t) {
-      pos.add(target.normalized() * speed);
+    movementTick = new Timer.periodic(new Duration(milliseconds: 10), (t) {
+      pos.add(target / 100.0 * speed);
       if (pos.x < 25) pos.x = 25.0;
       if (pos.y < 25) pos.y = 25.0;
       if (pos.x > 475) pos.x = 475.0;

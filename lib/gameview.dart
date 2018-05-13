@@ -5,6 +5,7 @@ class GameView {
   Element character = null;
   Element world = null;
 
+  final header = querySelector("#header");
   final game = querySelector("#game");
   final input = querySelector("#input");
 
@@ -20,6 +21,7 @@ class GameView {
       character = null;
     }
     input.classes.remove("active");
+    header.classes.remove("hidden");
   }
 
   setup() {
@@ -32,6 +34,7 @@ class GameView {
       character = querySelector("#character");
     }
     input.classes.add("active");
+    header.classes.add("hidden");
 
     this.move(new Vector2(cellsize / 2, cellsize / 2));
   }

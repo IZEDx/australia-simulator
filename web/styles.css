@@ -27,8 +27,6 @@ main {
 
 #input.active {
   pointer-events: all;
-  background: radial-gradient(#666,#333);
-  opacity: 0.2;
 }
 
 header {
