@@ -4,7 +4,7 @@
 
 ![Game](https://files.ized.io/qrcode.png)
 
-[Anforderungen](./CONDITIONS.md) | [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)
+[Anforderungen](./REQUIREMENTS.md) | [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)
 
 ## 1 - Einleitung
 
@@ -14,7 +14,7 @@ Willkommen in Australien.
 
 ### 2.1 - Anforderungen
 
-Die gegebenen Anforderungen an das Konzept und der technischen Umsetzung finden sich in den [CONDITIONS](./CONDITIONS.md).
+Die gegebenen Anforderungen an das Konzept und der technischen Umsetzung finden sich in den [REQUIREMENTS](./REQUIREMENTS.md).
 
 ### 2.2 - Spielkonzept: Australia Simulator
 
@@ -36,8 +36,8 @@ Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert si
 
 ### 3.1 - Model
 
-Das Model umfasst das GameMode entity, einem World entity sowie Objekten, welche sich in einem Level befinden und alle von einer Basisklasse (Actor) erben, welche die grundlegenden Informationen über ein Objekt enthält, um sie in einem Level positionieren zu können.
-So wird zu Beginn eines Spieles die Welt von dem Gamemode aufgebaut (Architektur / props, Gegner, Player spawnen). 
+Das Model umfasst das GameMode Entity, einem World Entity sowie Objekten, welche sich in einem Level befinden und von einer Basisklasse (Actor) erben, welche die grundlegenden Informationen über ein Objekt enthält, um sie in einem Level positionieren zu können.
+So wird zu Beginn eines Spieles die Welt von dem Gamemode aufgebaut (Architektur / Props, Gegner, Player spawnen). 
 Zu jeder Zeit kommuniziert der GameController nur mit dem GameMode, welches das Spiel verwaltet und die Interaktionen der Nutzer an seine Spielfigur weiterleitet.
 Zu einem Levelwechsel wird zuerst das aktuelle Level gecleared und dann durch eine neue World ersetzt.
 
