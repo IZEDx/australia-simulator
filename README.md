@@ -1,6 +1,8 @@
-# Australia Simulator!
 
+# Australia Simulator!
 ### Get the F*ck out of my House!
+
+![Game](https://files.ized.io/qrcode.png)
 
 [Anforderungen](./CONDITIONS.md) | [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)
 
@@ -33,6 +35,12 @@ Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert si
 ![UML-Diagramm](https://files.ized.io/0155.png)
 
 ### 3.1 - Model
+
+Das Model umfasst das GameMode entity, einem World entity sowie Objekten, welche sich in einem Level befinden und alle von einer Basisklasse (Actor) erben, welche die grundlegenden Informationen über ein Objekt enthält, um sie in einem Level positionieren zu können.
+So wird zu Beginn eines Spieles die Welt von dem Gamemode aufgebaut (Architektur / props, Gegner, Player spawnen). 
+Zu jeder Zeit kommuniziert der GameController nur mit dem GameMode, welches das Spiel verwaltet und die Interaktionen der Nutzer an seine Spielfigur weiterleitet.
+Zu einem Levelwechsel wird zuerst das aktuelle Level gecleared und dann durch eine neue World ersetzt.
+
 
 ### 3.2 - View
 
