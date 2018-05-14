@@ -45,7 +45,45 @@ Während das Spiel läuft werden alle beweglichen Objekte (Spielfiguren) "getick
 
 Zu einem Levelwechsel wird zuerst das aktuelle Level gecleared und dann durch eine neue World ersetzt.
 
-
 ### 3.2 - View
 
+Der View wird zur Darstellung des Models verwendet und vom Controller initiert. Er erstellt die DOM-Elemente die für das Model benötigt werden und reagiert auf Updates des Models zur Aktualisierung.
+
+Wir verwenden im View ein DOM-Element für die 2D Welt - dem Haus, in dem gespielt wird - in welchem wir dann die Actor frei bewegen können. 
+
+Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden, hierfür wird der Character im View fest in der Mitte des Bildschirms erstellt und wenn er sich bewegt wird die Welt im Hintergrund bewegt, statt dem Character selbst.
+
 ### 3.3 - Controller
+
+Der Controller ist das zentrale Nervensystem des Spiels, er erstellt das Model und den View und verbindet diese miteinander. Er horcht auf die Eingaben des Spielers und updated das Model entsprechend.
+
+#### 3.3.1 Input
+
+Im Controller horchen wir auf den Input und leiten diesen dann an das Model weiter, die entsprechende Eingabeposition die weitergeleitet wird ist relativ zur Position des Characters, also relativ zur Mitte des Bildschirms.
+
+```dart
+  onInput(onInput(Vector2 worldPos), onInputStop()) {
+    relay(TouchEvent e) {
+      e.preventDefault();
+      onInput(new Vector2(
+        e.touches[0].page.x - view.world.offset.left, 
+        e.touches[0].page.y - view.world.offset.top
+      ));
+    }
+
+    view.input.onTouchStart.listen((e) {
+      relay(e);
+    });
+
+    view.input.onTouchMove.listen((e) {
+      relay(e);
+    });
+
+    view.input.onTouchEnd.listen((e) {
+      e.preventDefault();
+      onInputStop();
+    });
+  }
+```
+
+Events vom Model an das View muss der Controller nicht selbst weiterleiten, da der View direkt auf den Events des Models horchen kann und sich so up-to-date halten kann. Allerdings ist der Controller dafür verantwortlich weiteren User-Input zu verarbeiten, wie z.B. das Starten eines Spiels und das entsprechende Setup des Views und Models.
