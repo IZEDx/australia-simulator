@@ -3703,7 +3703,7 @@ z=this.d
 y=this.a.a
 x=new T.a4(new Float32Array(H.as(2)))
 x.ak(y)
-x.aX(0,0.01)
+x.aX(0,0.00125)
 y=new T.a4(new Float32Array(H.as(2)))
 y.ak(x)
 y.aX(0,this.c)

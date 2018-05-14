@@ -19,7 +19,7 @@ class GameController {
     });
 
     movementTick = new Timer.periodic(new Duration(milliseconds: 10), (t) {
-      pos.add(target / 100.0 * speed);
+      pos.add(target / 800.0 * speed);
       if (pos.x < 25) pos.x = 25.0;
       if (pos.y < 25) pos.y = 25.0;
       if (pos.x > 475) pos.x = 475.0;
