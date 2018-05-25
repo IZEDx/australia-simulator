@@ -2,7 +2,7 @@ part of australiasim;
 
 class Prop extends Actor
 {
-  Prop()
+  Prop() : super()
   {
       this.colliderBoxExtent = new Vector2(100.0, 100.0);
       final ran = new Random();
