@@ -149,10 +149,6 @@ class Actor {
           minVector.y = tBox.y + scaledBox.y;
       }
 
-      var corners1 = _getBoxColliderCorners(boxLocation);
-
-      corners1.forEach((v) => print("c1: " + corners1.toString()));
-
       return unrotatedCirclePos.distanceTo(minVector) < min(scaledCircle.x, scaledCircle.y);
   }
 
