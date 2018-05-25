@@ -14,6 +14,7 @@ class World {
     actor.location = location;
     actor.rotation = rotation;
     this.actors.add(actor);
+    actor.beginPlay();
     return actor;
   }
 }
