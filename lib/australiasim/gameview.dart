@@ -61,10 +61,6 @@ class GameView {
       el.style.top = (actor.location.y * _pixelScale).toString() + "px";
     }
 
-    updateActorRot() {
-      final rotation = atan2(actor.rotation.x, actor.rotation.y) * 180 / PI;
-      el.style.transform = "translate(-50%, -50%) rotate(${rotation})";
-    }
 
     updateActorScale() {
       el.style.width = (actor.scale.x * _pixelScale).toString() + "px";
@@ -73,12 +69,12 @@ class GameView {
 
     if (actor is Pawn) {
       actor.onMove.listen((vec) => updateActorPos());
-      actor.onRotate.listen((vec) => updateActorRot());
+      actor.onRotate.listen((vec) => updateActorRot(actor, el));
       actor.onScale.listen((vec) => updateActorScale());
     }
 
     updateActorPos();
-    updateActorRot();
+    updateActorRot(actor, el);
     updateActorScale();
   }
 
@@ -86,16 +82,16 @@ class GameView {
     game.appendHtml("<div class='actor' id='${char.name}'>");
     character = querySelector("#"+char.name);
 
-    updateCharacter() {
-      final rotation = atan2(char.rotation.x, char.rotation.y) * 180 / PI;
-      character.style.transform = "rotate(${rotation})";
-    }
-
     char.onMove.listen((vec) => moveCamera(vec));
     //char.onRotate.listen((vec) => updateCharacter());
 
-    updateCharacter();
+    updateActorRot(char, character);
     moveCamera(char.location);
+  }
+
+  updateActorRot(Actor actor, Element el) {
+    final rotation = atan2(actor.rotation.x, actor.rotation.y) * 180 / PI;
+    el.style.transform = "translate(-50%, -50%) rotate(${rotation})";
   }
 
   moveCamera(Vector2 pos) {
