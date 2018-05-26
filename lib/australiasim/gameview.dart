@@ -6,31 +6,36 @@ class GameView {
   Element character = null;
   Element world = null;
 
-  final header = querySelector("#header");
-  final game = querySelector("#game");
-  final input = querySelector("#input");
+  final menuLayer = querySelector("#menuLayer");
+  final gameLayer = querySelector("#gameLayer");
+  final inputLayer = querySelector("#inputLayer");
+  final main = querySelector("#main");
+
+  final startButton = querySelector("#startGame");
 
   StreamController<Stream<Vector2>> _inputEvent = new StreamController();
   Stream<Stream<Vector2>> get onInput => _inputEvent.stream.asBroadcastStream(); 
 
   GameView(GameMode this.gamemode) {
-    this.setupInput();
-    gamemode.onActorSpawned.listen(addActorToView);
+    this._setupInput();
+    gamemode.onActorSpawned.listen(_addActorToView);
   }
 
   resetView() {
-    game.setInnerHtml("");
+    gameLayer.setInnerHtml("");
     world = null;
     character = null;
 
-    input.classes.remove("active");
-    header.classes.remove("hidden");
+    gameLayer.classes.add("hidden");
+    inputLayer.classes.add("hidden");
+    menuLayer.classes.remove("hidden");
+    main.classes.remove("active");
   }
 
 
   setupView() {
     if (world == null) {
-      game.appendHtml("<div id='world' />");
+      gameLayer.appendHtml("<div id='world' />");
       world = querySelector("#world");
     }
 
@@ -38,18 +43,20 @@ class GameView {
     world.style.height = (gamemode.currentWorld.size.y * _pixelScale).toString() + "px";
     print(world.style.width);
 
-    for (var actor in gamemode.currentWorld.actors) addActorToView(actor);
+    for (var actor in gamemode.currentWorld.actors) _addActorToView(actor);
 
-    input.classes.add("active");
-    header.classes.add("hidden");
+    gameLayer.classes.remove("hidden");
+    inputLayer.classes.remove("hidden");
+    menuLayer.classes.add("hidden");
+    main.classes.add("active");
   }
 
-  addActorToView(Actor actor) {
+  _addActorToView(Actor actor) {
     var el = querySelector("#"+actor.name);
     if (el != null) return;
 
     if (actor is Character) {
-      addCharacterToView(actor);
+      _addCharacterToView(actor);
       return;
     }
 
@@ -69,36 +76,36 @@ class GameView {
 
     if (actor is Pawn) {
       actor.onMove.listen((vec) => updateActorPos());
-      actor.onRotate.listen((vec) => updateActorRot(actor, el));
+      actor.onRotate.listen((vec) => _updateActorRot(actor, el));
       actor.onScale.listen((vec) => updateActorScale());
     }
 
     updateActorPos();
-    updateActorRot(actor, el);
+    _updateActorRot(actor, el);
     updateActorScale();
   }
 
-  addCharacterToView(Character char) {
-    game.appendHtml("<div class='actor' id='${char.name}'>");
+  _addCharacterToView(Character char) {
+    gameLayer.appendHtml("<div class='actor' id='${char.name}'>");
     character = querySelector("#"+char.name);
 
-    char.onMove.listen((vec) => moveCamera(vec));
+    char.onMove.listen((vec) => _moveCamera(vec));
     //char.onRotate.listen((vec) => updateCharacter());
 
-    updateActorRot(char, character);
-    moveCamera(char.location);
+    _updateActorRot(char, character);
+    _moveCamera(char.location);
   }
 
-  updateActorRot(Actor actor, Element el) {
+  _updateActorRot(Actor actor, Element el) {
     final rotation = atan2(actor.rotation.x, actor.rotation.y) * 180 / PI;
     el.style.transform = "translate(-50%, -50%) rotate(${rotation})";
   }
 
-  moveCamera(Vector2 pos) {
+  _moveCamera(Vector2 pos) {
     world.style.transform = "translate(-${pos.x * _pixelScale}px, -${pos.y * _pixelScale}px)";
   }
 
-  setupInput() {
+  _setupInput() {
     StreamController<Vector2> touchEvent;
 
     relay(TouchEvent e) {
@@ -108,7 +115,7 @@ class GameView {
       ));
     }
 
-    input.onTouchStart.listen((e) {
+    inputLayer.onTouchStart.listen((e) {
       e.preventDefault();
 
       character.classes.add("active");
@@ -120,12 +127,12 @@ class GameView {
       relay(e);
     });
 
-    input.onTouchMove.listen((e) {
+    inputLayer.onTouchMove.listen((e) {
       e.preventDefault();
       relay(e);
     });
 
-    input.onTouchEnd.listen((e) {
+    inputLayer.onTouchEnd.listen((e) {
       e.preventDefault();
 
       character.classes.remove("active");

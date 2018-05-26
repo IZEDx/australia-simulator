@@ -6,27 +6,29 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
-  background: radial-gradient(#666,#333);
+  background: radial-gradient(rgb(143, 84, 17),rgb(180, 39, 29));
   overflow: hidden;
 }
 
 main {
+  display: block;
   width: 100%;
   height: 100%;
+  transition: background-color ease-in 2s;
+  background-color: #000000;
 }
 
-#input {
+main.active {
+  background-color: transparent;
+}
+
+.layer                                                                                                                                                                                                                                                                                                                                                                                                               {
   display: block;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-}
-
-#input.active {
-  pointer-events: all;
 }
 
 header {
@@ -36,10 +38,45 @@ header {
   width: 100%;
   height: auto;
   text-align: center;
+  text-transform: capitalize;
   color: #cccccc;
   font-size: 40px;
   line-height: 40px;
 }
+
+nav {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 25%;
+  width: 100%;
+  height: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+nav > button {
+  box-sizing: border-box;
+  font-size: 30px;
+  line-height: 30px;
+  color: #cccccc;
+  text-decoration: underline;
+  text-transform: capitalize;
+  text-align: center;
+  padding: 15px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+nav > button:hover, nav > button:focus {
+  background-color: rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+
 
 #world {
   position: absolute;

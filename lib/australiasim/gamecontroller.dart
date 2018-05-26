@@ -3,6 +3,7 @@ part of australiasim;
 class GameController {
   GameMode gameMode;
   GameView gameView;
+  bool _running = false;
   bool _ticking = false;
   double _lastTick = 0.0;
 
@@ -11,9 +12,11 @@ class GameController {
     gameMode = new GameMode();
     gameView = new GameView(gameMode);
 
-    gameView.setupView();
     this._listenInput();
-    this._requestTick();
+    gameView.startButton.onClick.listen((e) {
+      e.preventDefault();
+      _start();
+    });
   }
 
   Future _listenInput() async {
@@ -25,10 +28,30 @@ class GameController {
     }
   }
 
+  void _setupNavigation() {
+    
+  }
+
+  void _start() {
+    if (!_running) {
+      _running = true;
+      _ticking = false;
+      gameView.setupView();
+      _requestTick();
+    }
+  }
+
+  void _stop() {
+    if (_running) {
+      _running = false;
+      gameView.resetView();
+    }
+  }
+
   void _requestTick() {
-    if (!_ticking) {
-      window.requestAnimationFrame(_tick);
+    if (!_ticking && _running) {
       _ticking = true;
+      window.requestAnimationFrame(_tick);
     }
   }
 
