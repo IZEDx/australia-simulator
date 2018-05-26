@@ -2,7 +2,7 @@
 # Australia Simulator!
 ### Get the F*ck out of my House!
 
-![Game](https://files.ized.io/qrcode.png)
+![Game](./qrcode.png)
 
 [Anforderungen](./REQUIREMENTS.md) | [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)
 
