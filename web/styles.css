@@ -45,14 +45,17 @@ header {
   position: absolute;
   display: block;
   background-color: rgba(0,0,0,0.55);
-  transition: transform 0.1s;
-  will-change: transform;
   width: 500px;
   height: 500px;
   left: 50%;
   top: 50%;
   transform: translate(-50px, -50px);
 }
+
+#world.changing {
+  will-change: transform;
+}
+
 
 .actor {
   background-color: #000;

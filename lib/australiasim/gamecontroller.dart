@@ -1,33 +1,33 @@
 part of australiasim;
 
 class GameController {
-  GameMode mode;
-  GameView view;
+  GameMode gameMode;
+  GameView gameView;
   bool _ticking = false;
 
   GameController() {
 
-    mode = new GameMode();
-    view = new GameView(mode);
+    gameMode = new GameMode();
+    gameView = new GameView(gameMode);
 
-    view.setup();
+    gameView.setupView();
     this._listenInput();
     this._listenMovement();
     this._requestTick();
   }
 
   Future _listenInput() async {
-    await for (var touches in view.onInput) {
+    await for (var touches in gameView.onInput) {
       await for (var touch in touches) {
-        mode.moveCharacter(touch);
+        gameMode.moveCharacter(touch);
       }
-      mode.moveCharacter(new Vector2.zero());
+      gameMode.moveCharacter(new Vector2.zero());
     }
   }
 
   Future _listenMovement() async {
-    await for (var pos in mode.onMove) {
-      view.moveCamera(pos);
+    await for (var pos in gameMode.onMove) {
+      gameView.moveCamera(pos);
     }
   }
 
@@ -39,7 +39,7 @@ class GameController {
   }
 
   void _tick(double time) {
-    mode.tick(time);
+    gameMode.globalPhysicsTick(time);
     _ticking = false;
     this._requestTick();
   }

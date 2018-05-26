@@ -3,6 +3,7 @@ part of australiasim;
 class GameMode {
 
   World currentWorld;
+  Character currentPlayerCharacter;
 
   StreamController<Vector2> _moveEvent = new StreamController();
   Stream<Vector2> get onMove => _moveEvent.stream.asBroadcastStream();
@@ -20,9 +21,11 @@ class GameMode {
 
   GameMode()
   {
-    this.currentWorld = new World(this);
+    currentWorld = new World(this);
+    currentPlayerCharacter = new Character();
+    currentWorld.spawnActor(() => currentPlayerCharacter, new Vector2(100.0, 100.0), new Vector2(0.0, 1.0));
 
-    this.currentWorld.onActorSpawned.listen((actor) => _actorSpawnedEvent.add(actor));
+    currentWorld.onActorSpawned.listen((actor) => _actorSpawnedEvent.add(actor));
 
     currentWorld.spawnActor(() => new Pawn(), new Vector2(0.0, 0.0), new Vector2(0.0, 1.0));
 
@@ -33,7 +36,7 @@ class GameMode {
     currentWorld.spawnActor(() => new Prop(), new Vector2(400.0, 100.0), new Vector2(0.0, 1.0)).colliderBoxExtent = new Vector2(100.0, 2200.0);
   }
 
-  void tick(double time) {
+  void globalPhysicsTick(double time) {
     if (target.length == 0) return;
 
     pos.add(target / 800.0 * speed);
