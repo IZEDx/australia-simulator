@@ -4,6 +4,9 @@ class World {
   List<Actor> actors = [];
   GameMode gamemode;
 
+  StreamController<Actor> _actorSpawnedEvent = new StreamController();
+  Stream<Actor> get onActorSpawned => _actorSpawnedEvent.stream.asBroadcastStream();
+
   World(GameMode this.gamemode) {
 
   }
@@ -15,6 +18,7 @@ class World {
     actor.rotation = rotation;
     this.actors.add(actor);
     actor.beginPlay();
+    _actorSpawnedEvent.add(actor);
     return actor;
   }
 }
