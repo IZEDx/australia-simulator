@@ -1,6 +1,7 @@
 part of australiasim;
 
 class GameView {
+  int _pixelScale = 50;
   GameMode gamemode;
   Element character = null;
   Element world = null;
@@ -33,38 +34,72 @@ class GameView {
       world = querySelector("#world");
     }
 
-    if (character == null) {
-      game.appendHtml("<div class='actor' id='character' />");
-      character = querySelector("#character");
-    }
+    world.style.width = (gamemode.currentWorld.size.x * _pixelScale).toString() + "px";
+    world.style.height = (gamemode.currentWorld.size.y * _pixelScale).toString() + "px";
+    print(world.style.width);
 
     for (var actor in gamemode.currentWorld.actors) addActorToView(actor);
 
     input.classes.add("active");
     header.classes.add("hidden");
-
-    this.moveCamera(new Vector2(cellsize / 2, cellsize / 2));
   }
 
   addActorToView(Actor actor) {
     var el = querySelector("#"+actor.name);
     if (el != null) return;
 
-    world.appendHtml("<div class='actor' id='${actor.name}'>");
-    el = querySelector("#"+actor.name);
-    
-    updateActorView() {
-      final rotation = atan2(actor.rotation.x, actor.rotation.y) * 180 / PI;
-      el.style.transform = "translate(${actor.location.x}px, ${actor.location.y}px) rotate(${rotation})";
+    if (actor is Character) {
+      addCharacterToView(actor);
+      return;
     }
 
-    actor.onMove.listen((vec) => updateActorView());
-    actor.onRotate.listen((vec) => updateActorView());
-    updateActorView();
+    world.appendHtml("<div class='actor' id='${actor.name}'>");
+    el = querySelector("#"+actor.name);
+
+    updateActorPos() {
+      el.style.left = (actor.location.x * _pixelScale).toString() + "px";
+      el.style.top = (actor.location.y * _pixelScale).toString() + "px";
+    }
+
+    updateActorRot() {
+      final rotation = atan2(actor.rotation.x, actor.rotation.y) * 180 / PI;
+      el.style.transform = "translate(-50%, -50%) rotate(${rotation})";
+    }
+
+    updateActorScale() {
+      el.style.width = (actor.scale.x * _pixelScale).toString() + "px";
+      el.style.height = (actor.scale.y * _pixelScale).toString() + "px";
+    }
+
+    if (actor is Pawn) {
+      actor.onMove.listen((vec) => updateActorPos());
+      actor.onRotate.listen((vec) => updateActorRot());
+      actor.onScale.listen((vec) => updateActorScale());
+    }
+
+    updateActorPos();
+    updateActorRot();
+    updateActorScale();
+  }
+
+  addCharacterToView(Character char) {
+    game.appendHtml("<div class='actor' id='${char.name}'>");
+    character = querySelector("#"+char.name);
+
+    updateCharacter() {
+      final rotation = atan2(char.rotation.x, char.rotation.y) * 180 / PI;
+      character.style.transform = "rotate(${rotation})";
+    }
+
+    char.onMove.listen((vec) => moveCamera(vec));
+    //char.onRotate.listen((vec) => updateCharacter());
+
+    updateCharacter();
+    moveCamera(char.location);
   }
 
   moveCamera(Vector2 pos) {
-    world.style.transform = "translate(-${pos.x}px, -${pos.y}px)";
+    world.style.transform = "translate(-${pos.x * _pixelScale}px, -${pos.y * _pixelScale}px)";
   }
 
   setupInput() {
@@ -72,8 +107,8 @@ class GameView {
 
     relay(TouchEvent e) {
       touchEvent.add(new Vector2(
-        e.touches[0].page.x - world.offset.left, 
-        e.touches[0].page.y - world.offset.top
+        (e.touches[0].page.x - world.offset.left) / _pixelScale,  
+        (e.touches[0].page.y - world.offset.top) / _pixelScale
       ));
     }
 

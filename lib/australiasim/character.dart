@@ -4,7 +4,14 @@ class Character extends Pawn
 {
   Character() : super()
   {
-      this.colliderBoxExtent = new Vector2(100.0, 100.0);
       this.name = "Character";
+  }
+
+  walk(Vector2 target) {
+    print("---");
+    print(location);
+    target.add(location);
+    print(target);
+    requestWalkToLocation(target);
   }
 }

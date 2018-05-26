@@ -3,42 +3,47 @@ part of australiasim;
 class Pawn extends Actor
 {
     // first number speed in km/h
-    double _maxSpeed = (10.0 * 100.0) / 3.6;
+    double _maxSpeed = 10.0 / 3600.0;
     Vector2 _currentTargetLocation = new Vector2(0.0, 0.0);
 
     set maxSpeed(double speed) => _maxSpeed = speed;
     double get maxSpeed => _maxSpeed;
 
+    StreamController<Vector2> _newTargetEvent = new StreamController();
+    Stream<Vector2> get onNewTarget => _newTargetEvent.stream.asBroadcastStream();
+
+    StreamController<Vector2> _reachTargetEvent = new StreamController();
+    Stream<Vector2> get onReachTarget => _reachTargetEvent.stream.asBroadcastStream();
+
     Pawn() : super()
     {
-
-        this.colliderBoxExtent = new Vector2(50.0, 50.0);
         this.isCircleCollider = true;
-
-        final ran = new Random();
-        this.name = "Pawn" + ran.nextInt(1000).toString();
+        this.name = "Pawn" + genUID();
     }
 
     void requestWalkToLocation(Vector2 position)
     {
         this._currentTargetLocation = position;
+        _newTargetEvent.add(position);
     }
 
-    void tickPhysics(double deltaTime)
+    void tick(double deltaTime)
     {
-        final nextPos = _calcNextPosition(deltaTime);
-        if(nextPos != this.location)
-        {
-            this.location = nextPos;
-            //TODO throw next pos event
-        }
+      final nextPos = _calcNextPosition(deltaTime);
+      if(nextPos != this.location)
+      {
+        this.location = nextPos;
 
+        if (this.location.distanceTo(this._currentTargetLocation) < 1.0) {
+          _reachTargetEvent.add(this.location);
+        }
+      }
     }
 
     Vector2 _calcNextPosition(double deltaTime)
     {
         this.rotation = this._currentTargetLocation - this.location;
-        final nextPos = (this.rotation * this.maxSpeed) + this.location;
+        final nextPos = (this.rotation * this.maxSpeed * deltaTime) + this.location;
         final collisions = collidingWithOnPosition(nextPos);
         if(collisions.length == 0)
         {

@@ -45,14 +45,17 @@ header {
   position: absolute;
   display: block;
   background-color: rgba(0,0,0,0.55);
-  transition: transform 0.1s;
-  will-change: transform;
   width: 500px;
   height: 500px;
   left: 50%;
   top: 50%;
   transform: translate(-50px, -50px);
 }
+
+#world.changing {
+  will-change: transform;
+}
+
 
 .actor {
   background-color: #000;
@@ -62,9 +65,10 @@ header {
   height: 50px;
   left: 0;
   top: 0;
+  transform: translate(-50%, -50%);
 }
 
-.actor#character {
+.actor#Character {
   border-radius: 100%;
   transition: background-color 0.2s;
   background-color: #fff;
@@ -72,7 +76,7 @@ header {
   top: 50%;
 }
 
-.actor#character.active {
+.actor#Character.active {
   background-color: rgba(0,255,0,0.5);
 }
 

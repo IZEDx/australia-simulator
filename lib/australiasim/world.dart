@@ -3,11 +3,12 @@ part of australiasim;
 class World {
   List<Actor> actors = [];
   GameMode gamemode;
+  Vector2 size;
 
   StreamController<Actor> _actorSpawnedEvent = new StreamController();
   Stream<Actor> get onActorSpawned => _actorSpawnedEvent.stream.asBroadcastStream();
 
-  World(GameMode this.gamemode) {
+  World(Vector2 this.size, GameMode this.gamemode) {
 
   }
 
@@ -16,9 +17,14 @@ class World {
     actor.world = this;
     actor.location = location;
     actor.rotation = rotation;
+    actor.scale = new Vector2(1.0, 1.0);
     this.actors.add(actor);
     actor.beginPlay();
     _actorSpawnedEvent.add(actor);
     return actor;
+  }
+
+  void tick(double time) {
+    for (var actor in actors) actor.tick(time);
   }
 }

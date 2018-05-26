@@ -1,5 +1,10 @@
 part of australiasim;
 
+String genUID() {
+  final ran = new Random();
+  return ran.nextInt(1000).toString();
+}
+
 class Actor {
   World world = null;
   Vector2 _location = new Vector2(0.0, 0.0);
@@ -15,14 +20,17 @@ class Actor {
   StreamController<Vector2> _rotateEvent = new StreamController();
   Stream<Vector2> get onRotate => _rotateEvent.stream.asBroadcastStream();
 
+  StreamController<Vector2> _scaleEvent = new StreamController();
+  Stream<Vector2> get onScale => _scaleEvent.stream.asBroadcastStream();
 
   Actor() {
-
-    final ran = new Random();
-    this.name = "Actor" + ran.nextInt(1000).toString();
+    this.name = "Actor" + genUID();
   }
 
   bool get valid => world != null;
+
+  set name(String name) => _name = name;
+  String get name => _name;
 
   set location(Vector2 loc) {
     _location = loc;
@@ -30,25 +38,28 @@ class Actor {
   }
   Vector2 get location => _location;
 
-  set name(String name) => _name = name;
-  String get name => _name;
-
   set rotation(Vector2 rot) {
     _rotation = rot.normalized();
     _rotateEvent.add(_rotation);
   }
   Vector2 get rotation => _rotation;
 
-  set scale(Vector2 scale) => _scale = scale;
+  set scale(Vector2 scale) {
+    _scale = scale;
+    _scaleEvent.add(_scale);
+  }
   Vector2 get scale => _scale;
-
-  set colliderBoxExtent(Vector2 colliderBoxExtent) => _colliderBoxExtent = colliderBoxExtent;
-  Vector2 get colliderBoxExtent => _colliderBoxExtent;
+  Vector2 get colliderBoxExtent => _scale;
 
   set isCircleCollider (bool isCircleCollider) => _isCircleCollider  = isCircleCollider ;
   bool get isCircleCollider  => _isCircleCollider ;
 
   void beginPlay()
+  {
+
+  }
+
+  void tick(double time) 
   {
 
   }
@@ -78,8 +89,8 @@ class Actor {
   {
       if(this.isCircleCollider)
       {
-          final tBoxOwn = this._getScaledColliderBoxExtent();
-          final tBoxOther = other._getScaledColliderBoxExtent();
+          final tBoxOwn = this.colliderBoxExtent;
+          final tBoxOther = other.colliderBoxExtent;
           final dist = other.location.distanceTo(destLocation);
           final rad = max(max(tBoxOwn.x, tBoxOwn.y), max(tBoxOther.x, tBoxOther.y));
           return dist <= rad;
@@ -134,9 +145,9 @@ class Actor {
   {
       final unrotatedCirclePos = _rotatePointAround(circleLocation, boxLocation, atan2(boxActor.rotation.y, boxActor.rotation.x));
 
-      final scaledCircle = circleActor._getScaledColliderBoxExtent();
+      final scaledCircle = circleActor.colliderBoxExtent;
 
-      final scaledBox = boxActor._getScaledColliderBoxExtent();
+      final scaledBox = boxActor.colliderBoxExtent;
 
       final tBox = boxLocation - (scaledBox / 2.0);
 
@@ -179,7 +190,7 @@ class Actor {
       List<Vector2> tList = new List<Vector2>();
       final radians = atan2(this.rotation.x, this.rotation.y);
 
-      final tCollider = _getScaledColliderBoxExtent();
+      final tCollider = colliderBoxExtent;
 
       tList.add(_rotatePointAround(new Vector2(destLocation.x - tCollider.x / 2.0, destLocation.y - tCollider.y / 2.0), destLocation, radians));
       tList.add(_rotatePointAround(new Vector2(destLocation.x - tCollider.x / 2.0, destLocation.y + tCollider.y / 2.0), destLocation, radians));
@@ -197,11 +208,6 @@ class Actor {
     final y = (offset.x * sin(radians) + (offset.y * cos(radians)));
 
     return (new Vector2(x, y)) + center;
-  }
-
-  Vector2 _getScaledColliderBoxExtent()
-  {
-    return new Vector2(colliderBoxExtent.x * scale.x, colliderBoxExtent.y * scale.y);
   }
 
 }

@@ -4,6 +4,7 @@ class GameController {
   GameMode gameMode;
   GameView gameView;
   bool _ticking = false;
+  double _lastTick = 0.0;
 
   GameController() {
 
@@ -12,7 +13,6 @@ class GameController {
 
     gameView.setupView();
     this._listenInput();
-    this._listenMovement();
     this._requestTick();
   }
 
@@ -25,12 +25,6 @@ class GameController {
     }
   }
 
-  Future _listenMovement() async {
-    await for (var pos in gameMode.onMove) {
-      gameView.moveCamera(pos);
-    }
-  }
-
   void _requestTick() {
     if (!_ticking) {
       window.requestAnimationFrame(_tick);
@@ -39,7 +33,8 @@ class GameController {
   }
 
   void _tick(double time) {
-    gameMode.globalPhysicsTick(time);
+    gameMode.tick(time - _lastTick);
+    _lastTick = time;
     _ticking = false;
     this._requestTick();
   }
