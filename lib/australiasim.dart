@@ -13,7 +13,9 @@ part "./australiasim/gameview.dart";
 part "./australiasim/world.dart";
 part "./australiasim/pawn.dart";
 part "./australiasim/prop.dart";
+part "./australiasim/character.dart";
 part "./australiasim/vector.dart";
+
 const cellsize = 50;
 
 final t = new GameController();
