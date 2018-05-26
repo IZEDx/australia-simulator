@@ -80,6 +80,7 @@ nav > button:hover, nav > button:focus {
 
 #world {
   position: absolute;
+  z-index: 0;
   display: block;
   background-color: rgba(0,0,0,0.55);
   width: 500px;
@@ -96,6 +97,7 @@ nav > button:hover, nav > button:focus {
 
 .actor {
   background-color: #000;
+  z-index: 1;
   position: absolute;
   display: block;
   width: 50px;
@@ -106,6 +108,7 @@ nav > button:hover, nav > button:focus {
 }
 
 .actor#Character {
+  z-index: 2;
   border-radius: 100%;
   transition: background-color 0.2s;
   background-color: #fff;

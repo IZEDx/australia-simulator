@@ -41,8 +41,7 @@ class GameView {
 
     world.style.width = (gamemode.currentWorld.size.x * _pixelScale).toString() + "px";
     world.style.height = (gamemode.currentWorld.size.y * _pixelScale).toString() + "px";
-    print(world.style.width);
-
+    
     for (var actor in gamemode.currentWorld.actors) _addActorToView(actor);
 
     gameLayer.classes.remove("hidden");
