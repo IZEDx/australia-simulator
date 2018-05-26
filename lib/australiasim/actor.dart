@@ -9,6 +9,11 @@ class Actor {
   bool _isCircleCollider = false;
   String _name = "";
 
+  StreamController<Vector2> _moveEvent = new StreamController();
+  Stream<Vector2> get onMove => _moveEvent.stream.asBroadcastStream();
+
+  StreamController<Vector2> _rotateEvent = new StreamController();
+  Stream<Vector2> get onRotate => _rotateEvent.stream.asBroadcastStream();
 
 
   Actor() {
@@ -19,13 +24,19 @@ class Actor {
 
   bool get valid => world != null;
 
-  set location(Vector2 loc) => _location = loc;
+  set location(Vector2 loc) {
+    _location = loc;
+    _moveEvent.add(_location);
+  }
   Vector2 get location => _location;
 
   set name(String name) => _name = name;
   String get name => _name;
 
-  set rotation(Vector2 rot) => _rotation = rot.normalized();
+  set rotation(Vector2 rot) {
+    _rotation = rot.normalized();
+    _rotateEvent.add(_rotation);
+  }
   Vector2 get rotation => _rotation;
 
   set scale(Vector2 scale) => _scale = scale;
