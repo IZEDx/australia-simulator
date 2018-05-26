@@ -46,10 +46,11 @@ class GameView {
       touchEvent.close();
       touchEvent = null;
     });
+
+    gamemode.onActorSpawned.listen(addActor);
   }
 
   reset() {
-
     game.setInnerHtml("");
     world = null;
     character = null;
@@ -57,6 +58,7 @@ class GameView {
     input.classes.remove("active");
     header.classes.remove("hidden");
   }
+
 
   setup() {
     if (world == null) {
@@ -69,10 +71,22 @@ class GameView {
       character = querySelector("#character");
     }
 
+    for (var actor in gamemode.currentWorld.actors) addActor(actor);
+
     input.classes.add("active");
     header.classes.add("hidden");
 
     this.moveCamera(new Vector2(cellsize / 2, cellsize / 2));
+  }
+
+  addActor(Actor actor) {
+    var element = querySelector("#"+actor.name);
+    if (element == null) {
+      world.appendHtml("<div class='actor' id='${actor.name}'>");
+      element = querySelector("#"+actor.name);
+    }
+    
+    element.style.transform = "translate(${actor.location.x}px, ${actor.location.y}px)";
   }
 
   moveCamera(Vector2 pos) {
