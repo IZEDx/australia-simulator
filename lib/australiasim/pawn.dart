@@ -16,7 +16,7 @@ class Pawn extends Actor
         this.isCircleCollider = true;
 
         final ran = new Random();
-        this.name = "Pawn " + ran.nextInt(1000).toString();
+        this.name = "Pawn" + ran.nextInt(1000).toString();
     }
 
     void requestWalkToLocation(Vector2 position)

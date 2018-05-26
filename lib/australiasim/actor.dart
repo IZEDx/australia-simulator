@@ -14,7 +14,7 @@ class Actor {
   Actor() {
 
     final ran = new Random();
-    this.name = "Actor " + ran.nextInt(1000).toString();
+    this.name = "Actor" + ran.nextInt(1000).toString();
   }
 
   bool get valid => world != null;
