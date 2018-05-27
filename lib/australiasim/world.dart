@@ -12,12 +12,11 @@ class World {
 
   }
 
-  T spawnActor<T extends Actor>(T toSpawn(), Vector2 location, Vector2 rotation) {
-    final actor = toSpawn();
+  T spawnActor<T extends Actor>(T actor, Vector2 location, { Vector2 rotation, Vector2 scale })  {
     actor.world = this;
     actor.location = location;
-    actor.rotation = rotation;
-    actor.scale = new Vector2(1.0, 1.0);
+    actor.rotation = rotation != null ? rotation : new Vector2(0.0,-1.0);
+    actor.scale = scale != null ? scale : new Vector2(1.0, 1.0);
     this.actors.add(actor);
     actor.beginPlay();
     _actorSpawnedEvent.add(actor);

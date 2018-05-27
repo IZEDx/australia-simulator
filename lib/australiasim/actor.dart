@@ -64,24 +64,28 @@ class Actor {
 
   }
 
-  bool isCollidingWith(Actor other, Vector2 destLocation)
+  bool isCollidingWith(Actor other, [Vector2 destLocation])
   {
-      final noBoxColl = !this.isCircleCollider && (this.colliderBoxExtent.x * this.colliderBoxExtent.y <= 0.0 || other.colliderBoxExtent.x * other.colliderBoxExtent.y <= 0.0);
-      final noCircleColl = this.isCircleCollider && (max(this.colliderBoxExtent.y, this.colliderBoxExtent.x) <= 0.0 || max(other.colliderBoxExtent.y, other.colliderBoxExtent.x) <= 0.0);
+    if (destLocation == null) {
+      destLocation = this.location.clone();
+    }
 
-      if(other == null || noBoxColl || noCircleColl)
-      {
-        return false;
-      }
+    final noBoxColl = !this.isCircleCollider && (this.colliderBoxExtent.x * this.colliderBoxExtent.y <= 0.0 || other.colliderBoxExtent.x * other.colliderBoxExtent.y <= 0.0);
+    final noCircleColl = this.isCircleCollider && (max(this.colliderBoxExtent.y, this.colliderBoxExtent.x) <= 0.0 || max(other.colliderBoxExtent.y, other.colliderBoxExtent.x) <= 0.0);
 
-      if(other.isCircleCollider)
-      {
-          return _isCollidingWithCircle(other, destLocation);
-      }
-      else
-      {
-         return _isCollidingWithRectangle(other, destLocation);
-      }
+    if(other == null || noBoxColl || noCircleColl)
+    {
+      return false;
+    }
+
+    if(other.isCircleCollider)
+    {
+        return _isCollidingWithCircle(other, destLocation);
+    }
+    else
+    {
+        return _isCollidingWithRectangle(other, destLocation);
+    }
 
   }
 
@@ -140,10 +144,25 @@ class Actor {
     return true;
 
   }
-
-  bool _circleBoxCollision(Actor circleActor, Vector2 circleLocation, Actor boxActor, Vector2 boxLocation)
+  
+  List<Vector2> _getBoxColliderCorners(Vector2 destLocation)
   {
-      final unrotatedCirclePos = _rotatePointAround(circleLocation, boxLocation, atan2(boxActor.rotation.y, boxActor.rotation.x));
+      List<Vector2> tList = new List<Vector2>();
+      final radians = atan2(this.rotation.x, this.rotation.y);
+
+      final tCollider = colliderBoxExtent;
+
+      tList.add(_rotatePointAround(new Vector2(destLocation.x - tCollider.x / 2.0, destLocation.y - tCollider.y / 2.0), destLocation, radians));
+      tList.add(_rotatePointAround(new Vector2(destLocation.x - tCollider.x / 2.0, destLocation.y + tCollider.y / 2.0), destLocation, radians));
+      tList.add(_rotatePointAround(new Vector2(destLocation.x + tCollider.x / 2.0, destLocation.y + tCollider.y / 2.0), destLocation, radians));
+      tList.add(_rotatePointAround(new Vector2(destLocation.x + tCollider.x / 2.0, destLocation.y - tCollider.y / 2.0), destLocation, radians));
+
+      return tList;
+  }
+
+  static bool _circleBoxCollision(Actor circleActor, Vector2 circleLocation, Actor boxActor, Vector2 boxLocation)
+  {
+      final unrotatedCirclePos = _rotatePointAround(circleLocation, boxLocation, atan2(boxActor.rotation.x, boxActor.rotation.y));
 
       final scaledCircle = circleActor.colliderBoxExtent;
 
@@ -174,7 +193,7 @@ class Actor {
       return unrotatedCirclePos.distanceTo(minVector) < min(scaledCircle.x, scaledCircle.y);
   }
 
-  List<Vector2> _getColliderBoxNormals(List<Vector2> corners)
+  static List<Vector2> _getColliderBoxNormals(List<Vector2> corners)
   {
       List<Vector2> tList = new List<Vector2>();
 
@@ -185,22 +204,7 @@ class Actor {
 
   }
 
-  List<Vector2> _getBoxColliderCorners(Vector2 destLocation)
-  {
-      List<Vector2> tList = new List<Vector2>();
-      final radians = atan2(this.rotation.x, this.rotation.y);
-
-      final tCollider = colliderBoxExtent;
-
-      tList.add(_rotatePointAround(new Vector2(destLocation.x - tCollider.x / 2.0, destLocation.y - tCollider.y / 2.0), destLocation, radians));
-      tList.add(_rotatePointAround(new Vector2(destLocation.x - tCollider.x / 2.0, destLocation.y + tCollider.y / 2.0), destLocation, radians));
-      tList.add(_rotatePointAround(new Vector2(destLocation.x + tCollider.x / 2.0, destLocation.y + tCollider.y / 2.0), destLocation, radians));
-      tList.add(_rotatePointAround(new Vector2(destLocation.x + tCollider.x / 2.0, destLocation.y - tCollider.y / 2.0), destLocation, radians));
-
-      return tList;
-  }
-
-  Vector2 _rotatePointAround(Vector2 point, Vector2 center, double radians)
+  static Vector2 _rotatePointAround(Vector2 point, Vector2 center, double radians)
   {
     final offset = point - center;
 

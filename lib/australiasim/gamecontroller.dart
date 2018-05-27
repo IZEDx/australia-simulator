@@ -3,9 +3,10 @@ part of australiasim;
 class GameController {
   GameMode gameMode;
   GameView gameView;
-  bool _running = false;
   bool _ticking = false;
   double _lastTick = 0.0;
+
+  bool get running => gameMode.running;
 
   GameController() {
 
@@ -13,10 +14,12 @@ class GameController {
     gameView = new GameView(gameMode);
 
     this._listenInput();
+
     gameView.startButton.onClick.listen((e) {
       e.preventDefault();
       _start();
     });
+ 
   }
 
   Future _listenInput() async {
@@ -28,28 +31,25 @@ class GameController {
     }
   }
 
-  void _setupNavigation() {
-    
-  }
-
   void _start() {
-    if (!_running) {
-      _running = true;
+    if (!running) {
       _ticking = false;
+      gameMode.load();
       gameView.setupView();
+      gameMode.start();
       _requestTick();
     }
   }
 
   void _stop() {
-    if (_running) {
-      _running = false;
+    if (running) {
+      gameMode.stop();
       gameView.resetView();
     }
   }
 
   void _requestTick() {
-    if (!_ticking && _running) {
+    if (!_ticking && running) {
       _ticking = true;
       window.requestAnimationFrame(_tick);
     }

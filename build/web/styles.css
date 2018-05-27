@@ -80,6 +80,7 @@ nav > button:hover, nav > button:focus {
 
 #world {
   position: absolute;
+  z-index: 0;
   display: block;
   background-color: rgba(0,0,0,0.55);
   width: 500px;
@@ -96,21 +97,23 @@ nav > button:hover, nav > button:focus {
 
 .actor {
   background-color: #000;
+  z-index: 1;
   position: absolute;
   display: block;
   width: 50px;
   height: 50px;
   left: 0;
   top: 0;
-  transform: translate(-50%, -50%);
 }
 
 .actor#Character {
+  z-index: 2;
   border-radius: 100%;
   transition: background-color 0.2s;
   background-color: #fff;
   left: 50%;
   top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .actor#Character.active {

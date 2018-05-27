@@ -1,6 +1,9 @@
 part of australiasim;
 
+final worldSize = new Vector2(10.0, 10.0);
+
 class GameMode {
+  bool _running = false;
 
   World currentWorld;
   Character currentPlayerCharacter;
@@ -10,19 +13,35 @@ class GameMode {
 
   GameMode()
   {
-    currentWorld = new World(new Vector2(10.0, 10.0), this);
+  }
+
+  void start() => _running = true;
+  void stop() => _running = false;
+  bool get running => _running;
+
+  void load() {
+    currentWorld = new World(worldSize, this);
     currentWorld.onActorSpawned.listen((actor) => _actorSpawnedEvent.add(actor));
 
-    currentPlayerCharacter = new Character();
-    currentWorld.spawnActor(() => currentPlayerCharacter, new Vector2(5.0, 5.0), new Vector2(0.0, 1.0));
+    currentPlayerCharacter = currentWorld.spawnActor(new Character(), worldSize / 2.0);
 
-    currentWorld.spawnActor(() => new Prop(), new Vector2(1.0, 3.0), new Vector2(1.0, 1.0));
-    currentWorld.spawnActor(() => new Prop(), new Vector2(1.0, 4.0), new Vector2(0.0, 1.0));
+    currentWorld.spawnActor(
+      new Prop(), 
+      new Vector2(worldSize.x / 2, 0.1), 
+      scale: new Vector2(worldSize.x, 0.2),
+      rotation: new Vector2(0.0, -1.0)
+    );
+    currentWorld.spawnActor(
+      new Prop(), 
+      new Vector2(worldSize.x / 2, worldSize.y - 0.1), 
+      scale: new Vector2(worldSize.x, 0.2),
+      rotation: new Vector2(0.0, -1.0)
+    );
 
-    currentWorld.spawnActor(() => new Prop(), new Vector2(3.0, 1.0), new Vector2(0.0, 1.0));
-    currentWorld.spawnActor(() => new Prop(), new Vector2(4.0, 1.0), new Vector2(0.0, 1.0));
+    //currentWorld.spawnActor(new Prop(), new Vector2(3.0, 1.0), new Vector2(0.0, 1.0));
+    //currentWorld.spawnActor(new Prop(), new Vector2(4.0, 1.0), new Vector2(0.0, 1.0));
   }
-  
+
   void moveCharacter(Vector2 t) {
     if (currentPlayerCharacter != null) {
       currentPlayerCharacter.walk(t);
@@ -30,7 +49,7 @@ class GameMode {
   }
 
   void tick(double time) {
-    if (currentWorld != null) {
+    if (_running && currentWorld != null) {
       currentWorld.tick(time);
     }
   }
