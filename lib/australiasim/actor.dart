@@ -15,19 +15,23 @@ class Actor {
   String _name = "";
 
   StreamController<Vector2> _moveEvent = new StreamController();
-  Stream<Vector2> get onMove => _moveEvent.stream.asBroadcastStream();
+  Stream<Vector2> onMove;
 
   StreamController<Vector2> _rotateEvent = new StreamController();
-  Stream<Vector2> get onRotate => _rotateEvent.stream.asBroadcastStream();
+  Stream<Vector2> onRotate;
 
   StreamController<Vector2> _scaleEvent = new StreamController();
-  Stream<Vector2> get onScale => _scaleEvent.stream.asBroadcastStream();
+  Stream<Vector2> onScale;
 
   StreamController<Actor> collideEvent = new StreamController();
-  Stream<Actor> get onCollide => collideEvent.stream.asBroadcastStream();
+  Stream<Actor> onCollide;
 
   Actor() {
     this.name = "Actor" + genUID();
+    this.onMove = _moveEvent.stream.asBroadcastStream();
+    this.onRotate = _rotateEvent.stream.asBroadcastStream();
+    this.onScale = _scaleEvent.stream.asBroadcastStream();
+    this.onCollide = collideEvent.stream.asBroadcastStream();
   }
 
   bool get valid => world != null;
