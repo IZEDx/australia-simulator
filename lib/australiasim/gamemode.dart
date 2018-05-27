@@ -25,44 +25,10 @@ class GameMode {
 
     currentPlayerCharacter = currentWorld.spawnActor(new Character(), worldSize / 2.0);
 
-    // Walls
-    // North
-    currentWorld.spawnActor(
-      new Prop(), 
-      new Vector2(worldSize.x / 2, 0.1), 
-      scale: new Vector2(worldSize.x, 0.2),
-      rotation: new Vector2(0.0, 1.0)
-    );
-    
-    // East
-    currentWorld.spawnActor(
-      new Prop(), 
-      new Vector2(worldSize.x - 0.1, worldSize.y / 2), 
-      scale: new Vector2(worldSize.y, 0.2),
-      rotation: new Vector2(1.0, 0.0)
-    );
-
-    // South
-    currentWorld.spawnActor(
-      new Prop(), 
-      new Vector2(worldSize.x / 2, worldSize.y - 0.1), 
-      scale: new Vector2(worldSize.x, 0.2),
-      rotation: new Vector2(0.0, 1.0)
-    );
-
-    // West
-    currentWorld.spawnActor(
-      new Prop(), 
-      new Vector2(0.1, worldSize.y / 2), 
-      scale: new Vector2(worldSize.y, 0.2),
-      rotation: new Vector2(1.0, 0.0)
-    );
-
-
     // Test Box
     currentWorld.spawnActor(
       new Prop(), 
-      new Vector2(worldSize.x / 2, worldSize.y / 2), 
+      new Vector2(worldSize.x / 4, worldSize.y / 2), 
       scale: new Vector2(1.0, 1.0),
       rotation: new Vector2(1.0, 0.0)
     );

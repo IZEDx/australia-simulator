@@ -49,7 +49,9 @@ class Actor {
     _scaleEvent.add(_scale);
   }
   Vector2 get scale => _scale;
-  Vector2 get colliderBoxExtent => _scale;
+
+  set colliderBoxExtent(Vector2 box) => _colliderBoxExtent = box;
+  Vector2 get colliderBoxExtent => _colliderBoxExtent;
 
   set isCircleCollider (bool isCircleCollider) => _isCircleCollider  = isCircleCollider ;
   bool get isCircleCollider  => _isCircleCollider ;

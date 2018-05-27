@@ -6,4 +6,9 @@ class Prop extends Actor
   {
       this.name = "Prop" + genUID();
   }
+  
+  void beginPlay()
+  {
+    this.colliderBoxExtent = this.scale / 2.0;
+  }
 }

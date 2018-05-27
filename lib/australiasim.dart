@@ -13,7 +13,10 @@ part "./australiasim/gameview.dart";
 part "./australiasim/world.dart";
 part "./australiasim/pawn.dart";
 part "./australiasim/prop.dart";
-part "./australiasim/character.dart";
 part "./australiasim/vector.dart";
+
+part "./australiasim/props/box.dart";
+
+part "./australiasim/entities/character.dart";
 
 final t = new GameController();

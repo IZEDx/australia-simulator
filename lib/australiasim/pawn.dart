@@ -3,7 +3,7 @@ part of australiasim;
 class Pawn extends Actor
 {
     // first number speed in km/h
-    double _maxSpeed = 10.0 / 3600.0;
+    double _maxSpeed = 15.0 / 3600.0;
     Vector2 _currentTargetLocation = new Vector2(0.0, 0.0);
 
     set maxSpeed(double speed) => _maxSpeed = speed;
@@ -44,6 +44,15 @@ class Pawn extends Actor
     {
         this.rotation = this._currentTargetLocation - this.location;
         final nextPos = (this.rotation * this.maxSpeed * deltaTime) + this.location;
+
+        // Edge handling
+
+        final r = this.scale / 2.0;
+        if (nextPos.x < r.x) nextPos.x = r.x;
+        if (nextPos.y < r.y) nextPos.y = r.y;
+        if (nextPos.x > this.world.size.x - r.x) nextPos.x = this.world.size.x - r.x;
+        if (nextPos.y > this.world.size.y - r.y) nextPos.y = this.world.size.y - r.y;
+
         final collisions = collidingWithOnPosition(nextPos);
         if(collisions.length == 0)
         {
@@ -94,5 +103,7 @@ class Pawn extends Actor
     {
         super.beginPlay();
         print(this.name + ": Hi, I am ready.");
+        this._currentTargetLocation = this.location;
+        this.colliderBoxExtent = this.scale;
     }
 }

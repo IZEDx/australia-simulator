@@ -94,10 +94,10 @@ class GameView {
     gameLayer.appendHtml("<div class='actor' id='${char.name}'>");
     character = querySelector("#"+char.name);
 
-    char.onMove.listen((vec) => _moveCamera(vec - char.scale / 2.0));
+    char.onMove.listen((vec) => _moveCamera(vec));
     //char.onRotate.listen((vec) => updateCharacter());
 
-    _moveCamera(char.location - char.scale / 2.0);
+    _moveCamera(char.location);
   }
 
   _moveCamera(Vector2 pos) {
