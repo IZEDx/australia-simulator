@@ -4169,7 +4169,7 @@ z=this.f
 y=a.b
 if(z){z=this.e.a
 x=a.e.a
-return Math.sqrt(y.bw(b))<=Math.max(Math.max(z[0],z[1]),Math.max(x[0],x[1]))}else return Y.ck(a,y,this,b)},
+return Math.sqrt(y.bw(b))<=Math.max(z[0],z[1])+Math.max(x[0],x[1])}else return Y.ck(a,y,this,b)},
 dT:function(a,b){var z,y,x,w,v,u,t,s,r,q,p,o
 if(this.f)return Y.ck(this,b,a,a.b)
 else{z=this.c0(b)
