@@ -23,7 +23,11 @@ class GameMode {
     currentWorld = new World(worldSize, this);
     currentWorld.onActorSpawned.listen((actor) => _actorSpawnedEvent.add(actor));
 
-    currentPlayerCharacter = currentWorld.spawnActor(new Character(), worldSize / 2.0);
+    // Character
+    currentPlayerCharacter = currentWorld.spawnActor(new Character(), new Vector2(worldSize.x, 150.0));
+    
+    // Door
+    currentWorld.spawnActor(new Door(), new Vector2(worldSize.x / 2, 0.0));
 
     // Test Box
     currentWorld.spawnActor(
@@ -33,7 +37,12 @@ class GameMode {
       rotation: new Vector2(1.0, 0.0)
     );
 
-    currentWorld.spawnActor(new Door(), new Vector2(worldSize.x / 2, 0.0));
+    // Spider
+    currentWorld.spawnActor(
+      new Spider(),
+      new Vector2(worldSize.x - 300.0, worldSize.y - 300.0)
+    );
+
 
     //currentWorld.spawnActor(new Prop(), new Vector2(3.0, 1.0), new Vector2(0.0, 1.0));
     //currentWorld.spawnActor(new Prop(), new Vector2(4.0, 1.0), new Vector2(0.0, 1.0));
