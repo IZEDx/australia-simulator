@@ -33,6 +33,8 @@ class GameMode {
       rotation: new Vector2(1.0, 0.0)
     );
 
+    currentWorld.spawnActor(new Door(), new Vector2(worldSize.x / 2, 0.0));
+
     //currentWorld.spawnActor(new Prop(), new Vector2(3.0, 1.0), new Vector2(0.0, 1.0));
     //currentWorld.spawnActor(new Prop(), new Vector2(4.0, 1.0), new Vector2(0.0, 1.0));
   }
