@@ -94,7 +94,6 @@ class GameView {
 
     updateActorRot() {
       final rotation = atan2(actor.rotation.x, actor.rotation.y);
-      print(rotation);
       el.style.transform = "translate(-50%, -50%) rotate(${rotation}rad)";
     }
 
@@ -109,17 +108,17 @@ class GameView {
     updateActorScale();
 
     if (actor is Door) {
-      _addDoorToView(actor);
+      _addDoorToView(el, actor);
     }
   }
 
-  _addDoorToView(Door door) {
-    new Observable(door.onCollide)
-      .throttle(new Duration(seconds: 4))
-      .where((Actor a) => a is Character)
-      .listen((Actor a) {
-          
-      });
+  _addDoorToView(Element el, Door door) {
+    el.classes.add("door");
+    StreamSubscription sub;
+    sub = door.onCollide.listen((Actor a) {
+      sub.cancel();
+      showText("You wanna leave already?", new Duration(seconds: 3));
+    });
   }
 
   _addCharacterToView(Character char) {
