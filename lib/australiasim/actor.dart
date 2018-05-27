@@ -7,10 +7,10 @@ String genUID() {
 
 class Actor {
   World world = null;
-  Vector2 _location = new Vector2(0.0, 0.0);
-  Vector2 _rotation = new Vector2(0.0, 0.0);
+  Vector2 _location = new Vector2(0.5, 0.5);
+  Vector2 _rotation = new Vector2(0.0, -1.0);
   Vector2 _scale = new Vector2(1.0, 1.0);
-  Vector2 _colliderBoxExtent = new Vector2(0.0, 0.0);
+  Vector2 _colliderBoxExtent = new Vector2(1.0, 1.0);
   bool _isCircleCollider = false;
   String _name = "";
 
