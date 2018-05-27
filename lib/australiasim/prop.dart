@@ -9,6 +9,6 @@ class Prop extends Actor
   
   void beginPlay()
   {
-    this.colliderBoxExtent = this.scale / 2.0;
+    this.colliderBoxExtent = this.scale.clone();
   }
 }

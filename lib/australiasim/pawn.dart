@@ -104,7 +104,7 @@ class Pawn extends Actor
     {
         super.beginPlay();
         print(this.name + ": Hi, I am ready.");
-        this._currentTargetLocation = this.location;
-        this.colliderBoxExtent = this.scale;
+        this._currentTargetLocation = this.location.clone();
+        this.colliderBoxExtent = this.scale / 2.0;
     }
 }
