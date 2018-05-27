@@ -14,7 +14,7 @@ class Door extends Prop
   }
 
   handleCollision(Actor actor) {
-    if (pawn is Actor) {
+    if (actor is Actor) {
       print("You wanna leave already?");
     }
   }
