@@ -87,3 +87,20 @@ Im Controller horchen wir auf den Input und leiten diesen dann an das Model weit
 ```
 
 Events vom Model an das View muss der Controller nicht selbst weiterleiten, da der View direkt auf den Events des Models horchen kann und sich so up-to-date halten kann. Allerdings ist der Controller dafür verantwortlich weiteren User-Input zu verarbeiten, wie z.B. das Starten eines Spiels und das entsprechende Setup des Views und Models.
+
+## 4 - Setup
+
+### Build
+```
+$ pub build
+```
+
+### Serve & Watch (Devmode, port 8080)
+```
+$ pub serve
+```
+
+### Standalone HTTP Server (port 3000)
+```
+$ pub run main.dart
+```
