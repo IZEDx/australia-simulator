@@ -24,7 +24,7 @@ class GameMode {
     currentWorld.onActorSpawned.listen((actor) => _actorSpawnedEvent.add(actor));
 
     // Character
-    currentPlayerCharacter = currentWorld.spawnActor(new Character(), new Vector2(worldSize.x, 150.0));
+    currentPlayerCharacter = currentWorld.spawnActor(new Character(), new Vector2(worldSize.x / 2, 150.0));
     
     // Door
     currentWorld.spawnActor(new Door(), new Vector2(worldSize.x / 2, 0.0));
