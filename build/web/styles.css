@@ -104,6 +104,8 @@ nav > button:hover, nav > button:focus {
   height: 50px;
   left: 0;
   top: 0;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 50%;
 }
 
 .actor#Character {
@@ -113,7 +115,6 @@ nav > button:hover, nav > button:focus {
   background-color: #fff;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .actor#Character.active {

@@ -1,6 +1,6 @@
 part of australiasim;
 
-final worldSize = new Vector2(10.0, 10.0);
+final worldSize = new Vector2(20.0, 20.0);
 
 class GameMode {
   bool _running = false;
@@ -25,17 +25,46 @@ class GameMode {
 
     currentPlayerCharacter = currentWorld.spawnActor(new Character(), worldSize / 2.0);
 
+    // Walls
+    // North
     currentWorld.spawnActor(
       new Prop(), 
       new Vector2(worldSize.x / 2, 0.1), 
       scale: new Vector2(worldSize.x, 0.2),
-      rotation: new Vector2(0.0, -1.0)
+      rotation: new Vector2(0.0, 1.0)
     );
+    
+    // East
+    currentWorld.spawnActor(
+      new Prop(), 
+      new Vector2(worldSize.x - 0.1, worldSize.y / 2), 
+      scale: new Vector2(worldSize.y, 0.2),
+      rotation: new Vector2(1.0, 0.0)
+    );
+
+    // South
     currentWorld.spawnActor(
       new Prop(), 
       new Vector2(worldSize.x / 2, worldSize.y - 0.1), 
       scale: new Vector2(worldSize.x, 0.2),
-      rotation: new Vector2(0.0, -1.0)
+      rotation: new Vector2(0.0, 1.0)
+    );
+
+    // West
+    currentWorld.spawnActor(
+      new Prop(), 
+      new Vector2(0.1, worldSize.y / 2), 
+      scale: new Vector2(worldSize.y, 0.2),
+      rotation: new Vector2(1.0, 0.0)
+    );
+
+
+    // Test Box
+    currentWorld.spawnActor(
+      new Prop(), 
+      new Vector2(worldSize.x / 2, worldSize.y / 2), 
+      scale: new Vector2(1.0, 1.0),
+      rotation: new Vector2(1.0, 0.0)
     );
 
     //currentWorld.spawnActor(new Prop(), new Vector2(3.0, 1.0), new Vector2(0.0, 1.0));
