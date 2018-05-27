@@ -105,8 +105,8 @@ class Actor {
           final tBoxOwn = this.colliderBoxExtent;
           final tBoxOther = other.colliderBoxExtent;
           final dist = other.location.distanceTo(destLocation);
-          final rad = max(max(tBoxOwn.x, tBoxOwn.y), max(tBoxOther.x, tBoxOther.y));
-          return dist <= rad;
+          final d = max(tBoxOwn.x, tBoxOwn.y) + max(tBoxOther.x, tBoxOther.y);
+          return dist <= d;
       }
       else
       {
