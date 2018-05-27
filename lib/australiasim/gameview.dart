@@ -1,10 +1,11 @@
 part of australiasim;
 
 class GameView {
-  int _pixelScale = 50;
+  double _pixelScale = 0.5;
   GameMode gamemode;
   Element character = null;
   Element world = null;
+  Element bigLabel = null;
 
   final menuLayer = querySelector("#menuLayer");
   final gameLayer = querySelector("#gameLayer");
@@ -34,6 +35,12 @@ class GameView {
 
 
   setupView() {
+
+    if (bigLabel == null) {
+      gameLayer.appendHtml("<div id='bigLabel'>");
+      bigLabel = querySelector("#bigLabel");
+    }
+
     if (world == null) {
       gameLayer.appendHtml("<div id='world' />");
       world = querySelector("#world");
@@ -48,16 +55,28 @@ class GameView {
     inputLayer.classes.remove("hidden");
     menuLayer.classes.add("hidden");
     main.classes.add("active");
+    showText("Welcome", new Duration(seconds: 4));
+  }
+
+  showText(String text, Duration duration) {
+    bigLabel.classes.add("active");
+    bigLabel.setInnerHtml(text);
+    Timer timer;
+    timer = new Timer.periodic(duration, (d) {
+      timer.cancel();
+      bigLabel.classes.remove("active");
+    });
   }
 
   _addActorToView(Actor actor) {
     var el = querySelector("#"+actor.name);
     if (el != null) return;
 
-    if (actor is Character) {
+    if (actor is Character) { 
       _addCharacterToView(actor);
       return;
     }
+
 
     world.appendHtml("<div class='actor' id='${actor.name}'>");
     el = querySelector("#"+actor.name);
@@ -88,6 +107,19 @@ class GameView {
     updateActorPos();
     updateActorRot();
     updateActorScale();
+
+    if (actor is Door) {
+      _addDoorToView(actor);
+    }
+  }
+
+  _addDoorToView(Door door) {
+    new Observable(door.onCollide)
+      .throttle(new Duration(seconds: 4))
+      .where((Actor a) => a is Character)
+      .listen((Actor a) {
+          
+      });
   }
 
   _addCharacterToView(Character char) {

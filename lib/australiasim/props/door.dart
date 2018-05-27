@@ -9,7 +9,7 @@ class Door extends Prop
   {
       this.name = "Door" + genUID();
       this._rotation = new Vector2(0.0, 1.0); // South
-      this._scale = new Vector2(1.0, 0.2);
+      this._scale = new Vector2(100.0, 20.0);
       onCollide.listen(handleCollision);
   }
 

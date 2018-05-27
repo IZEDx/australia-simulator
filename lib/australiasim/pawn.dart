@@ -3,7 +3,7 @@ part of australiasim;
 class Pawn extends Actor
 {
     // first number speed in km/h
-    double _maxSpeed = 15.0 / 3600.0;
+    double _maxSpeed = 15.0 / 36.0;
     Vector2 _currentTargetLocation = new Vector2(0.0, 0.0);
 
     set maxSpeed(double speed) => _maxSpeed = speed;
@@ -72,8 +72,9 @@ class Pawn extends Actor
 
             for(var actor in collisions)
             {
-                if(actor is Pawn)
-                  this._onCollideWithOtherPawn(actor);
+              if(actor is Pawn)
+                this._onCollideWithOtherPawn(actor);
+              actor.collideEvent.add(this);
             }
         }
 

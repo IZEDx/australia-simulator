@@ -1,6 +1,6 @@
 part of australiasim;
 
-final worldSize = new Vector2(20.0, 20.0);
+final worldSize = new Vector2(2000.0, 2000.0);
 
 class GameMode {
   bool _running = false;
@@ -28,8 +28,8 @@ class GameMode {
     // Test Box
     currentWorld.spawnActor(
       new Prop(), 
-      new Vector2(worldSize.x / 4, worldSize.y / 2), 
-      scale: new Vector2(1.0, 1.0),
+      new Vector2(150.0, 150.0), 
+      scale: new Vector2(100.0, 100.0),
       rotation: new Vector2(1.0, 0.0)
     );
 

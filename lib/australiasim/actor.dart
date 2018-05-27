@@ -7,10 +7,10 @@ String genUID() {
 
 class Actor {
   World world = null;
-  Vector2 _location = new Vector2(0.5, 0.5);
+  Vector2 _location = new Vector2(50.0, 50.0);
   Vector2 _rotation = new Vector2(0.0, -1.0);
-  Vector2 _scale = new Vector2(1.0, 1.0);
-  Vector2 _colliderBoxExtent = new Vector2(1.0, 1.0);
+  Vector2 _scale = new Vector2(100.0, 100.0);
+  Vector2 _colliderBoxExtent = new Vector2(100.0, 100.0);
   bool _isCircleCollider = false;
   String _name = "";
 
@@ -169,13 +169,13 @@ class Actor {
   {
       final unrotatedCirclePos = _rotatePointAround(circleLocation, boxLocation, atan2(boxActor.rotation.x, boxActor.rotation.y));
 
-      final scaledCircle = circleActor.colliderBoxExtent;
+      final scaledCircle = circleActor.colliderBoxExtent.clone();
 
-      final scaledBox = boxActor.colliderBoxExtent;
+      final scaledBox = boxActor.colliderBoxExtent.clone();
 
       final tBox = boxLocation - (scaledBox / 2.0);
 
-      Vector2 minVector = new Vector2(unrotatedCirclePos.x, unrotatedCirclePos.y);
+      Vector2 minVector = unrotatedCirclePos.clone();
 
       if(unrotatedCirclePos.x < tBox.x)
       {

@@ -77,6 +77,27 @@ nav > button:hover, nav > button:focus {
   cursor: pointer;
 }
 
+#bigLabel {
+  position: absolute;
+  z-index: 100;
+  display: block;
+  left: 50%;
+  top: 25%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #cccccc;
+  font-size: 40px;
+  line-height: 40px;
+  opacity: 0;
+  transition: opacity ease 0.3s;
+}
+
+#bigLabel.active {
+  opacity: 1;
+}
+
+
 
 #world {
   position: absolute;
@@ -87,7 +108,7 @@ nav > button:hover, nav > button:focus {
   height: 500px;
   left: 50%;
   top: 50%;
-  transform: translate(-50px, -50px);
+  transform: translate(-50%, -50%);
 }
 
 #world.changing {
