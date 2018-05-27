@@ -23,6 +23,9 @@ class Actor {
   StreamController<Vector2> _scaleEvent = new StreamController();
   Stream<Vector2> get onScale => _scaleEvent.stream.asBroadcastStream();
 
+  StreamController<Actor> collideEvent = new StreamController();
+  Stream<Actor> get onCollide => collideEvent.stream.asBroadcastStream();
+
   Actor() {
     this.name = "Actor" + genUID();
   }

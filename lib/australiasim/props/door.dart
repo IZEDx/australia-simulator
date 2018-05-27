@@ -5,9 +5,6 @@ part of australiasim;
 class Door extends Prop
 {
   
-  StreamController<Pawn> collideEvent = new StreamController();
-  Stream<Pawn> get onCollide => collideEvent.stream.asBroadcastStream();
-
   Door() : super()
   {
       this.name = "Door" + genUID();
@@ -16,8 +13,8 @@ class Door extends Prop
       onCollide.listen(handleCollision);
   }
 
-  handleCollision(Pawn pawn) {
-    if (pawn is Character) {
+  handleCollision(Actor actor) {
+    if (pawn is Actor) {
       print("You wanna leave already?");
     }
   }
