@@ -4657,7 +4657,7 @@ v=new Float32Array(H.j(2))
 v[0]=0.2
 v[1]=0.8
 t.bg(w,new T.f(s),new T.f(v),new T.f(u))
-z.a=12
+z.a=3
 for(q=1;q<z.a+1;++q){w=this.b
 v=new Float32Array(2)
 v[0]=0
