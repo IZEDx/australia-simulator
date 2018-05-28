@@ -4,7 +4,7 @@ part of australiasim;
 
 class Door extends Prop
 {
-  
+
   Door() : super()
   {
       this.name = "Door" + genUID();

@@ -8,8 +8,12 @@ class GameMode {
   World currentWorld;
   Character currentPlayerCharacter;
 
+  StreamController gameOverEvent = new StreamController();
+  Stream onGameOver;
+
   GameMode()
   {
+    onGameOver = gameOverEvent.stream.asBroadcastStream();
   }
 
   void start() => _running = true;
@@ -28,19 +32,32 @@ class GameMode {
     // Test Box
     currentWorld.spawnActor(
       new Prop(), 
-      new Vector2(150.0, 150.0), 
-      scale: new Vector2(100.0, 100.0),
-      rotation: new Vector2(1.0, 0.0)
+      new Vector2(worldSize.x / 2 - 200.0, worldSize.y / 2), 
+      scale: new Vector2(200.0, 200.0),
+      rotation: new Vector2(0.8, 0.2)
+    );
+    currentWorld.spawnActor(
+      new Prop(), 
+      new Vector2(worldSize.x / 2 + 200.0, worldSize.y / 2), 
+      scale: new Vector2(200.0, 200.0),
+      rotation: new Vector2(0.2, 0.8)
     );
 
     // Spider
 
-    for (int i = 1; i < 5; i++) {
+    var enemies = 4;
+
+    for (int i = 1; i < enemies + 1; i++) {
       currentWorld.spawnActor(
         new Spider(),
-        new Vector2(worldSize.x / 5 * i, worldSize.y - 300.0)
+        new Vector2(worldSize.x / (enemies + 1) * i, worldSize.y - 300.0)
       );
     }
+
+    currentWorld.onActorRemoved.listen((a) {
+      enemies--;
+      if (enemies == 0) gameOverEvent.add(null);
+    });
 
 
     //currentWorld.spawnActor(new Prop(), new Vector2(3.0, 1.0), new Vector2(0.0, 1.0));

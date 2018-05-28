@@ -101,7 +101,7 @@ class GameView {
 
     updateActorRot() {
       final rotation = atan2(actor.rotation.x, actor.rotation.y);
-      el.style.transform = "translate(-50%, -50%) rotate(${rotation}rad)";
+      el.style.transform = "translate(-50%, -50%) rotate(-${rotation}rad)";
     }
 
     if (actor.isCircleCollider) {

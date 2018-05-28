@@ -19,7 +19,8 @@ class GameController {
       e.preventDefault();
       _start();
     });
- 
+
+    gameMode.onGameOver.listen(gameView.resetView()); 
   }
 
   Future _listenInput() async {
