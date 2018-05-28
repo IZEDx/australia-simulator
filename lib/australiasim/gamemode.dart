@@ -45,7 +45,7 @@ class GameMode {
 
     // Spider
 
-    var enemies = 4;
+    var enemies = 12;
 
     for (int i = 1; i < enemies + 1; i++) {
       currentWorld.spawnActor(
