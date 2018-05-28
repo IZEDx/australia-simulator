@@ -125,11 +125,11 @@ class GameView {
 
   _addDoorToView(Element el, Door door) {
     el.classes.add("door");
-    StreamSubscription sub;
-    sub = door.onCollide.listen((Actor a) {
-      sub.cancel();
-      showText("You wanna leave already?", new Duration(seconds: 3));
-    });
+    
+    new Observable(door.onCollide)
+      .throttle(new Duration(seconds: 4))
+      .where( (Actor a) => a is Character )
+      .listen( (Actor a) => showText("You wanna leave already?", new Duration(seconds: 3)) );
   }
 
   _addCharacterToView(Character char) {
