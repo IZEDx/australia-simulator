@@ -34,10 +34,13 @@ class GameMode {
     );
 
     // Spider
-    currentWorld.spawnActor(
-      new Spider(),
-      new Vector2(worldSize.x - 300.0, worldSize.y - 300.0)
-    );
+
+    for (int i = 1; i < 5; i++) {
+      currentWorld.spawnActor(
+        new Spider(),
+        new Vector2(worldSize.x / 5 * i, worldSize.y - 300.0)
+      );
+    }
 
 
     //currentWorld.spawnActor(new Prop(), new Vector2(3.0, 1.0), new Vector2(0.0, 1.0));
