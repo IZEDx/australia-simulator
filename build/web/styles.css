@@ -36,6 +36,14 @@ main.active {
   opacity: 1;
 }
 
+#inputLayer{
+  pointer-events: none;
+}
+#inputLayer.active {
+  opacity: 0;
+  pointer-events: all;
+}
+
 header {
   position: absolute;
   display: block;
@@ -70,7 +78,7 @@ nav > button {
   text-decoration: underline;
   text-transform: capitalize;
   text-align: center;
-  padding: 15px;
+  padding: 25px;
   background-color: transparent;
   border: none;
   outline: none;
@@ -150,6 +158,10 @@ nav > button:hover, nav > button:focus {
 
 .actor.door {
   background-color: rgba(255,255,0, 1.0);
+}
+
+.actor.enemy {
+  background-color: rgba(255,0,0, 1.0);
 }
 
 .actor.circle {
