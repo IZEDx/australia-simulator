@@ -20,7 +20,10 @@ class GameController {
       _start();
     });
 
-    gameMode.onGameOver.listen(gameView.resetView()); 
+    gameMode.onGameOver.listen((won) {
+      print("GameOver! Won: ${won}");
+      gameView.resetView();
+    });
   }
 
   Future _listenInput() async {

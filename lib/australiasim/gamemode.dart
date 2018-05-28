@@ -8,8 +8,8 @@ class GameMode {
   World currentWorld;
   Character currentPlayerCharacter;
 
-  StreamController gameOverEvent = new StreamController();
-  Stream onGameOver;
+  StreamController<bool> gameOverEvent = new StreamController();
+  Stream<bool> onGameOver;
 
   GameMode()
   {
@@ -56,7 +56,8 @@ class GameMode {
 
     currentWorld.onActorRemoved.listen((a) {
       enemies--;
-      if (enemies == 0) gameOverEvent.add(null);
+      print("${enemies} enemies left");
+      if (enemies == 0) gameOverEvent.add(true);
     });
 
 

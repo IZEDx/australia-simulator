@@ -8,7 +8,6 @@ class Character extends Pawn
   }
 
   walk(Vector2 target) {
-    target.add(location);
-    requestWalkToLocation(target);
+    requestWalkToLocation(location + target);
   }
 }
