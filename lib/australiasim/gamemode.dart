@@ -21,6 +21,8 @@ class GameMode {
   bool get running => _running;
 
   void load() {
+    stop();
+
     currentWorld = new World(worldSize, this);
 
     // Character
@@ -33,13 +35,13 @@ class GameMode {
     currentWorld.spawnActor(
       new Prop(), 
       new Vector2(worldSize.x / 2 - 200.0, worldSize.y / 2), 
-      scale: new Vector2(200.0, 200.0),
+      scale: new Vector2(300.0, 200.0),
       rotation: new Vector2(0.8, 0.2)
     );
     currentWorld.spawnActor(
       new Prop(), 
       new Vector2(worldSize.x / 2 + 200.0, worldSize.y / 2), 
-      scale: new Vector2(200.0, 200.0),
+      scale: new Vector2(200.0, 300.0),
       rotation: new Vector2(0.2, 0.8)
     );
 

@@ -2,6 +2,8 @@ part of australiasim;
 
 class GameView {
   double _pixelScale = 0.5;
+  bool _running = false;
+
   GameMode gamemode;
   Element character = null;
   Element world = null;
@@ -15,9 +17,10 @@ class GameView {
   final startButton = querySelector("#startGame");
 
   StreamController<Stream<Vector2>> _inputEvent = new StreamController();
-  Stream<Stream<Vector2>> get onInput => _inputEvent.stream.asBroadcastStream(); 
+  Stream<Stream<Vector2>> onInput;
 
   GameView(GameMode this.gamemode) {
+    onInput = _inputEvent.stream.asBroadcastStream();
     this._setupInput();
   }
 
@@ -32,23 +35,26 @@ class GameView {
   }
 
   resetView() {
+    _running = false;
+
     gameLayer.setInnerHtml("");
     world = null;
     character = null;
 
     gameLayer.classes.add("hidden");
-    inputLayer.classes.add("hidden");
     menuLayer.classes.remove("hidden");
 
     window.requestAnimationFrame((time) {
       menuLayer.classes.add("active");
       gameLayer.classes.remove("active");
       main.classes.remove("active");
+      inputLayer.classes.remove("active");
     });
   }
 
 
   setupView() {
+    _running = true;
     
     gamemode.currentWorld.onActorSpawned.listen(_addActorToView);
     gamemode.currentWorld.onActorRemoved.listen(_removeActorFromView);
@@ -69,13 +75,13 @@ class GameView {
     for (var actor in gamemode.currentWorld.actors) _addActorToView(actor);
 
     gameLayer.classes.remove("hidden");
-    inputLayer.classes.remove("hidden");
     menuLayer.classes.add("hidden");
 
     window.requestAnimationFrame((time) {
       menuLayer.classes.remove("active");
       main.classes.add("active");
       gameLayer.classes.add("active");
+      inputLayer.classes.add("active");
     });
 
     showText("Welcome home!", new Duration(seconds: 4));
@@ -131,6 +137,10 @@ class GameView {
     if (actor is Door) {
       _addDoorToView(el, actor);
     }
+
+    if (actor is Enemy) {
+      _addEnemyToView(el, actor);
+    }
   }
 
   _addDoorToView(Element el, Door door) {
@@ -140,6 +150,15 @@ class GameView {
       .throttle(new Duration(seconds: 4))
       .where( (Actor a) => a is Character )
       .listen( (Actor a) => showText("You wanna leave already?", new Duration(seconds: 3)) );
+  }
+
+  _addEnemyToView(Element el, Enemy enemy) {
+    el.classes.add("enemy");
+    
+    new Observable(enemy.onCollide)
+      .throttle(new Duration(seconds: 4))
+      .where( (Actor a) => a is Character )
+      .listen( (Actor a) => showText("Be careful touching that!", new Duration(seconds: 3)) );
   }
 
   _addCharacterToView(Character char) {
@@ -153,7 +172,9 @@ class GameView {
   }
 
   _moveCamera(Vector2 pos) {
-    world.style.transform = "translate(-${pos.x * _pixelScale}px, -${pos.y * _pixelScale}px)";
+    if (_running) {
+      world.style.transform = "translate(-${pos.x * _pixelScale}px, -${pos.y * _pixelScale}px)";
+    }
   }
 
   _setupInput() {
@@ -170,28 +191,30 @@ class GameView {
 
     inputLayer.onTouchStart.listen((e) {
       e.preventDefault();
+      if (_running) {
+        character.classes.add("active");
+        world.classes.add("changing");
 
-      character.classes.add("active");
-      world.classes.add("changing");
-
-      touchEvent = new StreamController();
-      _inputEvent.add(touchEvent.stream);
-      
-      relay(e);
+        touchEvent = new StreamController();
+        _inputEvent.add(touchEvent.stream.asBroadcastStream());
+        
+        relay(e);
+      }
     });
 
     inputLayer.onTouchMove.listen((e) {
       e.preventDefault();
-      relay(e);
+      if (_running) {
+        relay(e);
+      }
     });
 
     inputLayer.onTouchEnd.listen((e) {
       e.preventDefault();
+      if (_running) {
+        character.classes.remove("active");
+        world.classes.remove("changing");
 
-      character.classes.remove("active");
-      world.classes.remove("changing");
-
-      if (touchEvent != null) {
         touchEvent.close();
         touchEvent = null;
       }

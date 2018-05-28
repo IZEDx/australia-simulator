@@ -22,7 +22,7 @@ class GameController {
 
     gameMode.onGameOver.listen((won) {
       print("GameOver! Won: ${won}");
-      gameView.resetView();
+      _stop();
     });
   }
 
@@ -33,6 +33,7 @@ class GameController {
       }
       gameMode.moveCharacter(new Vector2.zero());
     }
+    print("Input Ended!");
   }
 
   void _start() {
