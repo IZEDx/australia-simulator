@@ -142,10 +142,12 @@ class GameView {
     StreamController<Vector2> touchEvent;
 
     relay(TouchEvent e) {
-      touchEvent.add(new Vector2(
-        (e.touches[0].page.x - world.offset.left) / _pixelScale,  
-        (e.touches[0].page.y - world.offset.top) / _pixelScale
-      ));
+      if (touchEvent != null) {
+        touchEvent.add(new Vector2(
+          (e.touches[0].page.x - world.offset.left) / _pixelScale,  
+          (e.touches[0].page.y - world.offset.top) / _pixelScale
+        ));
+      }
     }
 
     inputLayer.onTouchStart.listen((e) {
@@ -171,8 +173,10 @@ class GameView {
       character.classes.remove("active");
       world.classes.remove("changing");
 
-      touchEvent.close();
-      touchEvent = null;
+      if (touchEvent != null) {
+        touchEvent.close();
+        touchEvent = null;
+      }
     });
   }
 }
