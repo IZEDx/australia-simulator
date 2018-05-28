@@ -60,22 +60,21 @@ class Pawn extends Actor
         }
         else
         {
-            //HACK! avoid collision stops
-            final collX = collidingWithOnPosition(new Vector2(this.location.x, nextPos.y));
-            if(collX.length == 0)
-                return new Vector2(this.location.x, nextPos.y);
+          for(var actor in collisions)
+          {
+            if(actor is Pawn)
+              this._onCollideWithOtherPawn(actor);
+            actor.collideEvent.add(this);
+          }
+          
+          //HACK! avoid collision stops
+          final collX = collidingWithOnPosition(new Vector2(this.location.x, nextPos.y));
+          if(collX.length == 0)
+              return new Vector2(this.location.x, nextPos.y);
 
-            final collY = collidingWithOnPosition(new Vector2(nextPos.x, this.location.y));
-            if(collY.length == 0)
-                return new Vector2(nextPos.x, this.location.y);
-
-
-            for(var actor in collisions)
-            {
-              if(actor is Pawn)
-                this._onCollideWithOtherPawn(actor);
-              actor.collideEvent.add(this);
-            }
+          final collY = collidingWithOnPosition(new Vector2(nextPos.x, this.location.y));
+          if(collY.length == 0)
+              return new Vector2(nextPos.x, this.location.y);
         }
 
         return this.location;
