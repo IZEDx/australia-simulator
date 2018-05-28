@@ -19,7 +19,16 @@ class GameView {
 
   GameView(GameMode this.gamemode) {
     this._setupInput();
-    gamemode.onActorSpawned.listen(_addActorToView);
+  }
+
+  showText(String text, Duration duration) {
+    bigLabel.classes.add("active");
+    bigLabel.setInnerHtml(text);
+    Timer timer;
+    timer = new Timer.periodic(duration, (d) {
+      timer.cancel();
+      bigLabel.classes.remove("active");
+    });
   }
 
   resetView() {
@@ -35,6 +44,9 @@ class GameView {
 
 
   setupView() {
+    
+    gamemode.currentWorld.onActorSpawned.listen(_addActorToView);
+    gamemode.currentWorld.onActorRemoved.listen(_removeActorFromView);
 
     if (bigLabel == null) {
       gameLayer.appendHtml("<div id='bigLabel'>");
@@ -55,17 +67,13 @@ class GameView {
     inputLayer.classes.remove("hidden");
     menuLayer.classes.add("hidden");
     main.classes.add("active");
+
     showText("Welcome", new Duration(seconds: 4));
   }
 
-  showText(String text, Duration duration) {
-    bigLabel.classes.add("active");
-    bigLabel.setInnerHtml(text);
-    Timer timer;
-    timer = new Timer.periodic(duration, (d) {
-      timer.cancel();
-      bigLabel.classes.remove("active");
-    });
+  _removeActorFromView(Actor actor) {
+    var el = querySelector("#"+actor.name);
+    if (el != null) el.remove();
   }
 
   _addActorToView(Actor actor) {

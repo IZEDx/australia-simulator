@@ -8,9 +8,6 @@ class GameMode {
   World currentWorld;
   Character currentPlayerCharacter;
 
-  StreamController<Actor> _actorSpawnedEvent = new StreamController();
-  Stream<Actor> get onActorSpawned => _actorSpawnedEvent.stream.asBroadcastStream();
-
   GameMode()
   {
   }
@@ -21,7 +18,6 @@ class GameMode {
 
   void load() {
     currentWorld = new World(worldSize, this);
-    currentWorld.onActorSpawned.listen((actor) => _actorSpawnedEvent.add(actor));
 
     // Character
     currentPlayerCharacter = currentWorld.spawnActor(new Character(), new Vector2(worldSize.x / 2, 150.0));

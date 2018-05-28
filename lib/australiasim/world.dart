@@ -6,10 +6,14 @@ class World {
   Vector2 size;
 
   StreamController<Actor> _actorSpawnedEvent = new StreamController();
-  Stream<Actor> get onActorSpawned => _actorSpawnedEvent.stream.asBroadcastStream();
+  Stream<Actor> onActorSpawned;
+
+  StreamController<Actor> _actorRemovedEvent = new StreamController();
+  Stream<Actor> onActorRemoved;
 
   World(Vector2 this.size, GameMode this.gamemode) {
-
+    onActorSpawned = _actorSpawnedEvent.stream.asBroadcastStream();
+    onActorRemoved = _actorRemovedEvent.stream.asBroadcastStream();
   }
 
   T spawnActor<T extends Actor>(T actor, Vector2 location, { Vector2 rotation, Vector2 scale })  {
@@ -21,6 +25,11 @@ class World {
     actor.beginPlay();
     _actorSpawnedEvent.add(actor);
     return actor;
+  }
+
+  removeActor(Actor actor) {
+    actors.remove(actor);
+    _actorRemovedEvent.add(actor);
   }
 
   void tick(double time) {
