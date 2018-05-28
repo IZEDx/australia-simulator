@@ -39,7 +39,12 @@ class GameView {
     gameLayer.classes.add("hidden");
     inputLayer.classes.add("hidden");
     menuLayer.classes.remove("hidden");
-    main.classes.remove("active");
+
+    window.requestAnimationFrame((time) {
+      menuLayer.classes.add("active");
+      gameLayer.classes.remove("active");
+      main.classes.remove("active");
+    });
   }
 
 
@@ -66,9 +71,14 @@ class GameView {
     gameLayer.classes.remove("hidden");
     inputLayer.classes.remove("hidden");
     menuLayer.classes.add("hidden");
-    main.classes.add("active");
 
-    showText("Welcome", new Duration(seconds: 4));
+    window.requestAnimationFrame((time) {
+      menuLayer.classes.remove("active");
+      main.classes.add("active");
+      gameLayer.classes.add("active");
+    });
+
+    showText("Welcome home!", new Duration(seconds: 4));
   }
 
   _removeActorFromView(Actor actor) {
