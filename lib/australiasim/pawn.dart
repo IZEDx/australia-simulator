@@ -62,8 +62,6 @@ class Pawn extends Actor
         {
           for(var actor in collisions)
           {
-            if(actor is Pawn)
-              this._onCollideWithOtherPawn(actor);
             actor.collideEvent.add(this);
           }
           
@@ -91,11 +89,6 @@ class Pawn extends Actor
         }
 
         return tColl;
-    }
-
-    void _onCollideWithOtherPawn(Pawn other)
-    {
-        print("ouch!");
     }
 
     @override
