@@ -14,7 +14,10 @@ class Enemy extends Pawn
   {
     if(_isEmbattled())
     {
-        this.rotation = this.location - world.gamemode.currentPlayerCharacter.location;
+        final playerPos = world.gamemode.currentPlayerCharacter.location;
+        final escapeVector = (worldSize / 2.0 - this.location).normalized();
+        this.rotation = this.location + escapeVector * 100.0 - playerPos;
+
         requestWalkToLocation(this.location + this.rotation * 200.0);
     }
 

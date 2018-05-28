@@ -17,9 +17,9 @@ part "./australiasim/prop.dart";
 part "./australiasim/props/door.dart";
 part "./australiasim/props/box.dart";
 
-part "./australiasim/entities/character.dart";
-part "./australiasim/entities/enemy.dart";
+part "./australiasim/pawns/character.dart";
+part "./australiasim/pawns/enemy.dart";
 
-part "./australiasim/entities/enemies/spider.dart";
+part "./australiasim/pawns/enemies/spider.dart";
 
 final t = new GameController();
