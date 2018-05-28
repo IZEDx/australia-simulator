@@ -2,6 +2,7 @@ part of australiasim;
 
 class GameView {
   double _pixelScale = 0.5;
+  double _knobJiggle = 5.0;
   bool _running = false;
 
   GameMode gamemode;
@@ -184,10 +185,14 @@ class GameView {
 
     relay(TouchEvent e) {
       if (touchEvent != null) {
-        touchEvent.add(new Vector2(
-          (e.touches[0].page.x - origin.x) / _pixelScale,  
-          (e.touches[0].page.y - origin.y) / _pixelScale
-        ));
+        final offset = new Vector2(e.touches[0].page.x - origin.x, e.touches[0].page.y - origin.y);
+        touchEvent.add(offset / _pixelScale);
+
+        final knoboffset = (offset / _knobJiggle);
+        knoboffset.clampScalar(-_knobJiggle, _knobJiggle);
+        final knobpos = origin + knoboffset;
+        inputKnob.style.left = knobpos.x.toString() + "px";
+        inputKnob.style.top = knobpos.y.toString() + "px";
       }
     }
 
