@@ -29,15 +29,17 @@ class Pawn extends Actor
 
     void tick(double deltaTime)
     {
-      final nextPos = _calcNextPosition(deltaTime);
-      if(nextPos != this.location)
+      if(this.location.distanceTo(this._currentTargetLocation) > 7.0)
       {
-        this.location = nextPos;
+          final nextPos = _calcNextPosition(deltaTime);
+          this.location = nextPos;
 
-        if (this.location.distanceTo(this._currentTargetLocation) < 1.0) {
-          _reachTargetEvent.add(this.location);
-        }
+          if (this.location.distanceTo(this._currentTargetLocation) < 7.5) {
+            _reachTargetEvent.add(this.location);
+          }
       }
+       
+      
     }
 
     Vector2 _calcNextPosition(double deltaTime)
