@@ -32,7 +32,7 @@ Der GameView ist für DOM-Manipulation vorgesehen, deswegen erstellt er das Spie
 
 Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert sich an bekannten Spiele-Engines wie z.B. der Unreal Engine, allerdings sehr stark auf die Bedürfnisse für dieses Projekt zugeschnitten.
 
-![UML-Diagramm](https://files.ized.io/0157.png)
+![UML-Diagramm](./uml.jpg)
 
 ### 3.1 - Model
 
