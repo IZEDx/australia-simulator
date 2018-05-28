@@ -14,12 +14,8 @@ class Door extends Prop
   }
 
   handleCollision(Actor actor) {
-    if (actor is Character) {
-      print("You wanna leave already?");
-    }
-
     if (actor is Enemy) {
-      
+      this.world.removeActor(actor);
     }
   }
 }
