@@ -28,6 +28,7 @@ class GameMode {
     // Character
     currentPlayerCharacter = currentWorld.spawnActor(new Character(), new Vector2(worldSize.x / 2, 150.0));
     
+    /*
     // Door
     currentWorld.spawnActor(new Door(), new Vector2(worldSize.x / 2, 0.0));
 
@@ -61,6 +62,9 @@ class GameMode {
       print("${enemies} enemies left");
       if (enemies == 0) gameOverEvent.add(true);
     });
+
+    
+*/
 
 
     //currentWorld.spawnActor(new Prop(), new Vector2(3.0, 1.0), new Vector2(0.0, 1.0));

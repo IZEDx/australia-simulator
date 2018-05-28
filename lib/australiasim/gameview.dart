@@ -12,6 +12,7 @@ class GameView {
   final menuLayer = querySelector("#menuLayer");
   final gameLayer = querySelector("#gameLayer");
   final inputLayer = querySelector("#inputLayer");
+  final inputKnob = querySelector("#inputKnob");
   final main = querySelector("#main");
 
   final startButton = querySelector("#startGame");
@@ -179,12 +180,13 @@ class GameView {
 
   _setupInput() {
     StreamController<Vector2> touchEvent;
+    Vector2 origin;
 
     relay(TouchEvent e) {
       if (touchEvent != null) {
         touchEvent.add(new Vector2(
-          (e.touches[0].page.x - world.offset.left) / _pixelScale,  
-          (e.touches[0].page.y - world.offset.top) / _pixelScale
+          (e.touches[0].page.x - origin.x) / _pixelScale,  
+          (e.touches[0].page.y - origin.y) / _pixelScale
         ));
       }
     }
@@ -192,13 +194,18 @@ class GameView {
     inputLayer.onTouchStart.listen((e) {
       e.preventDefault();
       if (_running) {
-        character.classes.add("active");
-        world.classes.add("changing");
 
+        origin = new Vector2(e.touches[0].page.x, e.touches[0].page.y);
         touchEvent = new StreamController();
         _inputEvent.add(touchEvent.stream.asBroadcastStream());
         
         relay(e);
+
+        character.classes.add("active");
+        world.classes.add("changing");
+        inputKnob.style.left = origin.x.toString() + "px";
+        inputKnob.style.top = origin.y.toString() + "px";
+        inputKnob.classes.add("active");
       }
     });
 
@@ -212,11 +219,14 @@ class GameView {
     inputLayer.onTouchEnd.listen((e) {
       e.preventDefault();
       if (_running) {
+        if (touchEvent != null) {
+          touchEvent.close();
+          touchEvent = null;
+        }
+
         character.classes.remove("active");
         world.classes.remove("changing");
-
-        touchEvent.close();
-        touchEvent = null;
+        inputKnob.classes.remove("active");
       }
     });
   }
