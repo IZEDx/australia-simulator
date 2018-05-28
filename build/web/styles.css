@@ -1,11 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
 
 html, body {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Press Start 2P', regular;
   background: radial-gradient(rgb(143, 84, 17),rgb(180, 39, 29));
   overflow: hidden;
 }
@@ -14,7 +14,7 @@ main {
   display: block;
   width: 100%;
   height: 100%;
-  transition: background-color ease-in 2s;
+  transition: background-color ease-in 2s; 
   background-color: #000000;
 }
 
@@ -38,16 +38,35 @@ main.active {
 
 #inputLayer{
   pointer-events: none;
+  z-index: 100;
 }
 #inputLayer.active {
-  opacity: 0;
   pointer-events: all;
+}
+
+#inputKnob {
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 50px;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border-radius: 100%;
+  transition: opacity 0.2s;
+  opacity: 0;
+  background: radial-gradient( rgba(255, 255, 255, 0.2), rgba(100, 100, 100, 0.5) );
+  border: solid 1px rgba(255, 255, 255, 0.2);
+}
+#inputKnob.active {
+  opacity: 0.8;
 }
 
 header {
   position: absolute;
   display: block;
-  top: 5px;
+  top: 25%;
   width: 100%;
   height: auto;
   text-align: center;
@@ -55,6 +74,7 @@ header {
   color: #cccccc;
   font-size: 40px;
   line-height: 40px;
+  transform: translate(0%, -100%);
 }
 
 nav {
@@ -72,6 +92,7 @@ nav {
 
 nav > button {
   box-sizing: border-box;
+  font-family: 'Press Start 2P', regular;
   font-size: 30px;
   line-height: 30px;
   color: #cccccc;
@@ -105,6 +126,7 @@ nav > button:hover, nav > button:focus {
   line-height: 40px;
   opacity: 0;
   transition: opacity ease 0.3s;
+  pointer-events: none;
 }
 
 #bigLabel.active {
