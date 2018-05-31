@@ -9,7 +9,7 @@ class DOMView {
   }
 
   Future<num> nextFrame() async {
-    final completer = new Completer();
+    final completer = new Completer<num>();
     window.requestAnimationFrame((time) => completer.complete(time));
     return completer.future;
   }
@@ -45,7 +45,7 @@ class DOMView {
     
     if (rotation != null) {
       final degrees = atan2(rotation.x, rotation.y);
-      el.attributes["rotation"] = "rotate(-${degrees}rad)";
+      el.attributes["rotation"] = "rotate(${-degrees}rad)";
     }
 
     if ( el.attributes.containsKey("position")  ) transformation += el.attributes["position"] + " ";
