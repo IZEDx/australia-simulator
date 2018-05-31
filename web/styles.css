@@ -51,7 +51,6 @@ main.active {
   height: 50px;
   left: 0;
   top: 0;
-  transform: translate(-50%, -50%);
   pointer-events: none;
   border-radius: 100%;
   transition: opacity 0.2s;

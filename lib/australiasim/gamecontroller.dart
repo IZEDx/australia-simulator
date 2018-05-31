@@ -3,7 +3,6 @@ part of australiasim;
 class GameController {
   GameMode gameMode;
   GameView gameView;
-  bool _ticking = false;
   double _lastTick = 0.0;
 
   bool get running => gameMode.running;
@@ -13,9 +12,10 @@ class GameController {
     gameMode = new GameMode();
     gameView = new GameView(gameMode);
 
+    gameView.setupInput();
     this._listenInput();
 
-    gameView.startButton.onClick.listen((e) {
+    gameView.get("startGame").onClick.listen((e) {
       e.preventDefault();
       _start();
     });
@@ -28,43 +28,34 @@ class GameController {
 
   Future _listenInput() async {
     await for (var touches in gameView.onInput) {
-      await for (var touch in touches) {
-        gameMode.moveCharacter(touch);
+      if (running) {
+        await for (var touch in touches) {
+          gameMode.moveCharacter(touch);
+        }
+        gameMode.moveCharacter(new Vector2.zero());
       }
-      gameMode.moveCharacter(new Vector2.zero());
     }
-    print("Input Ended!");
   }
 
-  void _start() {
+  _start() async {
     if (!running) {
-      _ticking = false;
       gameMode.load();
-      gameView.setupView();
+      gameView.setup();
       gameMode.start();
-      _requestTick();
+
+      while (running) {
+        final time = await gameView.nextFrame();
+        gameMode.tick(time - _lastTick);
+        _lastTick = time;
+      }
     }
   }
 
-  void _stop() {
+  _stop() {
     if (running) {
+      gameView.reset();
       gameMode.stop();
-      gameView.resetView();
     }
-  }
-
-  void _requestTick() {
-    if (!_ticking && running) {
-      _ticking = true;
-      window.requestAnimationFrame(_tick);
-    }
-  }
-
-  void _tick(double time) {
-    gameMode.tick(time - _lastTick);
-    _lastTick = time;
-    _ticking = false;
-    this._requestTick();
   }
 
 }
