@@ -143,7 +143,6 @@ nav > button:hover, nav > button:focus {
   height: 500px;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
 }
 
 #world.changing {
