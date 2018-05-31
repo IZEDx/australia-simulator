@@ -19,6 +19,7 @@ class GameView extends DOMView {
 
   GameView(GameMode this.gamemode) {
     onInput = _inputEvent.stream.asBroadcastStream();
+    mainElement.classes.add("loaded");
   }
 
   reset() async {
@@ -109,9 +110,12 @@ class GameView extends DOMView {
 
     // Register listeners
     if (actor is Pawn) {
+      el.classes.add("pawn");
       actor.onMove.listen((vec) => updateActorPos());
       actor.onRotate.listen((vec) => updateActorRot());
       actor.onScale.listen((vec) => updateActorScale());
+    } else if (actor is Prop) {
+      el.classes.add("prop");
     }
 
     // Initial update
@@ -141,17 +145,22 @@ class GameView extends DOMView {
 
     // Mark Element as Actor and Character 
     el.classes.add("actor");
+    el.classes.add("pawn");
     el.classes.add("character");
+    el.attributes["position"] = "translate(-50%, -50%)";
 
     // Setup listener
     moveCamera(Vector2 pos) => move(get("world"), pos * -_pixelScale);
 
     // Register listener
     char.onMove.listen((vec) => moveCamera(vec));
+    char.onRotate.listen((vec) => rotate(el, vec));
 
     // Initial update
     moveCamera(char.location);
+    rotate(el, char.rotation);
   }
+
   makeDoor(Element el, Door door) {
 
     // Mark as door
@@ -218,9 +227,9 @@ class GameView extends DOMView {
       }
       if (running) {
         deactivate(get("Character"));
-        deactivate(inputKnob);
         get("world").classes.remove("changing");
       }
+      deactivate(inputKnob);
     });
   }
 }

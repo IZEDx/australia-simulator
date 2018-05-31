@@ -22,6 +22,10 @@ main.active {
   background-color: transparent;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .layer                                                                                                                                                                                                                                                                                                                                                                                                               {
   display: block;
   position: absolute;
@@ -86,6 +90,12 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.loaded nav {
+  opacity: 1;
 }
 
 
@@ -162,32 +172,44 @@ nav > button:hover, nav > button:focus {
   transform: translate(-50%, -50%);
   transform-origin: 50% 50%;
 }
-
-.actor#Character {
-  z-index: 2;
-  border-radius: 100%;
-  transition: background-color 0.2s;
-  background-color: #fff;
-  left: 50%;
-  top: 50%;
-}
-
-.actor#Character.active {
-  background-color: rgba(0,255,0, 1.0);
-}
-
-.actor.door {
-  background-color: rgba(255,255,0, 1.0);
-}
-
-.actor.enemy {
-  background-color: rgba(255,0,0, 1.0);
-}
-
 .actor.circle {
   border-radius: 100%;
 }
 
-.hidden {
-  display: none;
+.actor.prop {
+  background-color: #000;
+}
+.actor.door {
+  background-color: rgba(255,255,0, 1.0);
+}
+
+.actor.pawn {
+  background-color: #fff;
+}
+.actor.pawn::before {
+  position: absolute;
+  content: "";
+  display: block;
+  background-color: #000;
+  left: calc(50% - 5px);
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+.actor.pawn.enemy {
+  background-color: rgba(255,0,0, 1.0);
+}
+
+
+.actor.pawn.character {
+  z-index: 2;
+  border-radius: 100%;
+  transition: background-color 0.2s;
+  left: 50%;
+  top: 50%;
+}
+.actor.pawn.character.active {
+  background-color: rgba(0,255,0, 1.0);
 }
