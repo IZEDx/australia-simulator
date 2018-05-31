@@ -1,6 +1,11 @@
 part of australiasim;
 
 class World {
+  bool _running = false;
+  void start() => _running = true;
+  void stop() => _running = false;
+  bool get running => _running;
+
   List<Actor> actors = [];
   GameMode gamemode;
   Vector2 size;
@@ -22,7 +27,7 @@ class World {
     if (rotation != null) actor.rotation = rotation;
     if (scale != null) actor.scale = scale;
     this.actors.add(actor);
-    actor.beginPlay();
+    if (running) actor.beginPlay();
     _actorSpawnedEvent.add(actor);
     return actor;
   }
@@ -34,5 +39,10 @@ class World {
 
   void tick(double time) {
     for (var actor in actors) actor.tick(time);
+  }
+
+  void beginPlay() {
+    if (!running) start();
+    this.actors.forEach((actor) => actor.beginPlay());
   }
 }
