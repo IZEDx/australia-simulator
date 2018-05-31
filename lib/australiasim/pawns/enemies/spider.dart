@@ -6,5 +6,6 @@ class Spider extends Enemy
   {
       _maxSpeed = 22.0 / 36.0;
       this.name = "Spider" + genUID();
+      this.scale /= 2.0;
   }
 }
