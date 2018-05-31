@@ -45,12 +45,12 @@ class GameView extends DOMView {
     if (worldElement    == null) worldElement = create(gameLayer, "world");
 
     // Setup World Dimensions
-    setDimensions(worldElement, gamemode.currentWorld.size * _pixelScale);
+    setDimensions(worldElement, gamemode.world.size * _pixelScale);
     
     // Setup Listeners
-    gamemode.currentWorld.onActorSpawned.listen(createActor);
-    gamemode.currentWorld.onActorRemoved.listen(removeActor);
-    for (var actor in gamemode.currentWorld.actors) createActor(actor);
+    gamemode.world.onActorSpawned.listen(createActor);
+    gamemode.world.onActorRemoved.listen(removeActor);
+    for (var actor in gamemode.world.actors) createActor(actor);
 
     // Toggle States
     show(gameLayer);
@@ -212,12 +212,11 @@ class GameView extends DOMView {
 
     inputLayer.onTouchEnd.listen((e) {
       e.preventDefault();
+      if (touchEvent != null) {
+        touchEvent.close();
+        touchEvent = null;
+      }
       if (running) {
-        if (touchEvent != null) {
-          touchEvent.close();
-          touchEvent = null;
-        }
-
         deactivate(get("Character"));
         deactivate(inputKnob);
         get("world").classes.remove("changing");
