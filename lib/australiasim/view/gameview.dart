@@ -195,6 +195,9 @@ class GameView extends DOMView {
       }
     }
 
+    // TODO: Device Orientation as alternative input
+    //window.onDeviceOrientation.listen((e) => e.)
+
     inputLayer.onTouchStart.listen((e) {
       e.preventDefault();
       if (running) {
