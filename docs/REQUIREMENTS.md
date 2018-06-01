@@ -48,4 +48,4 @@ Es ist vorgesehen den Levelfortschritt im localStorage abzuspeichern, damit der 
 
 ## __AF-9:__ Dokumentation
 
-[Die Dokumentation findet sich in der README.](./README.md)
+[Die Dokumentation findet sich in der README.](../README.md)
