@@ -1,8 +1,14 @@
 part of australiasim;
 
+List<int> UIDstore = [];
 String genUID() {
   final ran = new Random();
-  return ran.nextInt(1000).toString();
+  int n;
+  do {
+    n = ran.nextInt(1000);
+  } while( UIDstore.contains(n) );
+  
+  return n.toString();
 }
 
 class Actor {

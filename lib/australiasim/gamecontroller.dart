@@ -13,7 +13,7 @@ class GameController {
     gameView = new GameView(gameMode);
 
     gameView.setupInput();
-    this._listenInput();
+    this._handleInput();
 
     gameView.get("startGame").onClick.listen((e) {
       e.preventDefault();
@@ -22,11 +22,13 @@ class GameController {
 
     gameMode.onGameOver.listen((won) {
       print("GameOver! Won: ${won}");
+      final level = window.localStorage.containsKey("level") ? int.parse(window.localStorage["level"]) : 0;
+      window.localStorage["level"] = (level + 1).toString();
       _stop();
     });
   }
 
-  Future _listenInput() async {
+  Future _handleInput() async {
     await for (var touches in gameView.onInput) {
       if (running) {
         await for (var touch in touches) {
@@ -39,8 +41,13 @@ class GameController {
 
   _start() async {
     if (!running) {
-      gameMode.load();
-      gameView.setup();
+      var level = window.localStorage.containsKey("level") ? int.parse(window.localStorage["level"]) : 0;
+      final levels = await Level.loadLevels("./assets/data/levels.json");
+
+      if (level >= levels.length) level = levels.length - 1;
+
+      gameMode.load(levels[level]);
+      gameView.openGameView();
       gameMode.start();
 
       while (running) {
@@ -53,7 +60,7 @@ class GameController {
 
   _stop() {
     if (running) {
-      gameView.reset();
+      gameView.closeGameView();
       gameMode.stop();
     }
   }

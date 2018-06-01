@@ -6,6 +6,8 @@ class GameMode {
   World world;
   Character player;
 
+  int enemyCount = 0;
+
   StreamController<bool> gameOverEvent = new StreamController();
   Stream<bool> onGameOver;
 
@@ -18,17 +20,39 @@ class GameMode {
   void stop() => world == null ? null : world.stop();
   bool get running => world != null && world.running;
 
-  void load() {
+  void load(Level level) {
     if (running) return;
 
-    world = new World(worldSize, this);
+    world = new World(level.size, this);
 
     // Character
-    player = world.spawnActor(new Character(), new Vector2(worldSize.x / 2, 150.0));
+    player = world.spawnActor(new Character(), new Vector2(level.size.x / 2, 150.0));
     
     // Door
-    world.spawnActor(new Door(), new Vector2(worldSize.x / 2, 0.0));
+    world.spawnActor(new Door(), new Vector2(level.size.x / 2, 0.0));
 
+    enemyCount = 0;
+
+    for (final data in level.actors) {
+      Actor actor = world.spawnActor(
+        data.object, 
+        data.location, 
+        scale: data.scale,
+        rotation: data.rotation
+      );
+
+      if (actor is Enemy) {
+        enemyCount++;
+      }
+    }
+
+    world.onActorRemoved.listen((a) {
+      enemyCount--;
+      print("${enemyCount} enemies left");
+      if (enemyCount == 0) gameOverEvent.add(true);
+    });
+
+/*
     // Test Box
     world.spawnActor(
       new Prop(), 
@@ -45,7 +69,7 @@ class GameMode {
 
     // Spider
 
-    var enemies = 1;
+    var enemies = 15;
 
     for (int i = 1; i < enemies + 1; i++) {
       world.spawnActor(
@@ -59,6 +83,7 @@ class GameMode {
       print("${enemies} enemies left");
       if (enemies == 0) gameOverEvent.add(true);
     });
+    */
   }
 
   void moveCharacter(Vector2 t) {

@@ -3,6 +3,7 @@ library australiasim;
 import "dart:html";
 import "dart:async";
 import "dart:math";
+import "dart:convert";
 import "package:vector_math/vector_math.dart";
 import "package:rxdart/rxdart.dart";
 
@@ -16,6 +17,7 @@ part "./australiasim/domview.dart";
 part "./australiasim/gameview.dart";
 
 part "./australiasim/gamecontroller.dart";
+part "./australiasim/level.dart";
 
 part "./australiasim/props/door.dart";
 part "./australiasim/props/box.dart";

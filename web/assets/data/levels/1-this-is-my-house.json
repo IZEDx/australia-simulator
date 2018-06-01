@@ -1,0 +1,22 @@
+{
+    "spawnText": "This is my house!",
+    "size": [2000.0, 1500.0],
+    "actors": [
+        {
+            "type": "spider",
+            "location": [600.0, 700.0]
+        },
+        {
+            "type": "spider",
+            "location": [700.0, 700.0]
+        },
+        {
+            "type": "spider",
+            "location": [800.0, 780.0]
+        },
+        {
+            "type": "spider",
+            "location": [500.0, 1200.0]
+        }
+    ]
+}

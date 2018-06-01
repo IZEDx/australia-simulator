@@ -21,8 +21,8 @@ class GameView extends DOMView {
     onInput = _inputEvent.stream.asBroadcastStream();
     mainElement.classes.add("loaded");
   }
-
-  reset() async {
+  
+  closeGameView() async {
     // Reset Game
     gameLayer.setInnerHtml("");
 
@@ -38,7 +38,7 @@ class GameView extends DOMView {
     deactivate(inputLayer);
   }
 
-  setup() async {
+  openGameView() async {
     // Setup Elements
     var worldElement = get("world");
 
