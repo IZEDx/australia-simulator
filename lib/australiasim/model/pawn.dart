@@ -65,9 +65,15 @@ class Pawn extends Actor
           for(var actor in collisions)
           {
             actor.collideEvent.add(this);
+
+            final nuPos = this.location + this.getCorrectedOffsetPos(actor, nextPos) * this.maxSpeed * deltaTime;
+
+            if(nuPos != new Vector2.zero() && collidingWithOnPosition(nuPos).length == 0)
+              return nuPos;
           }
           
           //HACK! avoid collision stops
+
           final collX = collidingWithOnPosition(new Vector2(this.location.x, nextPos.y));
           if(collX.length == 0)
               return new Vector2(this.location.x, nextPos.y);

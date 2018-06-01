@@ -229,4 +229,47 @@ class Actor {
     return (new Vector2(x, y)) + center;
   }
 
+  Vector2 getCorrectedOffsetPos(Actor other, Vector2 destLocation)
+  {
+      if(!this.isCircleCollider || other.isCircleCollider)
+          return new Vector2.zero();
+
+      final unrotDest = _rotatePointAround(destLocation, other.location, atan2(other.rotation.x, other.rotation.y));
+      final unrotOrigin = _rotatePointAround(this.location, other.location, atan2(other.rotation.x, other.rotation.y));
+      final scaledCircleRad = max(this.colliderBoxExtent.x, this.colliderBoxExtent.y);
+      final scaledBox = other.colliderBoxExtent;
+      final tBox = other.location - (scaledBox / 2.0);
+
+      Vector2 minVector = unrotDest.clone();
+
+      if(unrotDest.x > tBox.x && unrotDest.x < tBox.x + scaledBox.x)
+      {
+        if((this.rotation).x < 0.0)
+        {
+            minVector.x = tBox.x - scaledCircleRad - 1.0;
+
+        }
+        else
+        {
+            minVector.x = tBox.x + scaledBox.x + scaledCircleRad + 1.0;
+        }
+      }
+      
+      if(unrotDest.y > tBox.y && unrotDest.y < tBox.y + scaledBox.y)
+      {
+          if((this.rotation).y < 0.0)
+          {
+              minVector.y = tBox.y - scaledCircleRad - 1.0;
+          }
+          else
+          {
+              minVector.y = tBox.y + scaledBox.y + scaledCircleRad + 1.0;
+          }
+      }  
+
+      final dir = (_rotatePointAround(minVector, other.location, -atan2(other.rotation.x, other.rotation.y)) - this.location).normalized();
+
+      return dir;
+  }
+
 }
