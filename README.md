@@ -1,6 +1,6 @@
 
-# Australia Simulator!
-### Get the F*ck out of my House!
+# Australia 🕷 Simulator
+### Get the F*ck out of my House! 🇦🇺
 
 ![Game](./docs/qrcode.png)
 
