@@ -2,9 +2,13 @@
 # Australia Simulator!
 ### Get the F*ck out of my House!
 
-![Game](./qrcode.png)
+![Game](./docs/qrcode.png)
 
-[Anforderungen](./REQUIREMENTS.md) | [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)
+&nbsp;
+
+## [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)
+
+&nbsp;
 
 ## 1 - Einleitung
 
@@ -14,7 +18,7 @@ Willkommen in Australien.
 
 ### 2.1 - Anforderungen
 
-Die gegebenen Anforderungen an das Konzept und der technischen Umsetzung finden sich in den [REQUIREMENTS](./REQUIREMENTS.md).
+Die gegebenen Anforderungen an das Konzept und der technischen Umsetzung finden sich in den [REQUIREMENTS](./docs/REQUIREMENTS.md).
 
 ### 2.2 - Spielkonzept: Australia Simulator
 
@@ -32,7 +36,7 @@ Der GameView ist für DOM-Manipulation vorgesehen, deswegen erstellt er das Spie
 
 Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert sich an bekannten Spiele-Engines wie z.B. der Unreal Engine, allerdings sehr stark auf die Bedürfnisse für dieses Projekt zugeschnitten.
 
-![UML-Diagramm](./uml.jpg)
+![UML-Diagramm](./docs/uml.jpg)
 
 ### 3.1 - Model
 
@@ -98,9 +102,4 @@ $ pub build
 ### Serve & Watch (Devmode, port 8080)
 ```
 $ pub serve
-```
-
-### Standalone HTTP Server (port 3000)
-```
-$ pub run main.dart
 ```
