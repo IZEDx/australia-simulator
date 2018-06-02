@@ -240,11 +240,11 @@ class Actor {
       final scaledBox = other.colliderBoxExtent;
       final tBox = other.location - (scaledBox / 2.0);
 
-      Vector2 minVector = unrotDest.clone();
+      Vector2 minVector = unrotOrigin.clone();
 
       if(unrotDest.x > tBox.x && unrotDest.x < tBox.x + scaledBox.x)
       {
-        if((this.rotation).x < 0.0)
+        if(unrotDest.x < unrotOrigin.x)
         {
             minVector.x = tBox.x - scaledCircleRad - 1.0;
 
@@ -257,7 +257,7 @@ class Actor {
       
       if(unrotDest.y > tBox.y && unrotDest.y < tBox.y + scaledBox.y)
       {
-          if((this.rotation).y < 0.0)
+          if(unrotDest.y < unrotOrigin.y)
           {
               minVector.y = tBox.y - scaledCircleRad - 1.0;
           }
@@ -266,6 +266,8 @@ class Actor {
               minVector.y = tBox.y + scaledBox.y + scaledCircleRad + 1.0;
           }
       }  
+
+      print("v " + minVector.toString());
 
       final dir = (_rotatePointAround(minVector, other.location, -atan2(other.rotation.x, other.rotation.y)) - this.location).normalized();
 
