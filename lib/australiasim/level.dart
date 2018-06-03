@@ -19,6 +19,7 @@ Actor _parseActor(String actorType) {
   Actor actor;
   switch (actorType) {
     case "spider": actor = new Spider(); break;
+    case "box": actor = new Box(); break;
     default: actor = new Actor();
   }
   return actor;
@@ -61,7 +62,7 @@ class Level {
           }
 
           if (_isVec2List(actdata["scale"])) {
-            actor.rotation = _listToVec2(actdata["scale"]);
+            actor.scale = _listToVec2(actdata["scale"]);
           }
 
           actors.add(actor);
