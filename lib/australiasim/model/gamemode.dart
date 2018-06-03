@@ -52,7 +52,7 @@ class GameMode {
       if (enemyCount == 0) gameOverEvent.add(true);
     });
 
-/*
+
     // Test Box
     world.spawnActor(
       new Prop(), 
@@ -66,7 +66,7 @@ class GameMode {
       scale: new Vector2(200.0, 300.0),
       rotation: new Vector2(0.2, 0.8)
     );
-
+/*
     // Spider
 
     var enemies = 15;

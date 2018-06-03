@@ -5,7 +5,7 @@ class Pawn extends Actor
     // first number speed in km/h
     double _maxSpeed = 15.0 / 36.0;
     Vector2 _currentTargetLocation = new Vector2(0.0, 0.0);
-
+    bool ticki = true;
     set maxSpeed(double speed) => _maxSpeed = speed;
     double get maxSpeed => _maxSpeed;
 
@@ -29,7 +29,7 @@ class Pawn extends Actor
 
     void tick(double deltaTime)
     {
-      if(this.location.distanceTo(this._currentTargetLocation) > 7.0)
+      if(this.location.distanceTo(this._currentTargetLocation) > 7.0 && ticki)
       {
           final nextPos = _calcNextPosition(deltaTime);
           this.location = nextPos;
@@ -65,16 +65,21 @@ class Pawn extends Actor
           for(var actor in collisions)
           {
             actor.collideEvent.add(this);
+
+            final nuPos = this.location + this.getCorrectedOffsetPos(actor, nextPos) * this.maxSpeed * deltaTime;
+
+            
+
+            if(nuPos != new Vector2.zero() && collidingWithOnPosition(nuPos).length == 0)
+            {
+                print("found: " + nuPos.distanceTo(this.location).toString());
+                return nuPos;
+            }
+            
+             
           }
           
-          //HACK! avoid collision stops
-          final collX = collidingWithOnPosition(new Vector2(this.location.x, nextPos.y));
-          if(collX.length == 0)
-              return new Vector2(this.location.x, nextPos.y);
-
-          final collY = collidingWithOnPosition(new Vector2(nextPos.x, this.location.y));
-          if(collY.length == 0)
-              return new Vector2(nextPos.x, this.location.y);
+          
         }
 
         return this.location;
