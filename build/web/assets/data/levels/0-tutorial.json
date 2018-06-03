@@ -1,0 +1,10 @@
+{
+    "spawnText": "Welcome Home!",
+    "size": [2000.0, 1500.0],
+    "actors": [
+        {
+            "type": "spider",
+            "location": [600.0, 700.0]
+        }
+    ]
+}
