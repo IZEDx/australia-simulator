@@ -1,28 +1,32 @@
 part of australiasim;
 
-class ActorData {
-  Actor object;
-  Vector2 location;
-  Vector2 rotation;
-  Vector2 scale;
-}
 
-bool _isVec2List(dynamic list) {
-  return list != null && list is List && list.length >= 2;
-}
+class LevelManager {
+  bool _ready = false;
+  String _path;
+  List<Level> _levels;
 
-Vector2 _listToVec2(List list) {
-  return new Vector2(double.parse(list[0].toString()), double.parse(list[1].toString()));
-}
+  bool get ready => _ready;
 
-Actor _parseActor(String actorType) {
-  Actor actor;
-  switch (actorType) {
-    case "spider": actor = new Spider(); break;
-    case "box": actor = new Box(); break;
-    default: actor = new Actor();
+  String get path => _path;
+
+  int get size => _levels.length;
+
+  int get current {
+    final idx = window.localStorage.containsKey("level") ? int.parse(window.localStorage["level"]) : 0;
+    return idx >= size ? size -1 : idx;
   }
-  return actor;
+  set current(int idx) => window.localStorage["level"] = (idx >= size ? size -1 : idx).toString();
+
+  LevelManager(String this._path) {
+  }
+
+  load() async {
+    _levels = await Level.loadLevels(_path);
+    _ready = true;
+  }
+
+  Level get(int level) => _levels[level];
 }
 
 class Level {
@@ -100,4 +104,30 @@ class Level {
     await Future.wait(loadingLevels);
     return levels;
   }
+}
+
+
+class ActorData {
+  Actor object;
+  Vector2 location;
+  Vector2 rotation;
+  Vector2 scale;
+}
+
+bool _isVec2List(dynamic list) {
+  return list != null && list is List && list.length >= 2;
+}
+
+Vector2 _listToVec2(List list) {
+  return new Vector2(double.parse(list[0].toString()), double.parse(list[1].toString()));
+}
+
+Actor _parseActor(String actorType) {
+  Actor actor;
+  switch (actorType) {
+    case "spider": actor = new Spider(); break;
+    case "box": actor = new Box(); break;
+    default: actor = new Actor();
+  }
+  return actor;
 }

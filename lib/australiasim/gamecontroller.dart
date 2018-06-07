@@ -3,6 +3,7 @@ part of australiasim;
 class GameController {
   GameMode gameMode;
   GameView gameView;
+  LevelManager levelManager;
   double _lastTick = 0.0;
 
   bool get running => gameMode.running;
@@ -11,24 +12,30 @@ class GameController {
 
     gameMode = new GameMode();
     gameView = new GameView(gameMode);
+    levelManager = new LevelManager("./assets/data/levels.json");
 
-    gameView.setupInput();
-    this._handleInput();
+    _init();
+    _setupInput();
+  }
+
+  _init() async {
+    await levelManager.load();
 
     gameView.get("startGame").onClick.listen((e) {
       e.preventDefault();
-      _start();
+      _start(levelManager.current);
     });
 
     gameMode.onGameOver.listen((won) {
       print("GameOver! Won: ${won}");
-      final level = window.localStorage.containsKey("level") ? int.parse(window.localStorage["level"]) : 0;
-      window.localStorage["level"] = (level + 1).toString();
+      levelManager.current = ++levelManager.current % levelManager.size;
+      print("Next Level: ${levelManager.current + 1}/${levelManager.size}");
       _stop();
     });
   }
 
-  Future _handleInput() async {
+  _setupInput() async {
+    gameView.setupInput();
     await for (var touches in gameView.onInput) {
       if (running) {
         await for (var touch in touches) {
@@ -39,14 +46,9 @@ class GameController {
     }
   }
 
-  _start() async {
+  _start(int level) async {
     if (!running) {
-      var level = window.localStorage.containsKey("level") ? int.parse(window.localStorage["level"]) : 0;
-      final levels = await Level.loadLevels("./assets/data/levels.json");
-
-      if (level >= levels.length) level = levels.length - 1;
-
-      gameMode.load(levels[level]);
+      gameMode.load(levelManager.get(level));
       gameView.openGameView();
       gameMode.start();
 
