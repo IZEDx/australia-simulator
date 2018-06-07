@@ -38,8 +38,6 @@ class Pawn extends Actor
             _reachTargetEvent.add(this.location);
           }
       }
-       
-      
     }
 
     Vector2 _calcNextPosition(double deltaTime)
@@ -104,6 +102,6 @@ class Pawn extends Actor
         super.beginPlay();
         print(this.name + ": Hi, I am ready.");
         this._currentTargetLocation = this.location.clone();
-        this.colliderBoxExtent = this.scale / 2.0;
+        this.colliderBoxExtent = this.scale / 2.0; // Circle collider require radius as colliderBox
     }
 }
