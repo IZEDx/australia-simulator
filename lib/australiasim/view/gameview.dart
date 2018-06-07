@@ -1,28 +1,54 @@
 part of australiasim;
 
+/**
+ * Handles View operations of the game.
+ */
 class GameView extends DOMView {
-  double _pixelScale = 0.5;
-  double _knobJiggle = 5.0;
 
+  /**
+   * Scale to use when converting cm to pixel.
+   */
+  double _pixelScale = 0.5;
+
+  /**
+   * Gamemode reference.
+   */
   GameMode gamemode;
+
+  /**
+   * LevelManger reference.
+   */
   LevelManager levelManager;
 
+  // Static DOM Elements
   static final mainElement  = querySelector("#main");
   static final menuLayer    = querySelector("#menuLayer");
   static final gameLayer    = querySelector("#gameLayer");
   static final inputLayer   = querySelector("#inputLayer");
   static final inputKnob    = querySelector("#inputKnob");
 
-  StreamController<Stream<Vector2>> _inputEvent = new StreamController();
+  /**
+   * Passes Streams of input positions.
+   */
   Stream<Stream<Vector2>> onInput;
+  StreamController<Stream<Vector2>> _inputEvent = new StreamController();
 
+  /**
+   * If the game is currently running.
+   */
   get running => this.gamemode.running;
 
+  /**
+   * GameView constructor.
+   */
   GameView(GameMode this.gamemode, LevelManager this.levelManager) {
-    onInput = _inputEvent.stream.asBroadcastStream();
-    mainElement.classes.add("loaded");
+    onInput = _inputEvent.stream.asBroadcastStream(); // Create Broadcast stream of inputEvent
+    mainElement.classes.add("loaded"); // Indicate that the game program has loaded
   }
   
+  /**
+   * Closes the game view and shows the menu.
+   */
   closeGameView() async {
     // Reset Game
     gameLayer.setInnerHtml("");
@@ -45,6 +71,9 @@ class GameView extends DOMView {
     deactivate(inputLayer);
   }
 
+  /**
+   * Creates a new game view and hides the menu.
+   */
   openGameView() async {
     // Setup Elements
     var worldElement = get("world");
@@ -87,6 +116,9 @@ class GameView extends DOMView {
     timeout(duration, before: () => activate(bigLabel), after:  () => deactivate(bigLabel));
   }
 
+  /**
+   * Creates a new Actor in the view based on the model.
+   */
   createActor(Actor actor) {
     // Check if running
     if (!running) return;
@@ -141,10 +173,16 @@ class GameView extends DOMView {
     }
   }
 
+  /**
+   * Removes the Actor from the view.
+   */
   removeActor(Actor actor) {
     remove(actor.name);
   }
 
+  /**
+   * Creates a new Character in the View based on the model.
+   */
   createCharacter(Character char) {
 
     // Create Character
@@ -168,6 +206,9 @@ class GameView extends DOMView {
     rotate(el, char.rotation);
   }
 
+  /**
+   * Turns an Actor Element into a Door.
+   */
   makeDoor(Element el, Door door) {
 
     // Mark as door
@@ -180,17 +221,24 @@ class GameView extends DOMView {
       .listen( (Actor a) => hintBig("You wanna leave already?", new Duration(seconds: 3)) );
   }
 
+  /**
+   * Turns an Actor Element into an Enemy.
+   */
   makeEnemy(Element el, Enemy enemy) {
 
     // Mark as enemy
     el.classes.add("enemy");
     
+    // Feedback when user touches enemy
     new Observable(enemy.onCollide)
       .throttle(new Duration(seconds: 4))
       .where( (Actor a) => a is Character )
       .listen( (Actor a) => hintBig("Be careful touching that!", new Duration(seconds: 3)) );
   }
 
+  /**
+   * Listens on the input and passes them to inputEvents.
+   */
   setupInput() {
     StreamController<Vector2> touchEvent;
     Vector2 origin;
