@@ -29,5 +29,6 @@ part "./australiasim/model/pawns/character.dart";
 part "./australiasim/model/pawns/enemy.dart";
 
 part "./australiasim/model/pawns/enemies/spider.dart";
+part "./australiasim/model/pawns/enemies/bigspider.dart";
 
 final t = new GameController();
