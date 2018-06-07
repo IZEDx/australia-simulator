@@ -8,6 +8,7 @@ class Pawn extends Actor
     bool ticki = true;
     set maxSpeed(double speed) => _maxSpeed = speed;
     double get maxSpeed => _maxSpeed;
+    double get speed => _maxSpeed;
 
     StreamController<Vector2> _newTargetEvent = new StreamController();
     Stream<Vector2> get onNewTarget => _newTargetEvent.stream.asBroadcastStream();
@@ -43,7 +44,7 @@ class Pawn extends Actor
     Vector2 _calcNextPosition(double deltaTime)
     {
         this.rotation = this._currentTargetLocation - this.location;
-        final nextPos = (this.rotation * this.maxSpeed * deltaTime) + this.location;
+        final nextPos = (this.rotation * this.speed * deltaTime) + this.location;
 
         // Edge handling
 
@@ -64,9 +65,7 @@ class Pawn extends Actor
           {
             actor.collideEvent.add(this);
 
-            final nuPos = this.location + this.getCorrectedOffsetPos(actor, nextPos) * this.maxSpeed * deltaTime;
-
-            
+            final nuPos = this.location + this.getCorrectedOffsetPos(actor, nextPos) * this.speed * deltaTime;
 
             if(nuPos != new Vector2.zero() && collidingWithOnPosition(nuPos).length == 0)
             {

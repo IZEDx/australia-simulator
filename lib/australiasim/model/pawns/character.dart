@@ -6,8 +6,11 @@ class Character extends Pawn
 
   Character() : super()
   {
-      this.name = "Character";
+      maxSpeed = 400.0;
+      name = "Character";
   }
+
+  get speed => maxSpeed * min(_velocity.length, 100.0) / 100;
 
   walk(Vector2 velocity) {
     _velocity = velocity;
@@ -15,7 +18,6 @@ class Character extends Pawn
 
   tick(double dt) {
     if (_velocity.length != 0) {
-      maxSpeed = _velocity.length;
       requestWalkToLocation(location + _velocity);
       super.tick(dt);
     }
