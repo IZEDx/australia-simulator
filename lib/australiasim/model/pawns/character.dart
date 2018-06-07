@@ -15,6 +15,7 @@ class Character extends Pawn
 
   tick(double dt) {
     if (_velocity.length != 0) {
+      maxSpeed = _velocity.length;
       requestWalkToLocation(location + _velocity);
       super.tick(dt);
     }
