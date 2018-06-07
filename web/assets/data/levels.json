@@ -1,8 +1,11 @@
 [
     {
-        "path": "./assets/data/levels/0-tutorial.json"
+        "path": "./assets/data/levels/0-welcome-home.json"
     },
     {
         "path": "./assets/data/levels/1-this-is-my-house.json"
+    },
+    {
+        "path": "./assets/data/levels/2-who-are-you.json"
     }
 ]
