@@ -16,7 +16,14 @@ class LevelManager {
     final idx = window.localStorage.containsKey("level") ? int.parse(window.localStorage["level"]) : 0;
     return idx >= size ? size -1 : idx;
   }
-  set current(int idx) => window.localStorage["level"] = (idx >= size ? size -1 : idx).toString();
+  set current(int idx) {
+    idx = (idx >= size ? size -1 : idx);
+    window.localStorage["level"] = idx.toString();
+    if (idx > unlocked) _unlocked = idx;
+  }
+
+  int get unlocked => window.localStorage.containsKey("unlocked") ? int.parse(window.localStorage["unlocked"]) : 0;
+  set _unlocked(int idx) => window.localStorage["unlocked"] = idx.toString();
 
   LevelManager(String this._path) {
   }

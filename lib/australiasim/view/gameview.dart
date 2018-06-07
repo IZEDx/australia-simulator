@@ -5,6 +5,7 @@ class GameView extends DOMView {
   double _knobJiggle = 5.0;
 
   GameMode gamemode;
+  LevelManager levelManager;
 
   static final mainElement  = querySelector("#main");
   static final menuLayer    = querySelector("#menuLayer");
@@ -17,7 +18,7 @@ class GameView extends DOMView {
 
   get running => this.gamemode.running;
 
-  GameView(GameMode this.gamemode) {
+  GameView(GameMode this.gamemode, LevelManager this.levelManager) {
     onInput = _inputEvent.stream.asBroadcastStream();
     mainElement.classes.add("loaded");
   }
@@ -25,6 +26,12 @@ class GameView extends DOMView {
   closeGameView() async {
     // Reset Game
     gameLayer.setInnerHtml("");
+
+    get("startGame").setInnerHtml(levelManager.current > 0 ? "CONTINUE!" : "ENTER!");
+    
+    if (levelManager.unlocked > 0) {
+      show(get("selectLevel"));
+    }
 
     // Toggle States
     hide(gameLayer);

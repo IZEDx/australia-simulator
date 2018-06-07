@@ -11,8 +11,8 @@ class GameController {
   GameController() {
 
     gameMode = new GameMode();
-    gameView = new GameView(gameMode);
     levelManager = new LevelManager("./assets/data/levels.json");
+    gameView = new GameView(gameMode, levelManager);
 
     _init();
     _setupInput();
@@ -20,9 +20,11 @@ class GameController {
 
   _init() async {
     await levelManager.load();
+    gameView.closeGameView();
 
     gameView.get("startGame").onClick.listen((e) {
       e.preventDefault();
+      print("Loading level: ${levelManager.current + 1}");
       _start(levelManager.current);
     });
 
