@@ -13,19 +13,19 @@ class GameView extends DOMView {
   /**
    * Gamemode reference.
    */
-  GameMode gamemode;
+  GameMode _gameMode;
 
   /**
    * LevelManger reference.
    */
-  LevelManager levelManager;
+  LevelManager _levelManager;
 
   // Static DOM Elements
-  static final mainElement  = querySelector("#main");
-  static final menuLayer    = querySelector("#menuLayer");
-  static final gameLayer    = querySelector("#gameLayer");
-  static final inputLayer   = querySelector("#inputLayer");
-  static final inputKnob    = querySelector("#inputKnob");
+  static final _mainElement  = querySelector("#main");
+  static final _menuLayer    = querySelector("#menuLayer");
+  static final _gameLayer    = querySelector("#gameLayer");
+  static final _inputLayer   = querySelector("#inputLayer");
+  static final _inputKnob    = querySelector("#inputKnob");
 
   /**
    * Passes Streams of input positions.
@@ -36,14 +36,14 @@ class GameView extends DOMView {
   /**
    * If the game is currently running.
    */
-  get running => this.gamemode.running;
+  get running => this._gameMode.running;
 
   /**
    * GameView constructor.
    */
-  GameView(GameMode this.gamemode, LevelManager this.levelManager) {
+  GameView(GameMode this._gameMode, LevelManager this._levelManager) {
     onInput = _inputEvent.stream.asBroadcastStream(); // Create Broadcast stream of inputEvent
-    mainElement.classes.add("loaded"); // Indicate that the game program has loaded
+    _mainElement.classes.add("loaded"); // Indicate that the game program has loaded
   }
   
   /**
@@ -51,24 +51,24 @@ class GameView extends DOMView {
    */
   closeGameView() async {
     // Reset Game
-    gameLayer.setInnerHtml("");
+    _gameLayer.setInnerHtml("");
 
-    get("startGame").setInnerHtml(levelManager.current > 0 ? "CONTINUE!" : "ENTER!");
+    get("startGame").setInnerHtml(_levelManager.current > 0 ? "CONTINUE!" : "ENTER!");
     
-    if (levelManager.unlocked > 0) {
+    if (_levelManager.unlocked > 0) {
       show(get("selectLevel"));
     }
 
     // Toggle States
-    hide(gameLayer);
-    show(menuLayer);
+    hide(_gameLayer);
+    show(_menuLayer);
 
     await nextFrame(); // Waiting for the next frame, otherwise the css activation animations wouldn't play.
 
-    activate(menuLayer);
-    deactivate(mainElement);
-    deactivate(gameLayer);
-    deactivate(inputLayer);
+    activate(_menuLayer);
+    deactivate(_mainElement);
+    deactivate(_gameLayer);
+    deactivate(_inputLayer);
   }
 
   /**
@@ -78,27 +78,27 @@ class GameView extends DOMView {
     // Setup Elements
     var worldElement = get("world");
 
-    if (get("bigLabel") == null)                create(gameLayer, "bigLabel");
-    if (worldElement    == null) worldElement = create(gameLayer, "world");
+    if (get("bigLabel") == null)                create(_gameLayer, "bigLabel");
+    if (worldElement    == null) worldElement = create(_gameLayer, "world");
 
     // Setup World Dimensions
-    setDimensions(worldElement, gamemode.world.size * _pixelScale);
+    setDimensions(worldElement, _gameMode.world.size * _pixelScale);
     
     // Setup Listeners
-    gamemode.world.onActorSpawned.listen(createActor);
-    gamemode.world.onActorRemoved.listen(removeActor);
-    for (var actor in gamemode.world.actors) createActor(actor);
+    _gameMode.world.onActorSpawned.listen(createActor);
+    _gameMode.world.onActorRemoved.listen(removeActor);
+    for (var actor in _gameMode.world.actors) createActor(actor);
 
     // Toggle States
-    show(gameLayer);
-    hide(menuLayer);
+    show(_gameLayer);
+    hide(_menuLayer);
 
     await nextFrame();
 
-    deactivate(menuLayer);
-    activate(mainElement);
-    activate(gameLayer);
-    activate(inputLayer);
+    deactivate(_menuLayer);
+    activate(_mainElement);
+    activate(_gameLayer);
+    activate(_inputLayer);
 
     // Welcome User
     hintBig("Welcome home!", new Duration(seconds: 4));
@@ -186,7 +186,7 @@ class GameView extends DOMView {
   createCharacter(Character char) {
 
     // Create Character
-    final el = create(gameLayer, char.name);
+    final el = create(_gameLayer, char.name);
 
     // Mark Element as Actor and Character 
     el.classes.add("actor");
@@ -253,7 +253,7 @@ class GameView extends DOMView {
     // TODO: Device Orientation as alternative input
     //window.onDeviceOrientation.listen((e) => e.)
 
-    inputLayer.onTouchStart.listen((e) {
+    _inputLayer.onTouchStart.listen((e) {
       e.preventDefault();
       if (running) {
 
@@ -262,22 +262,22 @@ class GameView extends DOMView {
         _inputEvent.add(touchEvent.stream.asBroadcastStream());
         
         relay(e);
-        move(inputKnob, origin - new Vector2(25.0, 25.0));
+        move(_inputKnob, origin - new Vector2(25.0, 25.0));
 
         activate(get("Character"));
-        activate(inputKnob);
+        activate(_inputKnob);
         get("world").classes.add("changing");
       }
     });
 
-    inputLayer.onTouchMove.listen((e) {
+    _inputLayer.onTouchMove.listen((e) {
       e.preventDefault();
       if (running) {
         relay(e);
       }
     });
 
-    inputLayer.onTouchEnd.listen((e) {
+    _inputLayer.onTouchEnd.listen((e) {
       e.preventDefault();
       if (touchEvent != null) {
         touchEvent.close();
@@ -287,7 +287,7 @@ class GameView extends DOMView {
         deactivate(get("Character"));
         get("world").classes.remove("changing");
       }
-      deactivate(inputKnob);
+      deactivate(_inputKnob);
     });
   }
 }
