@@ -3,7 +3,7 @@ part of australiasim;
 class Pawn extends Actor
 {
     // speed in cm/s
-    double _maxSpeed = 300.0;
+    double _maxSpeed = 400.0;
     Vector2 _currentTargetLocation = new Vector2(0.0, 0.0);
     bool ticki = true;
     set maxSpeed(double speed) => _maxSpeed = speed;
