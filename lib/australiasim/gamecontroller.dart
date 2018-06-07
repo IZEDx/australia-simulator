@@ -53,7 +53,7 @@ class GameController {
       final interval = new Duration(milliseconds: 16);
       while (running) {
         await gameView.timeout(interval);
-        final time = window.performance.now();
+        final time = window.performance.now() / 1000;
         gameMode.tick(time - _lastTick);
         _lastTick = time;
       }
