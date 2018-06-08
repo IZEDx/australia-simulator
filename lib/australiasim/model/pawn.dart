@@ -5,7 +5,6 @@ class Pawn extends Actor
     // speed in cm/s
     double _maxSpeed = 400.0;
     Vector2 _currentTargetLocation = new Vector2(0.0, 0.0);
-    bool ticki = true;
     set maxSpeed(double speed) => _maxSpeed = speed;
     double get maxSpeed => _maxSpeed;
     double get speed => _maxSpeed;
@@ -30,7 +29,7 @@ class Pawn extends Actor
 
     void tick(double deltaTime)
     {
-      if(this.location.distanceTo(this._currentTargetLocation) > 7.0 && ticki)
+      if(this.location.distanceTo(this._currentTargetLocation) > 7.0)
       {
           final nextPos = _calcNextPosition(deltaTime);
           this.location = nextPos;
@@ -65,18 +64,47 @@ class Pawn extends Actor
           {
             actor.collideEvent.add(this);
 
-            final nuPos = this.location + this.getCorrectedOffsetPos(actor, nextPos) * this.speed * deltaTime;
 
-            if(nuPos != new Vector2.zero() && collidingWithOnPosition(nuPos).length == 0)
-            {
-                print("found: " + nuPos.distanceTo(this.location).toString());
-                return nuPos;
-            }
-            
-             
+              // Edge sliding
+              if(!actor.isCircleCollider)
+              {
+                  List<Vector2> normals = Actor.getColliderBoxNormals(actor.getBoxColliderCorners(actor.location));
+
+                  normals.add(-normals[0]);
+                  normals.add(-normals[1]);
+
+                  if(!this.isCollidingWith(actor, this.location + normals[0] * 7.0) && !this.isCollidingWith(actor, this.location + normals[2] * 7.0))
+                  {
+
+                      final nuPos = this.location + normals[0] * this.speed * deltaTime;
+                      final nuPos2 = this.location + normals[2] * this.speed * deltaTime;
+                      final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
+
+                        if(collidingWithOnPosition(finPos).length == 0)
+                          return finPos;
+                  }
+                  else if(!this.isCollidingWith(actor, this.location + normals[1] * 7.0) && !this.isCollidingWith(actor, this.location + normals[3] * 7.0))
+                  {
+
+                      final nuPos = this.location + normals[1] * this.speed * deltaTime;
+                      final nuPos2 = this.location + normals[3] * this.speed * deltaTime;
+                      final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
+
+                        if(collidingWithOnPosition(finPos).length == 0)
+                          return finPos;
+                  }
+                  else
+                  {
+                      final filtered = normals.where((v) => !this.isCollidingWith(actor, this.location + v * 3.0)).map((v) =>  this.location + v * this.speed * deltaTime).toList();
+                      if(filtered.length == 2)
+                      {
+                        final finPos = nextPos.distanceTo(filtered[0]) > nextPos.distanceTo(filtered[1]) ? filtered[1] : filtered[0];
+                        if(collidingWithOnPosition(finPos).length == 0)
+                            return finPos;
+                      }  
+                  }
+              }
           }
-          
-          
         }
 
         return this.location;
