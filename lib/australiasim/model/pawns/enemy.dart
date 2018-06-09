@@ -57,7 +57,7 @@ class Enemy extends Pawn
 
         _recoverTimeRemaining = recoverTime;
 
-        _currCozyness = min(_currCozyness - cozynessDecSpeed * deltaTime, 0.0);
+        _currCozyness = max(_currCozyness - cozynessDecSpeed * deltaTime, 0.0);
     }
     else
     {
