@@ -33,14 +33,14 @@ class GameController {
       _start(levelManager.current);
     });
 
-    gameMode.onGameOver.listen((won) {
+    gameMode.onGameOver.listen((won) async {
       if (gameMode.running) {
-        print("GameOver! Won: ${won}");
         if (won) {
           levelManager.current = ++levelManager.current % levelManager.size;
         }
-        print("Next Level: ${levelManager.current + 1}/${levelManager.size}");
-        _stop();
+        gameMode.stop();
+        await gameView.hintBig(won ? "Well Done!" : "Game Over", new Duration(seconds: 3));
+        gameView.closeGameView();
       }
     });
 

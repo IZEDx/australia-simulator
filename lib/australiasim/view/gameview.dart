@@ -123,15 +123,13 @@ class GameView extends DOMView {
   }
 
   hintBig(String text, Duration duration) async {
-    // Check if running
-    if (!running) return;
-
+    
     // Setup Label
     final bigLabel = get("bigLabel");
     bigLabel.setInnerHtml(text);
 
     // Show Label for duration
-    timeout(duration, before: () => activate(bigLabel), after:  () => deactivate(bigLabel));
+    await timeout(duration, before: () => activate(bigLabel), after:  () => deactivate(bigLabel));
   }
 
   /**
