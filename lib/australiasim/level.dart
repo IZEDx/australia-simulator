@@ -90,25 +90,19 @@ class Level {
     if (!(data is List)) return [];
 
     List<Level> levels = [];
-    List<Future> loadingLevels = [];
-
-    _loadLevel(String path) async {
-      final level = new Level(path);
-      try {
-        await level.load();
-        if (level.loaded) {
-          levels.add(level);
-        }
-      } catch(err) {}
-    }
 
     for (final lvldata in data) {
       if (lvldata is Map && lvldata["path"] != null) {
-        loadingLevels.add(_loadLevel(lvldata["path"])); 
+        final level = new Level(lvldata["path"]);
+        try {
+          await level.load();
+          if (level.loaded) {
+            levels.add(level);
+          }
+        } catch(err) {}
       }
     }
 
-    await Future.wait(loadingLevels);
     return levels;
   }
 }
