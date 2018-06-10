@@ -2,6 +2,10 @@ part of australiasim;
 enum EnemyState {escaping, postEscape, idle}
 class Enemy extends Pawn
 {
+
+  StreamController<double> _cozynessChangeEvent = new StreamController();
+  Stream<double> onCozynessChange;
+
   static const double recoverTime = 3.0;
 
   static const double changeDirMinTime = 1.0;
@@ -19,7 +23,11 @@ class Enemy extends Pawn
     
   EnemyState get state => _isEmbattled() ? EnemyState.escaping : _recoverTimeRemaining != 0.0 ? EnemyState.postEscape : EnemyState.idle;
 
-  double get cozynessPercent => _currCozyness;
+  double get cozyness => _currCozyness;
+  set cozyness(double coz) {
+    _currCozyness = coz;
+    _cozynessChangeEvent.add(coz);
+  }
 
   double get speed  
   {
@@ -57,7 +65,7 @@ class Enemy extends Pawn
 
         _recoverTimeRemaining = recoverTime;
 
-        _currCozyness = max(_currCozyness - cozynessDecSpeed * deltaTime, 0.0);
+        cozyness = max(cozyness - cozynessDecSpeed * deltaTime, 0.0);
     }
     else
     {
@@ -73,7 +81,7 @@ class Enemy extends Pawn
                 _changeDirTimeRemaining = _nextRandomTime();
             }
 
-            _currCozyness = min(_currCozyness + cozynessIncSpeed * deltaTime, 100.0);
+            cozyness = min(cozyness + cozynessIncSpeed * deltaTime, 100.0);
         }
         else
         {
@@ -84,7 +92,7 @@ class Enemy extends Pawn
 
     requestWalkToLocation(this.location + this.rotation * 200.0);
 
-    if(cozynessPercent == 100.0)
+    if(cozyness == 100.0)
         print(this.name + ": THIS IS MY HOUSE NOW!");
 
     super.tick(deltaTime);
@@ -92,7 +100,9 @@ class Enemy extends Pawn
 
   void _collided(Actor other)
   {
-      if (!_isEmbattled() || other is Pawn) {
+      if (!_isEmbattled()) {
+          this.rotation = -this.rotation;
+      } else if (other is Pawn) {
           this.rotation = this.location - other.location;
       }
   }
