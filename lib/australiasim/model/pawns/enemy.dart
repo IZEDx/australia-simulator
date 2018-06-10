@@ -92,12 +92,7 @@ class Enemy extends Pawn
 
   void _collided(Actor other)
   {
-      if(!_isEmbattled())
-      {
-          _setRandomRotation();
-      }
-      else if(other is Pawn)
-      {
+      if (!_isEmbattled() || other is Pawn) {
           this.rotation = this.location - other.location;
       }
   }

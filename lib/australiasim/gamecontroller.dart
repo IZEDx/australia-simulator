@@ -35,10 +35,13 @@ class GameController {
 
     gameMode.onGameOver.listen((won) {
       print("GameOver! Won: ${won}");
-      levelManager.current = ++levelManager.current % levelManager.size;
+      if (won) {
+        levelManager.current = ++levelManager.current % levelManager.size;
+      }
       print("Next Level: ${levelManager.current + 1}/${levelManager.size}");
       _stop();
     });
+
   }
 
   _setupInput() async {
