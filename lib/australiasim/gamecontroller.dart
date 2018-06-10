@@ -10,8 +10,8 @@ class GameController {
 
   GameController() {
 
-    gameMode = new GameMode();
     levelManager = new LevelManager("./assets/data/levels.json");
+    gameMode = new GameMode();
     gameView = new GameView(gameMode, levelManager);
 
     _init();
@@ -19,8 +19,8 @@ class GameController {
   }
 
   _init() async {
-    await levelManager.load();
     gameView.closeGameView();
+    await levelManager.load();
 
     gameView.get("useGyrosensor").onClick.listen((e) {
       e.preventDefault();
@@ -29,20 +29,10 @@ class GameController {
 
     gameView.get("startGame").onClick.listen((e) {
       e.preventDefault();
-      print("Loading level: ${levelManager.current + 1}");
-      _start(levelManager.current);
+      _startGame(levelManager.current);
     });
 
-    gameMode.onGameOver.listen((won) async {
-      if (gameMode.running) {
-        if (won) {
-          levelManager.current = ++levelManager.current % levelManager.size;
-        }
-        gameMode.stop();
-        await gameView.hintBig(won ? "Well Done!" : "Game Over", new Duration(seconds: 3));
-        gameView.closeGameView();
-      }
-    });
+    gameMode.onGameOver.listen(_gameOver);
 
   }
 
@@ -62,11 +52,14 @@ class GameController {
     }*/
   }
 
-  _start(int level) async {
+  _startGame(int level) async {
     if (!running) {
-      gameMode.load(levelManager.get(level));
+      final lvldata = levelManager.get(level);
+      gameMode.load(lvldata);
       gameView.openGameView();
       gameMode.start();
+      
+      gameView.hintBig(lvldata.spawnText, new Duration(seconds: 4));
 
       _lastTick = window.performance.now() / 1000;
       final interval = new Duration(milliseconds: 30);
@@ -79,11 +72,14 @@ class GameController {
     }
   }
 
-  _stop() {
-    if (running) {
+  _gameOver(won) async {
+    if (gameMode.running) {
+      if (won) {
+        levelManager.current = ++levelManager.current % levelManager.size;
+      }
       gameMode.stop();
+      await gameView.hintBig(won ? "Well Done!" : "Game Over", new Duration(seconds: 3));
       gameView.closeGameView();
     }
   }
-
 }

@@ -80,13 +80,13 @@ class GameView extends DOMView {
     // Toggle States
     hide(_gameLayer);
     show(_menuLayer);
+    activate(_menuLayer);
+    deactivate(_gameLayer);
+    deactivate(_inputLayer);
 
     await nextFrame(); // Waiting for the next frame, otherwise the css activation animations wouldn't play.
 
-    activate(_menuLayer);
     deactivate(_mainElement);
-    deactivate(_gameLayer);
-    deactivate(_inputLayer);
   }
 
   /**
@@ -117,13 +117,10 @@ class GameView extends DOMView {
     activate(_mainElement);
     activate(_gameLayer);
     activate(_inputLayer);
-
-    // Welcome User
-    hintBig("Welcome home!", new Duration(seconds: 4));
   }
 
   hintBig(String text, Duration duration) async {
-    
+
     // Setup Label
     final bigLabel = get("bigLabel");
     bigLabel.setInnerHtml(text);
