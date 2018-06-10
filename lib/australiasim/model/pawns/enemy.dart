@@ -44,6 +44,8 @@ class Enemy extends Pawn
 
   Enemy() : super()
   {
+    this.onCozynessChange = _cozynessChangeEvent.stream.asBroadcastStream();
+
     this.name = "Enemy" + genUID();
 
     new Observable(this.onCollide)
@@ -92,8 +94,9 @@ class Enemy extends Pawn
 
     requestWalkToLocation(this.location + this.rotation * 200.0);
 
-    if(cozyness == 100.0)
-        print(this.name + ": THIS IS MY HOUSE NOW!");
+    if (cozyness == 100.0) {
+      world.gamemode.gameOverEvent.add(true);
+    }
 
     super.tick(deltaTime);
   }
