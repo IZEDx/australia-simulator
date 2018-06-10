@@ -278,7 +278,7 @@ class GameView extends DOMView {
             max(-90.0, min(90.0, e.beta))  // In degree in the range [-90,90]
           );
 
-          touchEvent.add(target / 90.0 * 150.0); // Convert to percentage.
+          touchEvent.add(target / _pixelScale); // Convert to percentage.
         } else if(touchEvent != null) {
           touchEvent.add(new Vector2.zero());
           touchEvent.close();
