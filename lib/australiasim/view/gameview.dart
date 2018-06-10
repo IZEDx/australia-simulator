@@ -274,11 +274,11 @@ class GameView extends DOMView {
           }
 
           final target = new Vector2(
-            max(-90.0, min(90.0, e.beta)), // In degree in the range [-90,90]
-            e.gamma  // In degree in the range [-90,90]
+            e.gamma, // In degree in the range [-90,90]
+            max(-90.0, min(90.0, e.beta))  // In degree in the range [-90,90]
           );
 
-          touchEvent.add(target / 90.0 * 100.0); // Convert to percentage.
+          touchEvent.add(target / 90.0 * 150.0); // Convert to percentage.
         } else if(touchEvent != null) {
           touchEvent.add(new Vector2.zero());
           touchEvent.close();

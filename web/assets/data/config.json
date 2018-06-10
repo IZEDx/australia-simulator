@@ -1,0 +1,8 @@
+{
+    "enemies": {
+        "spider": {
+            "speed": 0.6,
+            "scale": [0.5, 0.5]
+        }
+    }
+}
