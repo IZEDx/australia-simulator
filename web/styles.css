@@ -121,6 +121,28 @@ nav > button:hover, nav > button:focus {
   cursor: pointer;
 }
 
+nav > button > .checkbox {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  margin-right: 10px;
+  border: solid 0.5px rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.5);
+  font-size: 30px;
+  line-height: 30px;
+  vertical-align: center;
+}
+
+nav > button > .checkbox > i {
+  display: none;
+}
+
+nav > button.active > .checkbox > i {
+  display: inline-block;
+}
+
 #bigLabel {
   position: absolute;
   z-index: 100;

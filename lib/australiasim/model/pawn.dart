@@ -12,9 +12,6 @@ class Pawn extends Actor
     StreamController<Vector2> _newTargetEvent = new StreamController();
     Stream<Vector2> get onNewTarget => _newTargetEvent.stream.asBroadcastStream();
 
-    StreamController<Vector2> _reachTargetEvent = new StreamController();
-    Stream<Vector2> get onReachTarget => _reachTargetEvent.stream.asBroadcastStream();
-
     Pawn() : super()
     {
         this.isCircleCollider = true;
@@ -33,10 +30,6 @@ class Pawn extends Actor
       {
           final nextPos = _calcNextPosition(deltaTime);
           this.location = nextPos;
-
-          if (this.location.distanceTo(this._currentTargetLocation) < 7.5) {
-            _reachTargetEvent.add(this.location);
-          }
       }
     }
 

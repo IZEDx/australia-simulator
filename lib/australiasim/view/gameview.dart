@@ -11,6 +11,11 @@ class GameView extends DOMView {
   double _pixelScale = 0.5;
 
   /**
+   * Whether to use Gyro Sensor as Input.
+   */
+  bool _useGyrosensor = false;
+
+  /**
    * Gamemode reference.
    */
   GameMode _gameMode;
@@ -38,12 +43,25 @@ class GameView extends DOMView {
    */
   get running => this._gameMode.running;
 
+  set useGyrosensor(bool val) {
+    window.localStorage["useGyrosensor"] = val ? "1" : "0";
+    _useGyrosensor = val;
+    if (val) {
+      activate(get("useGyrosensor"));
+    } else {
+      deactivate(get("useGyrosensor"));
+    }
+  }
+
+  bool get useGyrosensor => _useGyrosensor;
+
   /**
    * GameView constructor.
    */
   GameView(GameMode this._gameMode, LevelManager this._levelManager) {
     onInput = _inputEvent.stream.asBroadcastStream(); // Create Broadcast stream of inputEvent
     _mainElement.classes.add("loaded"); // Indicate that the game program has loaded
+    useGyrosensor = window.localStorage["useGyrosensor"] == "1";
   }
   
   /**
@@ -236,12 +254,38 @@ class GameView extends DOMView {
       .listen( (Actor a) => hintBig("Be careful touching that!", new Duration(seconds: 3)) );
   }
 
+
+
+
   /**
    * Listens on the input and passes them to inputEvents.
    */
   setupInput() {
     StreamController<Vector2> touchEvent;
     Vector2 origin;
+
+    // TODO: Device Orientation as alternative input
+    window.onDeviceOrientation.listen((e) {
+      if (useGyrosensor) {
+        if (running) {
+          if (touchEvent == null) {
+            touchEvent = new StreamController();
+            _inputEvent.add(touchEvent.stream.asBroadcastStream());
+          }
+
+          final target = new Vector2(
+            max(-90.0, min(90.0, e.beta)), // In degree in the range [-90,90]
+            e.gamma  // In degree in the range [-90,90]
+          );
+
+          touchEvent.add(target / 90.0 * 100.0); // Convert to percentage.
+        } else if(touchEvent != null) {
+          touchEvent.add(new Vector2.zero());
+          touchEvent.close();
+          touchEvent = null;
+        }
+      }
+    });
 
     relay(TouchEvent e) {
       if (touchEvent != null) {
@@ -250,12 +294,9 @@ class GameView extends DOMView {
       }
     }
 
-    // TODO: Device Orientation as alternative input
-    //window.onDeviceOrientation.listen((e) => e.)
-
     _inputLayer.onTouchStart.listen((e) {
       e.preventDefault();
-      if (running) {
+      if (running && !useGyrosensor) {
 
         origin = new Vector2(e.touches[0].page.x, e.touches[0].page.y);
         touchEvent = new StreamController();
@@ -272,22 +313,25 @@ class GameView extends DOMView {
 
     _inputLayer.onTouchMove.listen((e) {
       e.preventDefault();
-      if (running) {
+      if (running && !useGyrosensor) {
         relay(e);
       }
     });
 
     _inputLayer.onTouchEnd.listen((e) {
       e.preventDefault();
-      if (touchEvent != null) {
-        touchEvent.close();
-        touchEvent = null;
+      if (!useGyrosensor) {
+        if (touchEvent != null) {
+          touchEvent.add(new Vector2.zero());
+          touchEvent.close();
+          touchEvent = null;
+        }
+        if (running) {
+          deactivate(get("Character"));
+          get("world").classes.remove("changing");
+        }
+        deactivate(_inputKnob);
       }
-      if (running) {
-        deactivate(get("Character"));
-        get("world").classes.remove("changing");
-      }
-      deactivate(_inputKnob);
     });
   }
 }

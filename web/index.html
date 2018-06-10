@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
     <meta name="scaffolded-by" content="https://github.com/google/stagehand">
     <title>Australia Simulator!</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico">
     <script defer src="main.dart" type="application/dart"></script>
@@ -20,6 +23,12 @@
       <nav id="menu">
         <button class="btn" id="startGame">ENTER!</button>
         <button class="btn hidden" id="selectLevel">Select Level</button>
+        <button class="btn" id="useGyrosensor">
+          <div class="checkbox">
+            <i class="fa fa-check"></i>
+          </div>
+          Use Gyrosensor?
+        </button>
       </nav>
     </section>
     <section class="layer hidden" id="gameLayer">

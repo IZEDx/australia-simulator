@@ -22,6 +22,11 @@ class GameController {
     await levelManager.load();
     gameView.closeGameView();
 
+    gameView.get("useGyrosensor").onClick.listen((e) {
+      e.preventDefault();
+      gameView.useGyrosensor = !gameView.useGyrosensor;
+    });
+
     gameView.get("startGame").onClick.listen((e) {
       e.preventDefault();
       print("Loading level: ${levelManager.current + 1}");
@@ -38,14 +43,18 @@ class GameController {
 
   _setupInput() async {
     gameView.setupInput();
-    await for (var touches in gameView.onInput) {
+    new Observable(gameView.onInput)
+      .where((touches) => running)
+      .flatMap((touches) => touches)
+      .listen((touch) => gameMode.moveCharacter(touch));
+    /*await for (var touches in gameView.onInput) {
       if (running) {
         await for (var touch in touches) {
           gameMode.moveCharacter(touch);
         }
-        gameMode.moveCharacter(new Vector2.zero());
+        ;
       }
-    }
+    }*/
   }
 
   _start(int level) async {
@@ -54,7 +63,7 @@ class GameController {
       gameView.openGameView();
       gameMode.start();
 
-      final interval = new Duration(milliseconds: 16);
+      final interval = new Duration(milliseconds: 30);
       while (running) {
         await gameView.timeout(interval);
         final time = window.performance.now() / 1000;
