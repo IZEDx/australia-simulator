@@ -11,8 +11,8 @@ class Enemy extends Pawn
   static const double changeDirMinTime = 1.0;
   static const double changeDirMaxTime = 2.5;
 
-  static const double cozynessIncSpeed = 10.0;
-  static const double cozynessDecSpeed = 20.0;
+  static const double cozynessIncSpeed = 5.0;
+  static const double cozynessDecSpeed = 30.0;
 
   double _recoverTimeRemaining = 0.0;
   double _changeDirTimeRemaining = 0.0;

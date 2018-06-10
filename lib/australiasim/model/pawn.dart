@@ -56,6 +56,7 @@ class Pawn extends Actor
           for(var actor in collisions)
           {
             actor.collideEvent.add(this);
+            this.collideEvent.add(actor);
 
 
               // Edge sliding

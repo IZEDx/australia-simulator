@@ -27,6 +27,14 @@ class GameMode {
 
     // Character
     player = world.spawnActor(new Character(), new Vector2(level.size.x / 2, 150.0));
+
+    const wallWidth = 20.0;
+    // Walls
+    world.spawnActor(new Box(), new Vector2(level.size.x / 2, 0.0), scale: new Vector2(level.size.x + wallWidth, wallWidth));
+    world.spawnActor(new Box(), new Vector2(level.size.x / 2, level.size.y), scale: new Vector2(level.size.x + wallWidth, wallWidth));
+    
+    world.spawnActor(new Box(), new Vector2(0.0, level.size.y / 2), scale: new Vector2(wallWidth, level.size.y + wallWidth));
+    world.spawnActor(new Box(), new Vector2(level.size.x, level.size.y / 2), scale: new Vector2(wallWidth, level.size.y + wallWidth));
     
     // Door
     world.spawnActor(new Door(), new Vector2(level.size.x / 2, 0.0));
