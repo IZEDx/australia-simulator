@@ -67,7 +67,7 @@ class Pawn extends Actor
                   normals.add(-normals[0]);
                   normals.add(-normals[1]);
 
-                  if(!this.isCollidingWith(actor, this.location + normals[0] * 7.0) && !this.isCollidingWith(actor, this.location + normals[2] * 7.0))
+                  if(!this.isCollidingWith(actor, this.location + normals[0] * 8.0) && !this.isCollidingWith(actor, this.location + normals[2] * 8.0))
                   {
                       final nuPos = this.location + normals[0] * this.speed * deltaTime;
                       final nuPos2 = this.location + normals[2] * this.speed * deltaTime;
@@ -76,7 +76,7 @@ class Pawn extends Actor
                         if(collidingWithOnPosition(finPos).length == 0)
                           return finPos;
                   }
-                  else if(!this.isCollidingWith(actor, this.location + normals[1] * 7.0) && !this.isCollidingWith(actor, this.location + normals[3] * 7.0))
+                  else if(!this.isCollidingWith(actor, this.location + normals[1] * 8.0) && !this.isCollidingWith(actor, this.location + normals[3] * 8.0))
                   {
                       final nuPos = this.location + normals[1] * this.speed * deltaTime;
                       final nuPos2 = this.location + normals[3] * this.speed * deltaTime;
@@ -87,7 +87,7 @@ class Pawn extends Actor
                   }
                   else
                   {
-                      final filtered = normals.where((v) => !this.isCollidingWith(actor, this.location + v * 7.0)).map((v) =>  this.location + v * this.speed * deltaTime).toList();
+                      final filtered = normals.where((v) => !this.isCollidingWith(actor, this.location + v * 8.0)).map((v) =>  this.location + v * this.speed * deltaTime).toList();
                       if(filtered.length == 2)
                       {
                         final finPos = nextPos.distanceTo(filtered[0]) > nextPos.distanceTo(filtered[1]) ? filtered[1] : filtered[0];
