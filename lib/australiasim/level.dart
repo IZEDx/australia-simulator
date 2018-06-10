@@ -65,7 +65,7 @@ class Level {
         if (actdata["type"] != null && _isVec2List(actdata["location"])) {
 
           final actor = new ActorData();
-          actor.object = _parseActor(actdata["type"].toString());
+          actor.instance = () => _parseActor(actdata["type"].toString());
           actor.location = _listToVec2(actdata["location"]);
 
           if (_isVec2List(actdata["rotation"])) {
@@ -109,7 +109,7 @@ class Level {
 
 
 class ActorData {
-  Actor object;
+  Function instance;
   Vector2 location;
   Vector2 rotation;
   Vector2 scale;

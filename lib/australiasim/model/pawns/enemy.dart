@@ -11,8 +11,8 @@ class Enemy extends Pawn
   static const double changeDirMinTime = 1.0;
   static const double changeDirMaxTime = 2.5;
 
-  static const double cozynessIncSpeed = 12.0;
-  static const double cozynessDecSpeed = 6.0;
+  static const double cozynessIncSpeed = 10.0;
+  static const double cozynessDecSpeed = 20.0;
 
   double _recoverTimeRemaining = 0.0;
   double _changeDirTimeRemaining = 0.0;
@@ -48,6 +48,8 @@ class Enemy extends Pawn
 
     this.name = "Enemy" + genUID();
 
+    print("${name}: ${cozyness}");
+
     new Observable(this.onCollide)
       .throttle(new Duration(milliseconds: 500))
       .listen( (Actor a) => this._collided(a));
@@ -82,7 +84,6 @@ class Enemy extends Pawn
                 _setRandomRotation();
                 _changeDirTimeRemaining = _nextRandomTime();
             }
-
             cozyness = min(cozyness + cozynessIncSpeed * deltaTime, 100.0);
         }
         else
@@ -95,7 +96,7 @@ class Enemy extends Pawn
     requestWalkToLocation(this.location + this.rotation * 200.0);
 
     if (cozyness == 100.0) {
-      world.gamemode.gameOverEvent.add(true);
+      world.gamemode.gameOverEvent.add(false);
     }
 
     super.tick(deltaTime);

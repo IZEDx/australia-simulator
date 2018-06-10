@@ -34,12 +34,14 @@ class GameController {
     });
 
     gameMode.onGameOver.listen((won) {
-      print("GameOver! Won: ${won}");
-      if (won) {
-        levelManager.current = ++levelManager.current % levelManager.size;
+      if (gameMode.running) {
+        print("GameOver! Won: ${won}");
+        if (won) {
+          levelManager.current = ++levelManager.current % levelManager.size;
+        }
+        print("Next Level: ${levelManager.current + 1}/${levelManager.size}");
+        _stop();
       }
-      print("Next Level: ${levelManager.current + 1}/${levelManager.size}");
-      _stop();
     });
 
   }
@@ -66,6 +68,7 @@ class GameController {
       gameView.openGameView();
       gameMode.start();
 
+      _lastTick = window.performance.now() / 1000;
       final interval = new Duration(milliseconds: 30);
       while (running) {
         await gameView.timeout(interval);
@@ -78,8 +81,8 @@ class GameController {
 
   _stop() {
     if (running) {
-      gameView.closeGameView();
       gameMode.stop();
+      gameView.closeGameView();
     }
   }
 

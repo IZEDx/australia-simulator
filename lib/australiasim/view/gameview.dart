@@ -246,6 +246,18 @@ class GameView extends DOMView {
 
     // Mark as enemy
     el.classes.add("enemy");
+
+    final cozynessEl = create(el, enemy.name + "-cozyness");
+    cozynessEl.classes.add("cozyness");
+
+    final cozynessPercentageEl = create(cozynessEl, enemy.name + "-cozyness-percentage");
+    final barSize = new Vector2(max(enemy.scale.x, 100.0), 20.0) * _pixelScale;
+    setDimensions(cozynessEl, barSize);
+    setDimensions(cozynessPercentageEl, new Vector2(0.0, barSize.y));
+
+    new Observable(enemy.onCozynessChange)
+      .throttle(new Duration(milliseconds: 500))
+      .listen( (double cozyness) => this.setDimensions(cozynessPercentageEl, new Vector2(barSize.x / 100 * cozyness, barSize.y)) );
     
     // Feedback when user touches enemy
     new Observable(enemy.onCollide)
