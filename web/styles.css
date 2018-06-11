@@ -191,6 +191,24 @@ nav > button.active > .checkbox > i {
   will-change: transform;
 }
 
+#stats {
+  position: fixed;
+  left: 5px;
+  top: 5px;
+  pointer-events: none;
+}
+
+#stats > #lives {
+  text-align: center;
+  color: #ff3333;
+  font-size: 40px;
+  line-height: 40px;
+  text-shadow: 1px 1px 5px #333333;
+}
+
+#stats > #lives > i {
+  margin: 5px;
+}
 
 .actor {
   background-color: #000;

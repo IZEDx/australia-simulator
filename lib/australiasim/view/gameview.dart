@@ -74,7 +74,7 @@ class GameView extends DOMView {
     get("startGame").setInnerHtml(_levelManager.current > 0 ? "CONTINUE!" : "ENTER!");
     
     if (_levelManager.unlocked > 0) {
-      show(get("selectLevel"));
+      //show(get("selectLevel"));
     }
 
     // Toggle States
@@ -98,8 +98,6 @@ class GameView extends DOMView {
 
     if (get("bigLabel") == null)                create(_gameLayer, "bigLabel");
     if (worldElement    == null) worldElement = create(_gameLayer, "world");
-
-    // TODO: Add Stats!
 
     // Setup World Dimensions
     setDimensions(worldElement, _gameMode.world.size * _pixelScale);
@@ -202,6 +200,8 @@ class GameView extends DOMView {
 
     // Create Character
     final el = create(_gameLayer, char.name);
+    final statsElement = create(_gameLayer, "stats");
+    final livesElement = create(statsElement, "lives");
 
     // Mark Element as Actor and Character 
     el.classes.add("actor");
@@ -212,13 +212,23 @@ class GameView extends DOMView {
     // Setup listener
     moveCamera(Vector2 pos) => move(get("world"), pos * -_pixelScale);
 
+    updateLives(lives) {
+      var text = "";
+      for (var i = 0; i < lives; i++) {
+        text += "<i class='fa fa-heart'></i>";
+      }
+      livesElement.setInnerHtml(text);
+    }
+
     // Register listener
     char.onMove.listen((vec) => moveCamera(vec));
     char.onRotate.listen((vec) => rotate(el, vec));
+    char.onLivesChange.listen(updateLives);
 
     // Initial update
     moveCamera(char.location);
     rotate(el, char.rotation);
+    updateLives(char.charLives);
   }
 
   /**
@@ -286,7 +296,7 @@ class GameView extends DOMView {
             max(-90.0, min(90.0, e.beta))  // In degree in the range [-90,90]
           );
 
-          touchEvent.add(target / _pixelScale); // Convert to percentage.
+          touchEvent.add(target * 3.0); // Convert to percentage.
         } else if(touchEvent != null) {
           touchEvent.add(new Vector2.zero());
           touchEvent.close();
@@ -298,7 +308,7 @@ class GameView extends DOMView {
     relay(TouchEvent e) {
       if (touchEvent != null) {
         final offset = new Vector2(e.touches[0].page.x - origin.x, e.touches[0].page.y - origin.y);
-        touchEvent.add(offset * 3.0);
+        touchEvent.add(offset / _pixelScale);
       }
     }
 
