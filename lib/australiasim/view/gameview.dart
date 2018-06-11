@@ -99,6 +99,8 @@ class GameView extends DOMView {
     if (get("bigLabel") == null)                create(_gameLayer, "bigLabel");
     if (worldElement    == null) worldElement = create(_gameLayer, "world");
 
+    // TODO: Add Stats!
+
     // Setup World Dimensions
     setDimensions(worldElement, _gameMode.world.size * _pixelScale);
     
@@ -110,13 +112,13 @@ class GameView extends DOMView {
     // Toggle States
     show(_gameLayer);
     hide(_menuLayer);
+    activate(_mainElement);
+    activate(_inputLayer);
 
     await nextFrame();
 
     deactivate(_menuLayer);
-    activate(_mainElement);
     activate(_gameLayer);
-    activate(_inputLayer);
   }
 
   hintBig(String text, Duration duration) async {
@@ -271,7 +273,6 @@ class GameView extends DOMView {
     StreamController<Vector2> touchEvent;
     Vector2 origin;
 
-    // TODO: Device Orientation as alternative input
     window.onDeviceOrientation.listen((e) {
       if (useGyrosensor) {
         if (running) {
@@ -297,7 +298,7 @@ class GameView extends DOMView {
     relay(TouchEvent e) {
       if (touchEvent != null) {
         final offset = new Vector2(e.touches[0].page.x - origin.x, e.touches[0].page.y - origin.y);
-        touchEvent.add(offset / _pixelScale);
+        touchEvent.add(offset * 3.0);
       }
     }
 
