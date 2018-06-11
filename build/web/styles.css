@@ -210,8 +210,10 @@ nav > button.active > .checkbox > i {
   margin: 5px;
 }
 #stats > #enemyCount {
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 17px;
+  line-height: 17px;
+  color: #cccccc;
+  text-shadow: 1px 1px 3px #333333;
 }
 
 .actor {
