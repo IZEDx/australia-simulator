@@ -25,7 +25,7 @@ class Character extends Pawn
 
     new Observable(this.onCollide)
       .where((Actor a) => a is Enemy)
-      .throttle(new Duration(seconds: 2))
+      .throttle(new Duration(seconds: 1))
       .listen( (Actor a) => this._touchedEnemy());
   }
 

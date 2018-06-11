@@ -6,14 +6,23 @@ class GameMode {
   World world;
   Character player;
 
-  int enemyCount = 0;
-
   StreamController<bool> gameOverEvent = new StreamController();
   Stream<bool> onGameOver;
+  
+  StreamController<int> _enemyCountChangeEvent = new StreamController();
+  Stream<int> onEnemyCountChange;
+
+  int _enemyCount = 0;
+  int get enemyCount => _enemyCount;
+  set enemyCount(int c) {
+    _enemyCount = c;
+    _enemyCountChangeEvent.add(c);
+  }
 
   GameMode()
   {
     onGameOver = gameOverEvent.stream.asBroadcastStream();
+    onEnemyCountChange = _enemyCountChangeEvent.stream.asBroadcastStream();
   }
 
   void start() => world == null ? null : world.beginPlay();

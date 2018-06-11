@@ -99,6 +99,10 @@ class GameView extends DOMView {
     if (get("bigLabel") == null)                create(_gameLayer, "bigLabel");
     if (worldElement    == null) worldElement = create(_gameLayer, "world");
 
+    final statsElement = create(_gameLayer, "stats");
+    final enemyCountElement = create(statsElement, "enemyCount");
+    _gameMode.onEnemyCountChange.listen((count) => enemyCountElement.setInnerHtml("Enemies left: ${count}"));
+
     // Setup World Dimensions
     setDimensions(worldElement, _gameMode.world.size * _pixelScale);
     
@@ -200,8 +204,7 @@ class GameView extends DOMView {
 
     // Create Character
     final el = create(_gameLayer, char.name);
-    final statsElement = create(_gameLayer, "stats");
-    final livesElement = create(statsElement, "lives");
+    final livesElement = create(get("stats"), "lives");
 
     // Mark Element as Actor and Character 
     el.classes.add("actor");
