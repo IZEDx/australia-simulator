@@ -234,11 +234,11 @@ class GameView extends DOMView {
     char.onMove.listen((vec) => moveCamera(vec));
     char.onRotate.listen((vec) {
       final radians = atan2(vec.x, vec.y);
-      if (radians > PI * 3/4 || radians < -PI * 3/4) {  // North
+      if (radians > PI * 4/5 || radians < -PI * 4/5) {  // North
         el.style.backgroundPositionY = "-522px";
-      } else if (radians < -PI / 4) { // East
+      } else if (radians < -PI / 5) { // East
         el.style.backgroundPositionY = "-586px";
-      } else if (radians < PI / 4) {  // South
+      } else if (radians < PI / 5) {  // South
         el.style.backgroundPositionY = "-650px";
       } else {  // West
         el.style.backgroundPositionY = "-714px";
