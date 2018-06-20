@@ -19,8 +19,8 @@ class GameController {
   }
 
   _init() async {
-    gameView.closeGameView();
     await levelManager.load();
+    gameView.closeGameView();
 
     gameView.get("useGyrosensor").onClick.listen((e) {
       e.preventDefault();
