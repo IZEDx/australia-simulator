@@ -223,8 +223,8 @@ nav > button.active > .checkbox > i {
   display: block;
   width: 50px;
   height: 50px;
-  left: 0;
-  top: 0;
+  left: 0px;
+  top: 0px;
   transform: translate(-50%, -50%);
   transform-origin: 50% 50%;
   padding: 0;
@@ -263,17 +263,8 @@ nav > button.active > .checkbox > i {
 
 .actor.pawn {
   background-color: #fff;
-}
-.actor.pawn::before {
-  position: absolute;
-  content: "";
-  display: block;
-  background-color: #000;
-  left: calc(50% - 5px);
-  bottom: -5px;
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
+  left: -25px;
+  top: -25px;
 }
 
 .actor.pawn.enemy {
@@ -290,6 +281,16 @@ nav > button.active > .checkbox > i {
 .actor.pawn.enemy > .cozyness > div {
   display: block;
   background-color: rgb(207, 95, 51);
+}
+
+@keyframes spiderrun {
+  0%   { background-position: -261px -133px;}
+  100% { background-position: -645px -133px; } 
+}
+.actor.pawn.enemy.spider {
+  border-radius: 0;
+  background: url('./assets/img/spider01.png') left top;
+  animation: spiderrun 0.7s steps(6) infinite;
 }
 
 
