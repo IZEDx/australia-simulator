@@ -160,24 +160,24 @@ class GameView extends DOMView {
     if (actor.isCircleCollider) el.classes.add("circle");
 
     // Actor update listener
-    updateActorPos() => move(el, (actor.location - actor.scale / 2.0) * _pixelScale);
-    updateActorScale() => setDimensions(el, actor.scale * _pixelScale);
-    updateActorRot() => rotate(el, actor.rotation);
+    updateActorPos(Vector2 vec) => move(el, (vec - actor.scale / 2.0) * _pixelScale);
+    updateActorScale(Vector2 vec) => setDimensions(el, vec * _pixelScale);
+    updateActorRot(Vector2 vec) => rotate(el, vec);
 
     // Register listeners
     if (actor is Pawn) {
       el.classes.add("pawn");
-      actor.onMove.listen((vec) => updateActorPos());
-      actor.onRotate.listen((vec) => updateActorRot());
-      actor.onScale.listen((vec) => updateActorScale());
+      actor.onMove.listen((vec) => updateActorPos(vec));
+      actor.onRotate.listen((vec) => updateActorRot(vec));
+      actor.onScale.listen((vec) => updateActorScale(vec));
     } else if (actor is Prop) {
       el.classes.add("prop");
     }
 
     // Initial update
-    updateActorPos();
-    updateActorRot();
-    updateActorScale();
+    updateActorPos(actor.location);
+    updateActorRot(actor.rotation);
+    updateActorScale(actor.scale);
 
     // Branch if actor is door
     if (actor is Door) {
@@ -283,11 +283,11 @@ class GameView extends DOMView {
   /**
    * Listens on the input and passes them to inputEvents.
    */
-  setupInput() {
-    StreamController<Vector2> touchEvent;
+  setupInput(Function cb) {
+    //StreamController<Vector2> touchEvent;
     Vector2 origin;
 
-    window.onDeviceOrientation.listen((e) {
+    /*window.onDeviceOrientation.listen((e) {
       if (useGyrosensor) {
         if (running) {
           if (touchEvent == null) {
@@ -307,21 +307,15 @@ class GameView extends DOMView {
           touchEvent = null;
         }
       }
-    });
+    });*/
 
-    relay(TouchEvent e) {
-      if (touchEvent != null) {
-        touchEvent.add(new Vector2((e.touches[0].page.x - origin.x) / _pixelScale, (e.touches[0].page.y - origin.y) / _pixelScale));
-      }
-    }
+    relay(TouchEvent e) => cb(new Vector2((e.touches[0].page.x - origin.x) / _pixelScale, (e.touches[0].page.y - origin.y) / _pixelScale));
 
     _inputLayer.onTouchStart.listen((e) {
       e.preventDefault();
       if (running && !useGyrosensor) {
 
         origin = new Vector2(e.touches[0].page.x, e.touches[0].page.y);
-        touchEvent = new StreamController();
-        _inputEvent.add(touchEvent.stream);
         
         relay(e);
         move(_inputKnob, origin - new Vector2(25.0, 25.0));
@@ -342,12 +336,8 @@ class GameView extends DOMView {
     _inputLayer.onTouchEnd.listen((e) {
       e.preventDefault();
       if (!useGyrosensor) {
-        if (touchEvent != null) {
-          touchEvent.add(new Vector2.zero());
-          touchEvent.close();
-          touchEvent = null;
-        }
         if (running) {
+          cb(new Vector2.zero());
           deactivate(get("Character"));
           get("world").classes.remove("changing");
         }

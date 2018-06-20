@@ -37,12 +37,7 @@ class GameController {
   }
 
   _setupInput() async {
-    gameView.setupInput();
-    new Observable(gameView.onInput)
-      .where((touches) => running)
-      .flatMap((touches) => touches)
-      .throttle(new Duration(milliseconds: 16))
-      .listen((touch) => gameMode.moveCharacter(touch));
+    gameView.setupInput((touch) => gameMode.moveCharacter(touch));
     /*await for (var touches in gameView.onInput) {
       if (running) {
         await for (var touch in touches) {
