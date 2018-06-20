@@ -294,13 +294,19 @@ nav > button.active > .checkbox > i {
 }
 
 
+@keyframes charrun {
+  0%   { background-position-x: -5px;}
+  100% { background-position-x: -581px; } 
+}
 .actor.pawn.character {
   z-index: 2;
-  border-radius: 100%;
-  transition: background-color 0.2s;
+  border-radius: 0;
+  background: url('./assets/img/char1.png') 0px 0px;
+  animation: charrun 0.7s steps(9) infinite;
   left: 50%;
   top: 50%;
+  background-position-y: -645px; 
 }
+
 .actor.pawn.character.active {
-  background-color: rgba(0,255,0, 1.0);
 }
