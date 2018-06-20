@@ -212,8 +212,9 @@ class GameView extends DOMView {
     el.classes.add("character");
     el.attributes["position"] = "translate(-50%, -50%)";
 
+    final world = get("world");
     // Setup listener
-    moveCamera(Vector2 pos) => move(get("world"), pos * -_pixelScale);
+    moveCamera(Vector2 pos) => move(world, pos * -_pixelScale);
 
     updateLives(lives) {
       var text = "";
@@ -291,7 +292,7 @@ class GameView extends DOMView {
         if (running) {
           if (touchEvent == null) {
             touchEvent = new StreamController();
-            _inputEvent.add(touchEvent.stream.asBroadcastStream());
+            _inputEvent.add(touchEvent.stream);
           }
 
           final target = new Vector2(
@@ -310,8 +311,7 @@ class GameView extends DOMView {
 
     relay(TouchEvent e) {
       if (touchEvent != null) {
-        final offset = new Vector2(e.touches[0].page.x - origin.x, e.touches[0].page.y - origin.y);
-        touchEvent.add(offset / _pixelScale);
+        touchEvent.add(new Vector2((e.touches[0].page.x - origin.x) / _pixelScale, (e.touches[0].page.y - origin.y) / _pixelScale));
       }
     }
 
@@ -321,7 +321,7 @@ class GameView extends DOMView {
 
         origin = new Vector2(e.touches[0].page.x, e.touches[0].page.y);
         touchEvent = new StreamController();
-        _inputEvent.add(touchEvent.stream.asBroadcastStream());
+        _inputEvent.add(touchEvent.stream);
         
         relay(e);
         move(_inputKnob, origin - new Vector2(25.0, 25.0));

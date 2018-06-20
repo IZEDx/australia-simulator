@@ -41,6 +41,7 @@ class GameController {
     new Observable(gameView.onInput)
       .where((touches) => running)
       .flatMap((touches) => touches)
+      .throttle(new Duration(milliseconds: 16))
       .listen((touch) => gameMode.moveCharacter(touch));
     /*await for (var touches in gameView.onInput) {
       if (running) {
@@ -62,7 +63,7 @@ class GameController {
       gameView.hintBig(lvldata.spawnText, new Duration(seconds: 4));
 
       _lastTick = window.performance.now() / 1000;
-      final interval = new Duration(milliseconds: 32);
+      final interval = new Duration(milliseconds: 16);
       while (running) {
         await gameView.timeout(interval);
         final time = window.performance.now() / 1000;
