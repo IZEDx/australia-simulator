@@ -70,10 +70,13 @@ class GameController {
 
   _gameOver(won) async {
     if (gameMode.running) {
+      final charEl = gameView.get("Character");
       if (won) {
         levelManager.current = ++levelManager.current % levelManager.size;
       }
       gameMode.stop();
+      gameView.deactivate(charEl);
+      charEl.classes.add(won ? "finish" : "dead");
       await gameView.hintBig(won ? "Well Done!" : "Game Over", new Duration(seconds: 3));
       gameView.closeGameView();
     }
