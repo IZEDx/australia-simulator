@@ -249,6 +249,11 @@ nav > button.active > .checkbox > i {
   width: 100%;
   height: 550%;
   background-color: rgba(255,255,100, 1.0);
+  transition: transform ease-out 0.25s, background-color 0.25s;
+}
+.actor.door.active::before {
+  transform: scale(1.5);
+  background-color: rgba(255,255,180, 1);
 }
 .actor.door::after {
   position: absolute;

@@ -266,6 +266,15 @@ class GameView extends DOMView {
       .throttle( new Duration(seconds: 4) )
       .where( (Actor a) => a is Character )
       .listen( (Actor a) => hintBig("You wanna leave already?", new Duration(seconds: 3)) );
+
+  
+    new Observable(door.onCollide)
+      .throttle( new Duration(seconds: 1) )
+      .listen( (Actor a) async {
+        activate(el);
+        await timeout(new Duration(milliseconds: 250));
+        deactivate(el);
+      } );
   }
 
   /**
