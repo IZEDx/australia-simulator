@@ -292,6 +292,12 @@ nav > button.active > .checkbox > i {
   background: url('./assets/img/spider01.png') left top;
   animation: spiderrun 0.7s steps(6) infinite;
 }
+.actor.pawn.enemy.spider.big {
+  background: url('./assets/img/spider06.png') left top;
+}
+.actor.pawn.enemy.spider.big.red {
+  background: url('./assets/img/spider04.png') left top;
+}
 
 
 @keyframes charrun {
@@ -305,7 +311,7 @@ nav > button.active > .checkbox > i {
   animation: charrun 0.7s steps(9) infinite;
   left: 50%;
   top: 50%;
-  background-position-y: -645px; 
+  background-position-y: -650px;
 }
 
 .actor.pawn.character.active {

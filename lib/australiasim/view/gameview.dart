@@ -77,6 +77,8 @@ class GameView extends DOMView {
       //show(get("selectLevel"));
     }
 
+    clearCache();
+
     // Toggle States
     hide(_gameLayer);
     show(_menuLayer);
@@ -173,6 +175,7 @@ class GameView extends DOMView {
       actor.onRotate.listen((vec) => updateActorRot(vec));
       actor.onScale.listen((vec) => updateActorScale(vec));
       updateActorScale(actor.scale);
+      updateActorPos(actor.location);
     } else if (actor is Prop) {
       el.classes.add("prop");
       updateActorPos(actor.location - actor.scale / 2.0);
@@ -230,13 +233,13 @@ class GameView extends DOMView {
     // Register listener
     char.onMove.listen((vec) => moveCamera(vec));
     char.onRotate.listen((vec) => rotate(el, vec));
-    char.onScale.listen((vec) => scale(el, vec / 100.0));
+    char.onScale.listen((vec) => scale(el, vec / 90.0));
     char.onLivesChange.listen(updateLives);
 
     // Initial update
     moveCamera(char.location);
     rotate(el, char.rotation);
-    scale(el, char.scale / 100.0);
+    scale(el, char.scale / 90.0);
     updateLives(char.charLives);
   }
 
@@ -264,6 +267,8 @@ class GameView extends DOMView {
     el.classes.add("enemy");
 
     if (enemy is Spider) el.classes.add("spider");
+    if (enemy is BigSpider) el.classes.add("big");
+    if (enemy is BigRedSpider) el.classes.add("red");
 
 
     final cozynessEl = create(el, enemy.name + "-cozyness");

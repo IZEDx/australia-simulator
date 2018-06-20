@@ -126,10 +126,11 @@ Vector2 _listToVec2(List list) {
 Actor _parseActor(String actorType) {
   Actor actor;
   switch (actorType) {
-    case "bigspider": actor = new BigSpider();  break;
-    case "spider":    actor = new Spider();     break;
-    case "box":       actor = new Box();        break;
-    default:          actor = new Actor();
+    case "bigredspider":  actor = new BigRedSpider(); break;
+    case "bigspider":     actor = new BigSpider();    break;
+    case "spider":        actor = new Spider();       break;
+    case "box":           actor = new Box();          break;
+    default:              actor = new Actor();        break;
   }
   return actor;
 }

@@ -6,6 +6,6 @@ class BigSpider extends Spider
   {
       maxSpeed = 600.0;
       name = "BigSpider" + genUID();
-      scale *= 2.0;
+      scale *= 1.5;
   }
 }

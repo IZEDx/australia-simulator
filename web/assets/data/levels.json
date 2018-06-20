@@ -7,5 +7,8 @@
     },
     {
         "path": "./assets/data/levels/2-who-are-you.json"
+    },
+    {
+        "path": "./assets/data/levels/3-cmon-mate.json"
     }
 ]
