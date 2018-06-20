@@ -308,11 +308,11 @@ nav > button.active > .checkbox > i {
   z-index: 2;
   border-radius: 0;
   background: url('./assets/img/char1.png') 0px 0px;
-  animation: charrun 0.7s steps(9) infinite;
   left: 50%;
   top: 50%;
-  background-position-y: -650px;
+  background-position: -5px -650px;
 }
 
 .actor.pawn.character.active {
+  animation: charrun 0.7s steps(9) infinite;
 }

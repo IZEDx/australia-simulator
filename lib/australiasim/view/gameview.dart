@@ -232,13 +232,23 @@ class GameView extends DOMView {
 
     // Register listener
     char.onMove.listen((vec) => moveCamera(vec));
-    char.onRotate.listen((vec) => rotate(el, vec));
+    char.onRotate.listen((vec) {
+      final radians = atan2(vec.x, vec.y);
+      if (radians > PI * 3/4 || radians < -PI * 3/4) {  // North
+        el.style.backgroundPositionY = "-522px";
+      } else if (radians < -PI / 4) { // East
+        el.style.backgroundPositionY = "-586px";
+      } else if (radians < PI / 4) {  // South
+        el.style.backgroundPositionY = "-650px";
+      } else {  // West
+        el.style.backgroundPositionY = "-714px";
+      }
+    });
     char.onScale.listen((vec) => scale(el, vec / 90.0));
     char.onLivesChange.listen(updateLives);
 
     // Initial update
     moveCamera(char.location);
-    rotate(el, char.rotation);
     scale(el, char.scale / 90.0);
     updateLives(char.charLives);
   }
