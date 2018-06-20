@@ -40,6 +40,7 @@ class Enemy extends Pawn
         case EnemyState.idle:
             return maxSpeed * 0.33;
     }     
+    return 0.0;
   }
 
   Enemy() : super()
