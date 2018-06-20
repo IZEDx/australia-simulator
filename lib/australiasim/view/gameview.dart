@@ -61,7 +61,7 @@ class GameView extends DOMView {
   GameView(GameMode this._gameMode, LevelManager this._levelManager) {
     onInput = _inputEvent.stream.asBroadcastStream(); // Create Broadcast stream of inputEvent
     _mainElement.classes.add("loaded"); // Indicate that the game program has loaded
-    useGyrosensor = window.localStorage["useGyrosensor"] == "1";
+    //useGyrosensor = window.localStorage["useGyrosensor"] == "1";
   }
   
   /**

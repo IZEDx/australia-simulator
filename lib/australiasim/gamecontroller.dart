@@ -22,10 +22,10 @@ class GameController {
     await levelManager.load();
     gameView.closeGameView();
 
-    gameView.get("useGyrosensor").onClick.listen((e) {
+    /*gameView.get("useGyrosensor").onClick.listen((e) {
       e.preventDefault();
       gameView.useGyrosensor = !gameView.useGyrosensor;
-    });
+    });*/
 
     gameView.get("startGame").onClick.listen((e) {
       e.preventDefault();
