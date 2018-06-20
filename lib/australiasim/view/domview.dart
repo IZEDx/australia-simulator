@@ -71,11 +71,11 @@ class DOMView {
    * This function prevents seperate manual transform updates,
    * that either update rotation or position to override each other.
    */
-  void transform(Element el, { Vector2 position, Vector2 rotation }) {
+  void transform(Element el, { Vector2 position, Vector2 rotation, Vector2 scale }) {
     var transformation = "";
 
     if (position != null) {
-      el.attributes["position"] = "translate(${position.x}px, ${position.y}px)";
+      el.attributes["position"] = "translate(${position.x.round()}px, ${position.y.round()}px)";
     }
     
     if (rotation != null) {
@@ -83,8 +83,13 @@ class DOMView {
       el.attributes["rotation"] = "rotate(${-degrees}rad)";
     }
 
+    if (scale != null) {
+      el.attributes["scale"] = "scale(${scale.x}, ${scale.y})";
+    }
+
     if ( el.attributes.containsKey("position")  ) transformation += el.attributes["position"] + " ";
     if ( el.attributes.containsKey("rotation")  ) transformation += el.attributes["rotation"] + " ";
+    if ( el.attributes.containsKey("scale")  )    transformation += el.attributes["scale"] + " ";
 
     el.style.transform = transformation;
   }
@@ -97,6 +102,10 @@ class DOMView {
    * Rotates the Element to the given rotation.
    */
   void rotate( Element el, Vector2 rotation) => transform(el, rotation:  rotation);
+  /**
+   * Scales the Element to the given scale.
+   */
+  void scale( Element el, Vector2 scale) => transform(el, scale:  scale);
   
   /**
    * Shows the Element.

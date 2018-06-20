@@ -58,7 +58,7 @@ class GameController {
       gameView.hintBig(lvldata.spawnText, new Duration(seconds: 4));
 
       _lastTick = window.performance.now() / 1000;
-      final interval = new Duration(milliseconds: 16);
+      final interval = new Duration(milliseconds: 32);
       while (running) {
         await gameView.timeout(interval);
         final time = window.performance.now() / 1000;

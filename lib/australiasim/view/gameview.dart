@@ -159,9 +159,11 @@ class GameView extends DOMView {
     // Make Actor circular if necessary
     if (actor.isCircleCollider) el.classes.add("circle");
 
+    
+
     // Actor update listener
-    updateActorPos(Vector2 vec) => move(el, (vec - actor.scale / 2.0) * _pixelScale);
-    updateActorScale(Vector2 vec) => setDimensions(el, vec * _pixelScale);
+    updateActorPos(Vector2 vec) => move(el, vec * _pixelScale);
+    updateActorScale(Vector2 vec) => scale(el, vec / 100.0);
     updateActorRot(Vector2 vec) => rotate(el, vec);
 
     // Register listeners
@@ -170,14 +172,15 @@ class GameView extends DOMView {
       actor.onMove.listen((vec) => updateActorPos(vec));
       actor.onRotate.listen((vec) => updateActorRot(vec));
       actor.onScale.listen((vec) => updateActorScale(vec));
+      updateActorScale(actor.scale);
     } else if (actor is Prop) {
       el.classes.add("prop");
+      updateActorPos(actor.location - actor.scale / 2.0);
+      setDimensions(el, actor.scale * _pixelScale);
     }
 
     // Initial update
-    updateActorPos(actor.location);
     updateActorRot(actor.rotation);
-    updateActorScale(actor.scale);
 
     // Branch if actor is door
     if (actor is Door) {
@@ -227,11 +230,13 @@ class GameView extends DOMView {
     // Register listener
     char.onMove.listen((vec) => moveCamera(vec));
     char.onRotate.listen((vec) => rotate(el, vec));
+    char.onScale.listen((vec) => scale(el, vec / 100.0));
     char.onLivesChange.listen(updateLives);
 
     // Initial update
     moveCamera(char.location);
     rotate(el, char.rotation);
+    scale(el, char.scale / 100.0);
     updateLives(char.charLives);
   }
 
@@ -257,6 +262,9 @@ class GameView extends DOMView {
 
     // Mark as enemy
     el.classes.add("enemy");
+
+    if (enemy is Spider) el.classes.add("spider");
+
 
     final cozynessEl = create(el, enemy.name + "-cozyness");
     cozynessEl.classes.add("cozyness");
