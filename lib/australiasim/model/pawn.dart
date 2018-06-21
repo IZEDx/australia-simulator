@@ -2,7 +2,6 @@ part of australiasim;
 
 class Pawn extends Actor
 {
-    // speed in cm/s
     double _maxSpeed = 400.0;
     Vector2 _currentTargetLocation = new Vector2(0.0, 0.0);
     set maxSpeed(double speed) => _maxSpeed = speed;
@@ -26,11 +25,10 @@ class Pawn extends Actor
 
     void tick(double deltaTime)
     {
-      if(this.location.distanceTo(this._currentTargetLocation) > 7.0)
-      {
-          final nextPos = _calcNextPosition(deltaTime);
-          this.location = nextPos;
-      }
+      
+        final nextPos = _calcNextPosition(deltaTime);
+        this.location = nextPos;
+      
     }
 
     Vector2 _calcNextPosition(double deltaTime)
@@ -39,7 +37,6 @@ class Pawn extends Actor
         final nextPos = (this.rotation * this.speed * deltaTime) + this.location;
 
         // Edge handling
-
         final r = this.scale / 2.0;
         if (nextPos.x < r.x) nextPos.x = r.x;
         if (nextPos.y < r.y) nextPos.y = r.y;
@@ -55,9 +52,8 @@ class Pawn extends Actor
         {
           for(var actor in collisions)
           {
-            actor.collideEvent.add(this);
-            this.collideEvent.add(actor);
-
+              actor.collideEvent.add(this);
+              this.collideEvent.add(actor);
 
               // Edge sliding
               if(!actor.isCircleCollider)
@@ -73,8 +69,8 @@ class Pawn extends Actor
                       final nuPos2 = this.location + normals[2] * this.speed * deltaTime;
                       final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
 
-                        if(collidingWithOnPosition(finPos).length == 0)
-                          return finPos;
+                      if(collidingWithOnPosition(finPos).length == 0)
+                        return finPos;
                   }
                   else if(!this.isCollidingWith(actor, this.location + normals[1] * 8.0) && !this.isCollidingWith(actor, this.location + normals[3] * 8.0))
                   {
@@ -82,8 +78,8 @@ class Pawn extends Actor
                       final nuPos2 = this.location + normals[3] * this.speed * deltaTime;
                       final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
 
-                        if(collidingWithOnPosition(finPos).length == 0)
-                          return finPos;
+                      if(collidingWithOnPosition(finPos).length == 0)
+                        return finPos;
                   }
                   else
                   {
@@ -92,7 +88,7 @@ class Pawn extends Actor
                       {
                         final finPos = nextPos.distanceTo(filtered[0]) > nextPos.distanceTo(filtered[1]) ? filtered[1] : filtered[0];
                         if(collidingWithOnPosition(finPos).length == 0)
-                            return finPos;
+                          return finPos;
                       }  
                   }
               }
