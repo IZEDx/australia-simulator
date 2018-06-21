@@ -161,8 +161,6 @@ class GameView extends DOMView {
     // Make Actor circular if necessary
     if (actor.isCircleCollider) el.classes.add("circle");
 
-    
-
     // Actor update listener
     updateActorPos(Vector2 vec) => move(el, vec * _pixelScale);
     updateActorScale(Vector2 vec) => scale(el, vec / 100.0);
@@ -185,15 +183,9 @@ class GameView extends DOMView {
     // Initial update
     updateActorRot(actor.rotation);
 
-    // Branch if actor is door
-    if (actor is Door) {
-      makeDoor(el, actor);
-    }
-
-    // Branch if actor is enemy
-    else if (actor is Enemy) {
-      makeEnemy(el, actor);
-    }
+    if      (actor is Door)   makeDoor(el, actor);
+    else if (actor is Enemy)  makeEnemy(el, actor);
+    else if (actor is Tree)   el.classes.add("tree");
   }
 
   /**
@@ -235,13 +227,13 @@ class GameView extends DOMView {
     char.onRotate.listen((vec) {
       final radians = atan2(vec.x, vec.y);
       if (radians > PI * 4/5 || radians < -PI * 4/5) {  // North
-        el.style.backgroundPositionY = "-522px";
+        el.style.backgroundPositionY = "-525px";
       } else if (radians < -PI / 5) { // East
-        el.style.backgroundPositionY = "-586px";
+        el.style.backgroundPositionY = "-589px";
       } else if (radians < PI / 5) {  // South
-        el.style.backgroundPositionY = "-650px";
+        el.style.backgroundPositionY = "-653px";
       } else {  // West
-        el.style.backgroundPositionY = "-714px";
+        el.style.backgroundPositionY = "-717px";
       }
     });
     char.onScale.listen((vec) => scale(el, vec / 90.0));

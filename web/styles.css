@@ -237,6 +237,12 @@ nav > button.active > .checkbox > i {
 .actor.prop {
   background-color: #000;
 }
+
+.actor.tree {
+  background: url('./assets/img/plants/plant_repack.png') -5px -10px;
+  background-size: calc(100% * 7) calc(100% * 3)
+}
+
 .actor.door {
   background-color: transparent;
 }
@@ -306,16 +312,16 @@ nav > button.active > .checkbox > i {
 
 
 @keyframes char-run {
-  0%   { background-position-x: -5px;}
-  100% { background-position-x: -581px; } 
+  0%   { background-position-x: -7px;}
+  100% { background-position-x: -583px; } 
 }
 @keyframes char-finish {
-  0%   { background-position: -5px -138px; }
-  100% { background-position: -391px -138px; } 
+  0%   { background-position: -7px -141px; }
+  100% { background-position: -393px -141px; } 
 }
 @keyframes char-dead {
-  0%   { background-position: -5px -1290px; }
-  100% { background-position: -391px -1290px; } 
+  0%   { background-position: -7px -1293px; }
+  100% { background-position: -393px -1293px; } 
 }
 .actor.pawn.character {
   z-index: 2;
@@ -323,11 +329,25 @@ nav > button.active > .checkbox > i {
   background: url('./assets/img/char1.png') 0px 0px;
   left: 50%;
   top: 50%;
-  background-position: -5px -650px;
+  background-position: -7px -653px;
 }
-
+.actor.pawn.character::before {
+  position: absolute;
+  content: "";
+  display: block;
+  left: 0;
+  top: 0;
+  border-radius: 100%;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.2s;
+}
 .actor.pawn.character.active {
   animation: char-run 0.7s steps(9) infinite;
+}
+.actor.pawn.character.active::before {
+  background-color: rgba(255,255,255,0.1);
 }
 
 .actor.pawn.character.finish-anim {

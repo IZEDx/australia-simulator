@@ -126,6 +126,7 @@ Vector2 _listToVec2(List list) {
 Actor _parseActor(String actorType) {
   Actor actor;
   switch (actorType) {
+    case "tree":          actor = new Tree();         break;
     case "bigredspider":  actor = new BigRedSpider(); break;
     case "bigspider":     actor = new BigSpider();    break;
     case "spider":        actor = new Spider();       break;
