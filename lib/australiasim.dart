@@ -25,6 +25,7 @@ part "./australiasim/model/prop.dart";
 part "./australiasim/model/props/door.dart";
 part "./australiasim/model/props/box.dart";
 part "./australiasim/model/props/tree.dart";
+part "./australiasim/model/props/shrub.dart";
 
 part "./australiasim/model/pawns/character.dart";
 part "./australiasim/model/pawns/enemy.dart";

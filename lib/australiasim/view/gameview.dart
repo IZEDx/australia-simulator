@@ -163,29 +163,33 @@ class GameView extends DOMView {
 
     // Actor update listener
     updateActorPos(Vector2 vec) => move(el, vec * _pixelScale);
-    updateActorScale(Vector2 vec) => scale(el, vec / 100.0);
     updateActorRot(Vector2 vec) => rotate(el, vec);
+    updateActorScale(Vector2 vec) => scale(el, vec / 100.0);
 
     // Register listeners
     if (actor is Pawn) {
-      el.classes.add("pawn");
+
       actor.onMove.listen((vec) => updateActorPos(vec));
       actor.onRotate.listen((vec) => updateActorRot(vec));
       actor.onScale.listen((vec) => updateActorScale(vec));
-      updateActorScale(actor.scale);
       updateActorPos(actor.location);
+      updateActorRot(actor.rotation);
+      updateActorScale(actor.scale);
+
+      el.classes.add("pawn");
+      if (actor is Enemy)  makeEnemy(el, actor);
+      
     } else if (actor is Prop) {
-      el.classes.add("prop");
+
       updateActorPos(actor.location - actor.scale / 2.0);
+      updateActorRot(actor.rotation);
       setDimensions(el, actor.scale * _pixelScale);
+
+      el.classes.add("prop");
+      if (actor is Tree)   el.classes.add("tree");
+      if (actor is Shrub)  el.classes.add("shrub");
+      if (actor is Door)   makeDoor(el, actor);
     }
-
-    // Initial update
-    updateActorRot(actor.rotation);
-
-    if      (actor is Door)   makeDoor(el, actor);
-    else if (actor is Enemy)  makeEnemy(el, actor);
-    else if (actor is Tree)   el.classes.add("tree");
   }
 
   /**
