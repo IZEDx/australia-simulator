@@ -1,42 +1,50 @@
 part of australiasim;
-
+/// Base class used for entities which are able to move
 class Pawn extends Actor
 {
+    /// Actual max speed 
     double _maxSpeed = 400.0;
+    /// Target location to move towards to
     Vector2 _currentTargetLocation = new Vector2(0.0, 0.0);
+
+    /// Set new max [speed]
     set maxSpeed(double speed) => _maxSpeed = speed;
+    /// The max speed
     double get maxSpeed => _maxSpeed;
+
+    /// The current speed
     double get speed => _maxSpeed;
 
-    StreamController<Vector2> _newTargetEvent = new StreamController();
-    Stream<Vector2> get onNewTarget => _newTargetEvent.stream.asBroadcastStream();
-
+  	/// Constructor 
     Pawn() : super()
     {
+        // Pawns use a circle collider by default
         this.isCircleCollider = true;
         this.name = "Pawn" + genUID();
     }
 
+    /// Assign a new target [position]
     void requestWalkToLocation(Vector2 position)
     {
         this._currentTargetLocation = position;
-        _newTargetEvent.add(position);
     }
 
+    @override
     void tick(double deltaTime)
     {
-      
+        // Movement updates
         final nextPos = _calcNextPosition(deltaTime);
         this.location = nextPos;
       
     }
 
+    /// Returns the next position in the movement to the [_currentTargetLocation] based on a given [deltaTime]
     Vector2 _calcNextPosition(double deltaTime)
     {
         this.rotation = this._currentTargetLocation - this.location;
         final nextPos = (this.rotation * this.speed * deltaTime) + this.location;
 
-        // Edge handling
+        // World edge handling
         final r = this.scale / 2.0;
         if (nextPos.x < r.x) nextPos.x = r.x;
         if (nextPos.y < r.y) nextPos.y = r.y;
@@ -97,7 +105,8 @@ class Pawn extends Actor
 
         return this.location;
     }
-
+    
+    /// Returns a list of other Actors which collide with this Pawn on a given [destLocation]
     List<Actor> collidingWithOnPosition(Vector2 destLocation)
     {
         List<Actor> tColl = new List<Actor>();

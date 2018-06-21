@@ -1,6 +1,9 @@
 part of australiasim;
 
+/// IDs of all actors
 List<int> UIDstore = [];
+
+/// Returns a unique id 
 String genUID() {
   final ran = new Random();
   int n;
@@ -11,27 +14,51 @@ String genUID() {
   return n.toString();
 }
 
+/// Base class used for entities in the world
 class Actor {
+
+  /// World context the actor is placed in
   World world = null;
+
+  /// Location
   Vector2 _location = new Vector2(50.0, 50.0);
+
+  /// Rotation
   Vector2 _rotation = new Vector2(0.0, -1.0);
+
+  /// Scale
   Vector2 _scale = new Vector2(100.0, 100.0);
+
+  /// Collider dimensions 
   Vector2 _colliderBoxExtent = new Vector2(100.0, 100.0);
+
+  /// Using a circle or box primitive for collision?
   bool _isCircleCollider = false;
+
+  /// Name
   String _name = "";
 
+  /// StreamController used for position updates
   StreamController<Vector2> _moveEvent = new StreamController();
+  /// Stream of position updates
   Stream<Vector2> onMove;
 
+  /// StreamController used for rotation updates
   StreamController<Vector2> _rotateEvent = new StreamController();
+  /// Stream of rotation updates
   Stream<Vector2> onRotate;
 
+  /// StreamController used for scaling updates
   StreamController<Vector2> _scaleEvent = new StreamController();
+  /// Stream of scaling updates
   Stream<Vector2> onScale;
 
+  /// StreamController used for collide Events 
   StreamController<Actor> collideEvent = new StreamController();
+  /// Stream of collisions 
   Stream<Actor> onCollide;
 
+  /// Constructor
   Actor() {
     this.name = "Actor" + genUID();
     this.onMove = _moveEvent.stream.asBroadcastStream();
@@ -40,70 +67,85 @@ class Actor {
     this.onCollide = collideEvent.stream.asBroadcastStream();
   }
 
+  /// Is this actor still placed in a valid world
   bool get valid => world != null;
 
+  /// Sets new [name]
   set name(String name) => _name = name;
+  /// Name
   String get name => _name;
 
-  set location(Vector2 loc) {
-    _location = loc;
-    _moveEvent.add(_location);
+  /// Sets new [location]
+  set location(Vector2 location) {
+    this._location = location;
+    this._moveEvent.add(_location);
   }
+  /// Location
   Vector2 get location => _location;
 
-  set rotation(Vector2 rot) {
-    _rotation = rot.normalized();
-    _rotateEvent.add(_rotation);
+  /// Set new [rotation]
+  set rotation(Vector2 rotation) {
+    this._rotation = rotation.normalized();
+    this._rotateEvent.add(_rotation);
   }
+  /// Rotation
   Vector2 get rotation => _rotation;
 
+  /// Sets new [scale]
   set scale(Vector2 scale) {
     _scale = scale;
     _scaleEvent.add(_scale);
   }
   Vector2 get scale => _scale;
 
-  set colliderBoxExtent(Vector2 box) => _colliderBoxExtent = box;
+  /// Set new collider [dimensions]
+  set colliderBoxExtent(Vector2 dimensions) => _colliderBoxExtent = dimensions;
+  /// Collider dimensions
   Vector2 get colliderBoxExtent => _colliderBoxExtent;
 
+  /// Sets whether is using [isCircleCollider] for collision
   set isCircleCollider (bool isCircleCollider) => _isCircleCollider  = isCircleCollider ;
+  /// Using a circle or box primitive for collision?
   bool get isCircleCollider  => _isCircleCollider ;
 
+  /// Called when being successfully spawned in a world
   void beginPlay()
   {
 
   }
-
-  void tick(double time) 
+  /// Used for operations which need to be done in short intervals where [deltaTime] specifies the time since the last tick
+  void tick(double deltaTime) 
   {
 
   }
 
+  /// Is colliding with [other] on an optional [destLocation]?
   bool isCollidingWith(Actor other, [Vector2 destLocation])
   {
-    if (destLocation == null) {
-      destLocation = this.location.clone();
-    }
+      if (destLocation == null) {
+        destLocation = this.location.clone();
+      }
 
-    final noBoxColl = !this.isCircleCollider && (this.colliderBoxExtent.x * this.colliderBoxExtent.y <= 0.0 || other.colliderBoxExtent.x * other.colliderBoxExtent.y <= 0.0);
-    final noCircleColl = this.isCircleCollider && (max(this.colliderBoxExtent.y, this.colliderBoxExtent.x) <= 0.0 || max(other.colliderBoxExtent.y, other.colliderBoxExtent.x) <= 0.0);
+      final noBoxColl = !this.isCircleCollider && (this.colliderBoxExtent.x * this.colliderBoxExtent.y <= 0.0 || other.colliderBoxExtent.x * other.colliderBoxExtent.y <= 0.0);
+      final noCircleColl = this.isCircleCollider && (max(this.colliderBoxExtent.y, this.colliderBoxExtent.x) <= 0.0 || max(other.colliderBoxExtent.y, other.colliderBoxExtent.x) <= 0.0);
 
-    if(other == null || noBoxColl || noCircleColl)
-    {
-      return false;
-    }
+      if(other == null || noBoxColl || noCircleColl)
+      {
+        return false;
+      }
 
-    if(other.isCircleCollider)
-    {
-        return _isCollidingWithCircle(other, destLocation);
-    }
-    else
-    {
-        return _isCollidingWithRectangle(other, destLocation);
-    }
+      if(other.isCircleCollider)
+      {
+          return _isCollidingWithCircle(other, destLocation);
+      }
+      else
+      {
+          return _isCollidingWithRectangle(other, destLocation);
+      }
 
   }
 
+  /// Helper for [isCollidingWith()] when colliding with [other] circle collider actor on [destLocation]
   bool _isCollidingWithCircle(Actor other, Vector2 destLocation)
   {
       if(this.isCircleCollider)
@@ -119,7 +161,7 @@ class Actor {
         return _circleBoxCollision(other, other.location, this, destLocation);
       }
   }
-
+  /// Helper for [isCollidingWith()] when colliding with [other] box collider actor on [destLocation]
   bool _isCollidingWithRectangle(Actor other, Vector2 destLocation)
   {
     if(this.isCircleCollider)
@@ -160,6 +202,7 @@ class Actor {
 
   }
   
+  /// Returns list of corners this actor had with a box collider on [destLocation]
   List<Vector2> getBoxColliderCorners(Vector2 destLocation)
   {
       List<Vector2> tList = new List<Vector2>();
@@ -175,16 +218,13 @@ class Actor {
       return tList;
   }
 
+  /// Helper method for [_isCollidingWithRectangle] and [_isCollidingWithCircle]. Returns whether a [circleActor] on [circleLocation] and [boxActor] on [boxLocation] collide.
   static bool _circleBoxCollision(Actor circleActor, Vector2 circleLocation, Actor boxActor, Vector2 boxLocation)
   {
       final unrotatedCirclePos = _rotatePointAround(circleLocation, boxLocation, atan2(boxActor.rotation.x, boxActor.rotation.y));
-
       final scaledCircle = circleActor.colliderBoxExtent.clone();
-
       final scaledBox = boxActor.colliderBoxExtent.clone();
-
       final tBox = boxLocation - (scaledBox / 2.0);
-
       Vector2 minVector = unrotatedCirclePos.clone();
 
       if(unrotatedCirclePos.x < tBox.x)
@@ -208,6 +248,7 @@ class Actor {
       return unrotatedCirclePos.distanceTo(minVector) < min(scaledCircle.x, scaledCircle.y);
   }
 
+  /// Returns list of normals a collider box has constructed by a list of [corners]
   static List<Vector2> getColliderBoxNormals(List<Vector2> corners)
   {
       List<Vector2> tList = new List<Vector2>();
@@ -219,6 +260,7 @@ class Actor {
 
   }
 
+  /// Returns location of a [point] when rotated around a [center] by the amount of given [radians]
   static Vector2 _rotatePointAround(Vector2 point, Vector2 center, double radians)
   {
     final offset = point - center;
