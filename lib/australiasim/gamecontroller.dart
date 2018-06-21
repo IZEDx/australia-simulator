@@ -4,9 +4,9 @@ class GameController {
   GameMode gameMode;
   GameView gameView;
   LevelManager levelManager;
-  double _lastTick = 0.0;
 
-  bool get running => gameMode.running;
+  double _lastTick = 0.0;
+  bool _running = false;
 
   GameController() {
 
@@ -20,7 +20,7 @@ class GameController {
 
   _init() async {
     await levelManager.load();
-    gameView.closeGameView();
+    gameView.closeGameView(false);
 
     /*gameView.get("useGyrosensor").onClick.listen((e) {
       e.preventDefault();
@@ -37,7 +37,9 @@ class GameController {
   }
 
   _setupInput() async {
-    gameView.setupInput((touch) => gameMode.moveCharacter(touch));
+    gameView.setupInput((touch) {
+      if (_running) gameMode.moveCharacter(touch);
+    });
     /*await for (var touches in gameView.onInput) {
       if (running) {
         await for (var touch in touches) {
@@ -49,17 +51,18 @@ class GameController {
   }
 
   _startGame(int level) async {
-    if (!running) {
+    if (!_running) {
       final lvldata = levelManager.get(level);
       gameMode.load(lvldata);
       gameView.openGameView();
       gameMode.start();
+      _running = true;
       
       gameView.hintBig(lvldata.spawnText, new Duration(seconds: 4));
 
       _lastTick = window.performance.now() / 1000;
       final interval = new Duration(milliseconds: 32);
-      while (running) {
+      while (gameMode.running) {
         await gameView.timeout(interval);
         final time = window.performance.now() / 1000;
         gameMode.tick(time - _lastTick);
@@ -69,20 +72,27 @@ class GameController {
   }
 
   _gameOver(won) async {
-    if (gameMode.running) {
-      final charEl = gameView.get("Character");
-      if (won) {
-        levelManager.current = ++levelManager.current % levelManager.size;
-      }
-      gameMode.stop();
-      gameView.deactivate(charEl);
-      gameView.timeout(
-        new Duration(milliseconds: 768), // Animation time - 32ms to account for the animation jumping back to start.
-        before: () => charEl.classes.add(won ? "finish-anim" : "dead-anim"), 
-        after: () => charEl.classes.add(won ? "finish" : "dead")
-      );
-      await gameView.hintBig(won ? "Well Done!" : "Game Over", new Duration(seconds: 3));
-      gameView.closeGameView();
+    if (!_running) return;
+    final charEl = gameView.get("Character");
+    _running = false;
+
+    if (won) {
+      levelManager.current = ++levelManager.current % levelManager.size;
     }
+
+    gameMode.player.walk(new Vector2.zero());
+
+    // Character animations
+    gameView.deactivate(charEl);
+    gameView.timeout(
+      new Duration(milliseconds: 768), // Animation time - 32ms to account for the animation jumping back to start.
+      before: () => charEl.classes.add(won ? "finish-anim" : "dead-anim"), 
+      after: () => charEl.classes.add(won ? "finish" : "dead")
+    );
+
+    await gameView.hintBig(won ? "Well Done!" : "Game Over", new Duration(seconds: 3));
+
+    gameMode.stop();
+    gameView.closeGameView(!won);
   }
 }

@@ -67,12 +67,12 @@ class GameView extends DOMView {
   /**
    * Closes the game view and shows the menu.
    */
-  closeGameView() async {
+  closeGameView(bool failed) async {
     // Reset Game
     _gameLayer.setInnerHtml("");
 
-    get("startGame").setInnerHtml(_levelManager.current > 0 ? "CONTINUE!" : "ENTER!");
-    
+    get("startGame").setInnerHtml(failed ? "RETRY!" : _levelManager.current > 0 ? "CONTINUE!" : "ENTER!");
+
     if (_levelManager.unlocked > 0) {
       //show(get("selectLevel"));
     }
