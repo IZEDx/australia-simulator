@@ -76,7 +76,11 @@ class GameController {
       }
       gameMode.stop();
       gameView.deactivate(charEl);
-      charEl.classes.add(won ? "finish" : "dead");
+      gameView.timeout(
+        new Duration(milliseconds: 768), // Animation time - 32ms to account for the animation jumping back to start.
+        before: () => charEl.classes.add(won ? "finish-anim" : "dead-anim"), 
+        after: () => charEl.classes.add(won ? "finish" : "dead")
+      );
       await gameView.hintBig(won ? "Well Done!" : "Game Over", new Duration(seconds: 3));
       gameView.closeGameView();
     }

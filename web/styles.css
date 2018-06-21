@@ -310,12 +310,12 @@ nav > button.active > .checkbox > i {
   100% { background-position-x: -581px; } 
 }
 @keyframes char-finish {
-  0%   { background-position: -5px -1290px; }
-  100% { background-position: -391px -1290px; } 
+  0%   { background-position: -5px -138px; }
+  100% { background-position: -391px -138px; } 
 }
 @keyframes char-dead {
   0%   { background-position: -5px -1290px; }
-  100% { background-position: -327px -1290px; } 
+  100% { background-position: -391px -1290px; } 
 }
 .actor.pawn.character {
   z-index: 2;
@@ -330,9 +330,15 @@ nav > button.active > .checkbox > i {
   animation: char-run 0.7s steps(9) infinite;
 }
 
+.actor.pawn.character.finish-anim {
+  animation: char-finish 0.8s steps(6);
+}
 .actor.pawn.character.finish {
-  animation: char-finish 3s steps(6);
+  background-position: -327px -138px !important;
+}
+.actor.pawn.character.dead-anim {
+  animation: char-dead 0.8s steps(6);
 }
 .actor.pawn.character.dead {
-  animation: char-dead 3s steps(5);
+  background-position: -327px -1290px !important;
 }
