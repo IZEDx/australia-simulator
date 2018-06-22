@@ -27,9 +27,16 @@ class GameController {
       gameView.useGyrosensor = !gameView.useGyrosensor;
     });*/
 
-    gameView.get("startGame").onClick.listen((e) {
-      e.preventDefault();
-      _startGame(levelManager.current);
+    gameView.onSelectLevel.listen((level) => _startGame(level));
+
+    gameView.get("selectLevel").onClick.listen((e) {
+        gameView.hide(gameView.get("menu"));
+        gameView.show(gameView.get("levelSelection"));
+    });
+
+    gameView.get("showMenu").onClick.listen((e) {
+        gameView.show(gameView.get("menu"));
+        gameView.hide(gameView.get("levelSelection"));
     });
 
     gameMode.onGameOver.listen(_gameOver);
@@ -50,9 +57,8 @@ class GameController {
     }*/
   }
 
-  _startGame(int level) async {
+  _startGame(Level lvldata) async {
     if (!_running) {
-      final lvldata = levelManager.get(level);
       gameMode.load(lvldata);
       gameView.openGameView();
       gameMode.start();
