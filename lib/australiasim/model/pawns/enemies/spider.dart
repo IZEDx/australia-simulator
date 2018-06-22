@@ -2,10 +2,18 @@ part of australiasim;
 
 class Spider extends Enemy
 {
-  Spider() : super()
-  {
-      maxSpeed = 400.0;
-      name = "Spider" + genUID();
-      scale /= 1.5;
-  }
+    @override
+    void initialize(World world) 
+    {
+        super.initialize(world);
+        name     = "Spider" + world.genUID();
+        maxSpeed = 400.0;
+    }
+
+    @override
+    void beginPlay()
+    {
+        super.beginPlay();
+        scale   /= 1.5;
+    }
 }

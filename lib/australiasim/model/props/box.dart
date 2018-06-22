@@ -1,10 +1,11 @@
 part of australiasim;
 
-class Box extends Prop
+class Box extends Prop 
 {
-
-  Box() : super()
-  {
-      this.name = "Box" + genUID();
-  }
+    @override
+    void initialize(World world) 
+    {
+        super.initialize(world);
+        this.name = "Box" + world.genUID();
+    }
 }

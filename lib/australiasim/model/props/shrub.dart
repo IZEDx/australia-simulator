@@ -2,9 +2,10 @@ part of australiasim;
 
 class Shrub extends Tree
 {
-
-  Shrub() : super()
-  {
-      this.name = "Shrub" + genUID();
-  }
+    @override
+    initialize(World world)
+    {
+        super.initialize(world);
+        this.name = "Shrub" + world.genUID();
+    }
 }

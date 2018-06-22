@@ -2,10 +2,18 @@ part of australiasim;
 
 class BigSpider extends Spider
 {
-  BigSpider() : super()
-  {
-      maxSpeed = 600.0;
-      name = "BigSpider" + genUID();
-      scale *= 1.5;
-  }
+    @override
+    void initialize(World world) 
+    {
+        super.initialize(world);
+        name      = "BigSpider" + world.genUID();
+        maxSpeed *= 1.25;
+    }
+    
+    @override
+    void beginPlay()
+    {
+        super.beginPlay();
+        scale    *= 1.25;
+    }
 }

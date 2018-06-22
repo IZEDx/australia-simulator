@@ -1,14 +1,18 @@
 part of australiasim;
 
-class Prop extends Actor
+class Prop extends Actor 
 {
-  Prop() : super()
-  {
-      this.name = "Prop" + genUID();
-  }
-  
-  void beginPlay()
-  {
-    this.colliderBoxExtent = this.scale.clone();
-  }
+    @override
+    void initialize(World world) 
+    {
+        super.initialize(world);
+        this.name = "Prop" + world.genUID();
+    }
+
+    @override
+    void beginPlay() 
+    {
+        super.beginPlay();
+        this.colliderBoxExtent = this.scale.clone();
+    }
 }

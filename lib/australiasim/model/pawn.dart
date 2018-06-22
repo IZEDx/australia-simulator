@@ -15,12 +15,20 @@ class Pawn extends Actor
     /// The current speed
     double get speed => _maxSpeed;
 
-  	/// Constructor 
-    Pawn() : super()
+    @override
+    void initialize(World world) 
     {
-        // Pawns use a circle collider by default
+        super.initialize(world);
+        this.name = "Pawn" + world.genUID();
         this.isCircleCollider = true;
-        this.name = "Pawn" + genUID();
+        this._currentTargetLocation = this.location.clone();
+    }
+
+    @override
+    void beginPlay()
+    {
+        super.beginPlay();
+        this.colliderBoxExtent = this.scale / 2.0; // Circle collider require radius as colliderBox
     }
 
     /// Assign a new target [position]
@@ -41,8 +49,8 @@ class Pawn extends Actor
     /// Returns the next position in the movement to the [_currentTargetLocation] based on a given [deltaTime]
     Vector2 _calcNextPosition(double deltaTime)
     {
-        this.rotation = this._currentTargetLocation - this.location;
-        final nextPos = (this.rotation * this.speed * deltaTime) + this.location;
+        this.rotation = this._currentTargetLocation - location;
+        final nextPos = (rotation * speed * deltaTime) + location;
 
         // World edge handling
         final r = this.scale / 2.0;
@@ -58,49 +66,47 @@ class Pawn extends Actor
         }
         else
         {
-          for(var actor in collisions)
-          {
-              actor.collideEvent.add(this);
-              this.collideEvent.add(actor);
+            for(var actor in collisions)
+            {
+                actor.collideEvent.add(this);
+                this.collideEvent.add(actor);
 
-              // Edge sliding
-              if(!actor.isCircleCollider)
-              {
-                  List<Vector2> normals = Actor.getColliderBoxNormals(actor.getBoxColliderCorners(actor.location));
+                // Edge sliding
+                if(!actor.isCircleCollider)
+                {
+                    List<Vector2> normals = Actor.getColliderBoxNormals(actor.getBoxColliderCorners(actor.location));
 
-                  normals.add(-normals[0]);
-                  normals.add(-normals[1]);
+                    normals.add(-normals[0]);
+                    normals.add(-normals[1]);
 
-                  if(!this.isCollidingWith(actor, this.location + normals[0] * 15.0) && !this.isCollidingWith(actor, this.location + normals[2] * 15.0))
-                  {
-                      final nuPos = this.location + normals[0] * this.speed * deltaTime;
-                      final nuPos2 = this.location + normals[2] * this.speed * deltaTime;
-                      final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
+                    if(!this.isCollidingWith(actor, location + normals[0] * 15.0) && !this.isCollidingWith(actor, location + normals[2] * 15.0))
+                    {
+                        final nuPos = location + normals[0] * speed * deltaTime;
+                        final nuPos2 = location + normals[2] * speed * deltaTime;
+                        final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
 
-                      if(collidingWithOnPosition(finPos).length == 0)
-                        return finPos;
-                  }
-                  else if(!this.isCollidingWith(actor, this.location + normals[1] * 15.0) && !this.isCollidingWith(actor, this.location + normals[3] * 15.0))
-                  {
-                      final nuPos = this.location + normals[1] * this.speed * deltaTime;
-                      final nuPos2 = this.location + normals[3] * this.speed * deltaTime;
-                      final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
+                        if (collidingWithOnPosition(finPos).length == 0) return finPos;
+                    }
+                    else if(!this.isCollidingWith(actor, location + normals[1] * 15.0) && !this.isCollidingWith(actor, location + normals[3] * 15.0))
+                    {
+                        final nuPos = location + normals[1] * speed * deltaTime;
+                        final nuPos2 = location + normals[3] * speed * deltaTime;
+                        final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
 
-                      if(collidingWithOnPosition(finPos).length == 0)
-                        return finPos;
-                  }
-                  else
-                  {
-                      final filtered = normals.where((v) => !this.isCollidingWith(actor, this.location + v * 15.0)).map((v) =>  this.location + v * this.speed * deltaTime).toList();
-                      if(filtered.length == 2)
-                      {
-                        final finPos = nextPos.distanceTo(filtered[0]) > nextPos.distanceTo(filtered[1]) ? filtered[1] : filtered[0];
-                        if(collidingWithOnPosition(finPos).length == 0)
-                          return finPos;
-                      }  
-                  }
-              }
-          }
+                        if (collidingWithOnPosition(finPos).length == 0) return finPos;
+                    }
+                    else
+                    {
+                        final filtered = normals.where((v) => !this.isCollidingWith(actor, location + v * 15.0)).map((v) =>  location + v * speed * deltaTime).toList();
+                        if(filtered.length == 2)
+                        {
+                            final finPos = nextPos.distanceTo(filtered[0]) > nextPos.distanceTo(filtered[1]) ? filtered[1] : filtered[0];
+
+                            if (collidingWithOnPosition(finPos).length == 0) return finPos;
+                        }  
+                    }
+                }
+            }
         }
 
         return this.location;
@@ -118,14 +124,5 @@ class Pawn extends Actor
         }
 
         return tColl;
-    }
-
-    @override
-    void beginPlay()
-    {
-        super.beginPlay();
-        print(this.name + ": Hi, I am ready.");
-        this._currentTargetLocation = this.location.clone();
-        this.colliderBoxExtent = this.scale / 2.0; // Circle collider require radius as colliderBox
     }
 }

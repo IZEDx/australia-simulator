@@ -2,9 +2,10 @@ part of australiasim;
 
 class Tree extends Box
 {
-
-  Tree() : super()
-  {
-      this.name = "Tree" + genUID();
-  }
+    @override
+    initialize(World world)
+    {
+        super.initialize(world);
+        this.name = "Tree" + world.genUID();
+    }
 }
