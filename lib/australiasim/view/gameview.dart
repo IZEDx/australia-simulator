@@ -37,6 +37,9 @@ class GameView extends DOMView {
    */
   Stream<Stream<Vector2>> onInput;
   StreamController<Stream<Vector2>> _inputEvent = new StreamController();
+  
+  Stream<Level> onSelectLevel;
+  StreamController<Level> _selectLevelEvent = new StreamController();
 
   /**
    * If the game is currently running.
@@ -60,8 +63,10 @@ class GameView extends DOMView {
    */
   GameView(GameMode this._gameMode, LevelManager this._levelManager) {
     onInput = _inputEvent.stream.asBroadcastStream(); // Create Broadcast stream of inputEvent
+    onSelectLevel = _selectLevelEvent.stream.asBroadcastStream(); // Create Broadcast stream of inputEvent
     _mainElement.classes.add("loaded"); // Indicate that the game program has loaded
     //useGyrosensor = window.localStorage["useGyrosensor"] == "1";
+    get("startGame").onClick.listen((e) => _selectLevelEvent.add(_levelManager.get(_levelManager.current)));
   }
   
   /**
@@ -74,7 +79,16 @@ class GameView extends DOMView {
     get("startGame").setInnerHtml(failed ? "RETRY!" : _levelManager.current > 0 ? "CONTINUE!" : "ENTER!");
 
     if (_levelManager.unlocked > 0) {
-      //show(get("selectLevel"));
+        show(get("selectLevel"));
+        final levelSelection = get("levelSelection");
+
+        for (var i = 0; i < _levelManager.unlocked; i++) {
+            final level = _levelManager.get(i);
+            if (get("level-${i}") == null) {
+                levelSelection.appendHtml("<button class='btn' id='level-${i}'>Level ${i + 1}</button>");
+                get("level-${i}").onClick.listen((e) => _selectLevelEvent.add(level));
+            }
+        }
     }
 
     clearCache();
