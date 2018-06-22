@@ -1,37 +1,59 @@
 part of australiasim;
 
+/// default wall width the game is using for the outer walls
 const wallWidth = 20.0;
 
+/// Class for a gameinstance which represents the current game
 class GameMode {
+
+    /// World the game is currently happening in
     World world;
+    /// Current player character
     Character player;
 
+    /// Used to broadcast game over events
     StreamController<bool> gameOverEvent = new StreamController();
+    /// Emits game over events
     Stream<bool> onGameOver;
     
+    /// Used to broadcast change of current enemy count in this session
     StreamController<int> _enemyCountChangeEvent = new StreamController();
+    /// Emits current enemy count on change
     Stream<int> onEnemyCountChange;
 
+    /// Current enemy count
     int _enemyCount = 0;
 
+    /// Current enemy count
     int get enemyCount => _enemyCount;
-    set enemyCount(int c) 
+
+    /// Sets new [enemyCount]
+    set enemyCount(int enemyCount) 
     {
-        _enemyCount = c;
-        _enemyCountChangeEvent.add(c);
+        _enemyCount = enemyCount;
+        _enemyCountChangeEvent.add(enemyCount);
     }
 
+    /// Constructor
     GameMode()
     {
         onGameOver = gameOverEvent.stream.asBroadcastStream();
         onEnemyCountChange = _enemyCountChangeEvent.stream.asBroadcastStream();
     }
 
-    void       start() => !loaded ? null : world.beginPlay();
-    void        stop() => !loaded ? null : world.stop();
-    bool get running   => loaded && world.running;
-    bool get loaded    => world != null;
+    /// Start the game
+    void start() => !loaded ? null : world.beginPlay();
 
+    /// Stop the game
+    void stop() => !loaded ? null : world.stop();
+
+    /// Is the game running?
+    bool get running   => loaded && world.running;
+
+    /// is the game loaded?
+    bool get loaded => world != null;
+
+    /// Loads and inits a new [level]
     void load(Level level) 
     {
         if (running) return;
@@ -75,13 +97,15 @@ class GameMode {
         });
     }
 
+    /// Moves the current player character in this game by a given [velocity]
     void moveCharacter(Vector2 t) 
     {
         if (running && player != null) player.walk(t);
     }
 
-    void tick(double time)
+    /// Used for operations which need to be done in short intervals where [deltaTime] specifies the time since the last tick
+    void tick(double deltaTime)
     {
-        if (running && world != null) world.tick(time);
+        if (running && world != null) world.tick(deltaTime);
     }
 }

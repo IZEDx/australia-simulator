@@ -25,24 +25,24 @@ class Actor {
     /// Name
     String _name = "";
 
-    /// StreamController used for position updates
+    /// Used to broadcast new position on change
     StreamController<Vector2> _moveEvent = new StreamController();
-    /// Stream of position updates
+    /// Emits new position on change
     Stream<Vector2> onMove;
 
-    /// StreamController used for rotation updates
+    /// Used to broadcast new rotation on change
     StreamController<Vector2> _rotateEvent = new StreamController();
-    /// Stream of rotation updates
+    /// Emits new rotation on change
     Stream<Vector2> onRotate;
 
-    /// StreamController used for scaling updates
+    /// Used to broadcast new scale on change
     StreamController<Vector2> _scaleEvent = new StreamController();
-    /// Stream of scaling updates
+    /// Emits new scale on change
     Stream<Vector2> onScale;
 
-    /// StreamController used for collide Events 
+    /// Used to broadcast collide events 
     StreamController<Actor> collideEvent = new StreamController();
-    /// Stream of collisions 
+    /// Emits actors this actor collides with
     Stream<Actor> onCollide;
 
     /// Constructor
@@ -100,7 +100,7 @@ class Actor {
     /// Using a circle or box primitive for collision?
     bool get isCircleCollider  => _isCircleCollider ;
 
-    // Called when the actor is instantiated in the world
+    /// Called when the actor is instantiated in the [world]
     void initialize(World world) 
     {
         _world = world;
@@ -176,9 +176,6 @@ class Actor {
             List<Vector2> normals = new List<Vector2>();
             normals.addAll(getColliderBoxNormals(corners1));
             normals.addAll(getColliderBoxNormals(corners2));
-
-            //corners1.forEach((v) => print("c1: " + corners1.toString()));
-            //corners2.forEach((v) => print("c2: " + corners2.toString()));
 
             for(var normal in normals)
             {

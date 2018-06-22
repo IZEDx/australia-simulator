@@ -1,26 +1,43 @@
 part of australiasim;
 
-
+/// The world the game is running in 
 class World 
 {
-    bool                _running = false;
-    void     start() => _running = true;
-    void      stop() => _running = false;
+    /// Is the game running?
+    bool _running = false;
+
+    /// Start the game
+    void start() => _running = true;
+
+    /// Stop the game
+    void stop() => _running = false;
+
+    /// Is the game running?
     bool get running => _running;
 
     /// IDs of all actors
     List<int> _UIDstore = [];
 
+    /// Collection of spawned actors
     List<Actor> actors = [];
-    GameMode  gamemode;
-    Vector2       size;
 
+     /// Gamemode the current game is running with
+    GameMode gamemode;
+
+    /// Size of this world
+    Vector2 size;
+
+    /// Used to broadcast newly spawned actors
     StreamController<Actor> _actorSpawnedEvent = new StreamController();
+    /// Emits newly spawned actors
     Stream<Actor> onActorSpawned;
 
+    /// Used to broadcast removal of an actor
     StreamController<Actor> _actorRemovedEvent = new StreamController();
+    /// Emits actors which got removed
     Stream<Actor> onActorRemoved;
 
+    /// Constructor of a world with a given [size] and [gamemode]
     World(Vector2 this.size, GameMode this.gamemode) 
     {
         onActorSpawned = _actorSpawnedEvent.stream.asBroadcastStream();
@@ -39,6 +56,7 @@ class World
         return n.toString();
     }
 
+    /// Spawns a given [actor] on a given [location] with given optional [rotation] and [scale]. Returns spawned actor.
     T spawnActor<T extends Actor>(T actor, Vector2 location, { Vector2 rotation, Vector2 scale })  
     {
         actor.initialize(this);
@@ -54,16 +72,19 @@ class World
         return actor;
     }
 
+    /// Remove a spawned [actor]
     void removeActor(Actor actor) 
     {
         actors.remove(actor);
         _actorRemovedEvent.add(actor);
     }
 
-    void tick(double time) {
-        for (var actor in actors) actor.tick(time);
+     /// Used for operations which need to be done in short intervals where [deltaTime] specifies the time since the last tick
+    void tick(double deltaTime) {
+        for (var actor in actors) actor.tick(deltaTime);
     }
 
+    /// Starts the game
     void beginPlay() {
         if (!running) start();
         this.actors.forEach((actor) => actor.beginPlay());

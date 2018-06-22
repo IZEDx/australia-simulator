@@ -1,5 +1,6 @@
 part of australiasim;
 
+/// Base class for any prop which has collision
 class Prop extends Actor 
 {
     @override

@@ -1,26 +1,41 @@
 part of australiasim;
 
+/// States an enemy can have during playtime
 enum EnemyState {escaping, postEscape, idle}
+
+/// Base class for any type of enemy
 class Enemy extends Pawn
 {
+    /// Used to broadcast new cozyness on change
     StreamController<double> _cozynessChangeEvent = new StreamController();
+    /// Emits new cozyness on change
     Stream<double> onCozynessChange;
 
+    /// Time an enemy needs to recover after being embattled before being in [EnemyState.idle] again
     static const double recoverTime = 3.0;
 
+    /// Min time before changing the walk direction
     static const double changeDirMinTime = 1.0;
+    /// Max time before changing the walk direction
     static const double changeDirMaxTime = 2.5;
 
+    /// Speed the [cozyness] increases when being in [EnemyState.idle]
     static const double cozynessIncSpeed = 5.0;
+    /// Speed the [cozyness] decreases when being in [EnemyState.escaping]
     static const double cozynessDecSpeed = 30.0;
 
+    /// Current time remainung before changing from [EnemyState.postEscape] to [EnemyState.idle]
     double _recoverTimeRemaining = 0.0;
+    /// Current time remainung remainung before changing the walking direction
     double _changeDirTimeRemaining = 0.0;
 
+    /// Current cozyness
     double _currCozyness = 0.0;
 
+    /// Used for random behavior
     final _ran = new Random();
         
+    /// Current state
     EnemyState get state 
     {
         if (_isEmbattled()) 
@@ -31,11 +46,14 @@ class Enemy extends Pawn
             return EnemyState.idle;
     }
 
+    /// Cozyness
     double get cozyness => _currCozyness;
-    set cozyness(double coz) 
+
+    /// Sets new [cozyness] 
+    set cozyness(double cozyness) 
     {
-        _currCozyness = coz;
-        _cozynessChangeEvent.add(coz);
+        _currCozyness = cozyness;
+        _cozynessChangeEvent.add(cozyness);
     }
 
     @override
@@ -110,16 +128,20 @@ class Enemy extends Pawn
         super.tick(deltaTime);
     }
 
+    /// Generates a random time by given [changeDirMinTime] and [changeDirMaxTime]
     double _nextRandomTime() => _ran.nextDouble() * (changeDirMaxTime - changeDirMinTime).abs() + changeDirMinTime;
 
+    /// Handles collision with a given [other] actor
     void _collided(Actor other)
     {
         if      ( !_isEmbattled() ) this.rotation = -this.rotation;
         else if (   other is Pawn ) this.rotation = this.location - other.location;
     }
 
+    /// Is this pawn embattled by the player?
     bool _isEmbattled() => world.gamemode.player != null && world.gamemode.player.location.distanceTo(this.location) < 200.0;
 
+    /// Sets a new random walking direction
     void _setRandomRotation()
     {
         this.rotation = new Vector2(_ran.nextDouble() - 0.5, _ran.nextDouble() - 0.5);

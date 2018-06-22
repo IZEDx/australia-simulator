@@ -7,12 +7,12 @@ class Pawn extends Actor
     /// Target location to move towards to
     Vector2 _currentTargetLocation = new Vector2(0.0, 0.0);
 
-    /// Set new max [speed]
+    /// Sets new max [speed]
     set maxSpeed(double speed) => _maxSpeed = speed;
-    /// The max speed
+    /// Max speed
     double get maxSpeed => _maxSpeed;
 
-    /// The current speed
+    /// Current speed
     double get speed => _maxSpeed;
 
     @override
@@ -28,10 +28,10 @@ class Pawn extends Actor
     void beginPlay()
     {
         super.beginPlay();
-        this.colliderBoxExtent = this.scale / 2.0; // Circle collider require radius as colliderBox
+        this.colliderBoxExtent = this.scale / 2.0; // Circle collider requires radius as colliderBox
     }
 
-    /// Assign a new target [position]
+    /// Assign a new target [position] to walk towards to
     void requestWalkToLocation(Vector2 position)
     {
         this._currentTargetLocation = position;
@@ -43,7 +43,6 @@ class Pawn extends Actor
         // Movement updates
         final nextPos = _calcNextPosition(deltaTime);
         this.location = nextPos;
-      
     }
 
     /// Returns the next position in the movement to the [_currentTargetLocation] based on a given [deltaTime]
