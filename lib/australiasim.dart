@@ -22,10 +22,17 @@ part "./australiasim/model/world.dart";
 part "./australiasim/model/pawn.dart";
 part "./australiasim/model/prop.dart";
 
+part "./australiasim/model/props/smallBed.dart";
+part "./australiasim/model/props/bigBed.dart";
+part "./australiasim/model/props/table.dart";
 part "./australiasim/model/props/door.dart";
+part "./australiasim/model/props/board.dart";
 part "./australiasim/model/props/box.dart";
 part "./australiasim/model/props/tree.dart";
 part "./australiasim/model/props/shrub.dart";
+part "./australiasim/model/props/chair.dart";
+part "./australiasim/model/props/lamp.dart";
+part "./australiasim/model/props/flower.dart";
 
 part "./australiasim/model/pawns/character.dart";
 part "./australiasim/model/pawns/enemy.dart";
