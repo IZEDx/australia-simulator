@@ -48,8 +48,10 @@ class Pawn extends Actor
     /// Returns the next position in the movement to the [_currentTargetLocation] based on a given [deltaTime]
     Vector2 _calcNextPosition(double deltaTime)
     {
+        final offset = speed * deltaTime;
+
         this.rotation = this._currentTargetLocation - location;
-        final nextPos = (rotation * speed * deltaTime) + location;
+        final nextPos = (rotation * offset) + location;
 
         // World edge handling
         final r = this.scale / 2.0;
@@ -78,25 +80,25 @@ class Pawn extends Actor
                     normals.add(-normals[0]);
                     normals.add(-normals[1]);
 
-                    if(!this.isCollidingWith(actor, location + normals[0] * 15.0) && !this.isCollidingWith(actor, location + normals[2] * 15.0))
+                    if(!this.isCollidingWith(actor, location + normals[0] * offset) && !this.isCollidingWith(actor, location + normals[2] * offset))
                     {
-                        final nuPos = location + normals[0] * speed * deltaTime;
-                        final nuPos2 = location + normals[2] * speed * deltaTime;
+                        final nuPos = location + normals[0] * offset;
+                        final nuPos2 = location + normals[2] * offset;
                         final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
 
                         if (collidingWithOnPosition(finPos).length == 0) return finPos;
                     }
-                    else if(!this.isCollidingWith(actor, location + normals[1] * 15.0) && !this.isCollidingWith(actor, location + normals[3] * 15.0))
+                    else if(!this.isCollidingWith(actor, location + normals[1] * offset) && !this.isCollidingWith(actor, location + normals[3] * offset))
                     {
-                        final nuPos = location + normals[1] * speed * deltaTime;
-                        final nuPos2 = location + normals[3] * speed * deltaTime;
+                        final nuPos = location + normals[1] * offset;
+                        final nuPos2 = location + normals[3] * offset;
                         final finPos = nuPos.distanceTo(nextPos) > nuPos2.distanceTo(nextPos) ? nuPos2 : nuPos;
 
                         if (collidingWithOnPosition(finPos).length == 0) return finPos;
                     }
                     else
                     {
-                        final filtered = normals.where((v) => !this.isCollidingWith(actor, location + v * 15.0)).map((v) =>  location + v * speed * deltaTime).toList();
+                        final filtered = normals.where((v) => !this.isCollidingWith(actor, location + v * offset)).map((v) =>  location + v * offset).toList();
                         if(filtered.length == 2)
                         {
                             final finPos = nextPos.distanceTo(filtered[0]) > nextPos.distanceTo(filtered[1]) ? filtered[1] : filtered[0];
