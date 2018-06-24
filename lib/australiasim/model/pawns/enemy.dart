@@ -79,7 +79,7 @@ class Enemy extends Pawn
         this.onCozynessChange = _cozynessChangeEvent.stream.asBroadcastStream();
 
         new Observable( this.onCollide )
-            .throttle( new Duration(milliseconds: 500) )
+            .throttle( new Duration(milliseconds: 700) )
             .listen( (Actor a) => this._collided(a) );
     }
     
