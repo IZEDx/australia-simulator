@@ -203,6 +203,7 @@ class GameView extends DOMView {
       if (actor is Tree)   el.classes.add("tree");
       if (actor is Shrub)  el.classes.add("shrub");
       if (actor is Door)   makeDoor(el, actor);
+      if (actor is Board) el.classes.add("board");
     }
   }
 

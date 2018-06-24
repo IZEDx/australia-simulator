@@ -170,7 +170,8 @@ nav > button.active > .checkbox > i {
   position: absolute;
   z-index: 0;
   display: block;
-  background-color: rgba(0,0,0,0.55);
+  background: url('./assets/img/lpc_house_insides/woodtile_32x32.png');
+  /*background-color: rgba(0,0,0,0.55);*/
   width: 500px;
   height: 500px;
   left: 50%;
@@ -238,6 +239,11 @@ nav > button.active > .checkbox > i {
 
 .actor.prop {
   background-color: #000;
+}
+
+.actor.prop.board {
+    background: url('./assets/img/lpc_house_insides/board1_32x69.png');
+    background-size: 100% 100%
 }
 
 .actor.tree {
