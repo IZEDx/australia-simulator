@@ -201,10 +201,11 @@ class GameView extends DOMView {
 
             final ran = new Random();
             el.classes.add("prop");
+            if (actor is Box)    el.classes.add("box");
             if (actor is Tree)   el.classes.add("tree");
             if (actor is Shrub)  el.classes.add("shrub");
             if (actor is Door)   makeDoor(el, actor);
-            if (actor is Board) el.style.backgroundImage = "url('./assets/img/lpc_house_insides/board${ran.nextInt(8) + 1}_32x69.png')";
+            if (actor is Board) el.style.backgroundImage = "url('./assets/img/lpc_house_insides/board${ran.nextInt(7) + 1}_32x69.png')";
         }
     }
 
