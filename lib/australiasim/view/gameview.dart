@@ -182,16 +182,25 @@ class GameView extends DOMView {
 
         // Register listeners
         if (actor is Pawn) {
+            el.classes.add("pawn");
 
-        actor.onMove.listen((vec) => updateActorPos(vec));
-        actor.onRotate.listen((vec) => updateActorRot(vec));
-        actor.onScale.listen((vec) => updateActorScale(vec));
-        updateActorPos(actor.location);
-        updateActorRot(actor.rotation);
-        updateActorScale(actor.scale);
+            actor.onMove.listen((vec) => updateActorPos(vec));
+            actor.onScale.listen((vec) => updateActorScale(vec));
+            updateActorPos(actor.location);
+            updateActorScale(actor.scale);
 
-        el.classes.add("pawn");
-        if (actor is Enemy)  makeEnemy(el, actor);
+            if (actor is Spider) {
+                final transform = new Vector2(-1.0, 1.0);
+                actor.onRotate.listen((vec) => updateActorRot(new Vector2(vec.x * transform.x, vec.y * transform.y)));
+                updateActorRot(new Vector2(actor.rotation.x * transform.x, actor.rotation.y * transform.y));
+            } else {
+                actor.onRotate.listen((vec) => updateActorRot(vec));
+                updateActorRot(actor.rotation);
+            }
+
+            if (actor is Enemy) {
+                makeEnemy(el, actor);
+            }
         
         } else if (actor is Prop) {
 

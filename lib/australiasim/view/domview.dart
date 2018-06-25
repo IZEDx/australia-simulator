@@ -60,7 +60,7 @@ class DOMView {
     
     if (rotation != null) {
       final radians = atan2(rotation.x, rotation.y);
-      el.attributes["rotation"] = "rotate(${-radians}rad)";
+      el.attributes["rotation"] = "rotate(${radians}rad)";
     }
 
     if (scale != null) {
