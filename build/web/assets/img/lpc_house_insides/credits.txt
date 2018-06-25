@@ -1,0 +1,17 @@
+License
+-------
+
+CC-BY-SA 3.0:
+- http://creativecommons.org/licenses/by-sa/3.0/
+GNU GPL 3.0:
+- http://www.gnu.org/licenses/gpl-3.0.html
+
+Assets by:
+
+Lana Zimmerman (AKA Sharm)
+
+Found here: https://opengameart.org/content/lpc-house-insides
+
+_____
+
+Some of the assets received additional color grading.
