@@ -205,7 +205,12 @@ class GameView extends DOMView {
             if (actor is Tree)   el.classes.add("tree");
             if (actor is Shrub)  el.classes.add("shrub");
             if (actor is Door)   makeDoor(el, actor);
-            if (actor is Board) el.style.backgroundImage = "url('./assets/img/lpc_house_insides/board${ran.nextInt(7) + 1}_32x69.png')";
+            if (actor is Board) el.style.backgroundImage    = "url('./assets/img/lpc_house_insides/board${ran.nextInt(7) + 1}_32x69.png')";
+            if (actor is BigBed) el.style.backgroundImage   = "url('./assets/img/lpc_house_insides/bigbed${ran.nextInt(2) + 1}_64x81.png')";
+            if (actor is SmallBed) el.style.backgroundImage = "url('./assets/img/lpc_house_insides/bed${ran.nextInt(4) + 1}_48x81.png')";
+            if (actor is Lamp) el.style.backgroundImage     = "url('./assets/img/lpc_house_insides/lamp${ran.nextInt(3) + 1}_24x31.png')";
+            if (actor is Table) el.style.backgroundImage    = "url('./assets/img/lpc_house_insides/table${ran.nextInt(3) + 1}_48x80.png')";
+            if (actor is Flower) el.style.backgroundImage   = "url('./assets/img/lpc_house_insides/flower_30x52.png')";
         }
     }
 

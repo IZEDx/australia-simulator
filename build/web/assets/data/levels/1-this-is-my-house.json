@@ -1,6 +1,6 @@
 {
     "spawnText": "This is my house!",
-    "size": [2000.0, 1500.0],
+    "size": [1200.0, 1000.0],
     "actors": [
         {
             "type": "spider",
@@ -16,13 +16,19 @@
         },
         {
             "type": "spider",
-            "location": [500.0, 1200.0]
+            "location": [500.0, 900.0]
         },
         {
-            "type": "box",
-            "location": [1300.0, 700.0],
-            "scale": [300.0, 200.0],
-            "rotation": [1.0, -1.0]
+            "type": "board",
+            "location": [1000.0, -50.0]
+        },
+        {
+            "type": "lamp",
+            "location": [150.0, 0.0]
+        },
+        {
+            "type": "bigbed",
+            "location": [600.0, 500.0]
         }
     ]
 }

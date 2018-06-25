@@ -7,6 +7,7 @@ class Chair extends Box
     {
         super.initialize(world);
         this.name = "Chair" + world.genUID();
+        this.rotation = new Vector2(0.0, 1.0);
     }
 
     @override

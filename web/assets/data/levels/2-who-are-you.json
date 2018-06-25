@@ -1,6 +1,6 @@
 {
     "spawnText": "Who are you?",
-    "size": [1500.0, 2000.0],
+    "size": [1700.0, 1200.0],
     "actors": [
         {
             "type": "bigspider",
@@ -16,7 +16,23 @@
         },
         {
             "type": "spider",
-            "location": [1020.0, 1200.0]
+            "location": [1020.0, 1000.0]
+        },
+        {
+            "type": "board",
+            "location": [1300.0, -50.0]
+        },
+        {
+            "type": "bigbed",
+            "location": [450.0, 500.0]
+        },
+        {
+            "type": "table",
+            "location": [1200.0, 500.0]
+        },
+        {
+            "type": "lamp",
+            "location": [1200.0, 420.0]
         }
     ]
 }
