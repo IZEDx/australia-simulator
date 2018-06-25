@@ -218,7 +218,7 @@ class Actor {
     /// Helper method for [_isCollidingWithRectangle] and [_isCollidingWithCircle]. Returns whether a [circleActor] on [circleLocation] and [boxActor] on [boxLocation] collide.
     static bool _circleBoxCollision(Actor circleActor, Vector2 circleLocation, Actor boxActor, Vector2 boxLocation)
     {
-        final unrotatedCirclePos = _rotatePointAround(circleLocation, boxLocation, atan2(boxActor.rotation.x, boxActor.rotation.y));
+        final unrotatedCirclePos = _rotatePointAround(circleLocation, boxLocation, -atan2(boxActor.rotation.x, boxActor.rotation.y));
         final scaledCircle = circleActor.colliderBoxExtent.clone();
         final scaledBox = boxActor.colliderBoxExtent.clone();
         final tBox = boxLocation - (scaledBox / 2.0);
