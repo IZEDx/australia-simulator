@@ -74,8 +74,8 @@ class GameMode {
         //world.spawnActor(new Board(), new Vector2(level.size.x / 2,   level.size.y / 2), rotation: new Vector2(0.0, 1.0));
 
         // Trees
-        world.spawnActor(new Shrub(), new Vector2(level.size.x / 2.0 - 250.0, -200.0), scale: new Vector2(200.0, 350.0), rotation: new Vector2(0.0, 1.0));
-        world.spawnActor(new Shrub(), new Vector2(level.size.x / 2.0 + 250.0, -200.0), scale: new Vector2(200.0, 350.0), rotation: new Vector2(0.0, 1.0));
+        world.spawnActor(new Shrub(), new Vector2(-200.0, -200.0), scale: new Vector2(200.0, 350.0), rotation: new Vector2(0.0, 1.0));
+        world.spawnActor(new Shrub(), new Vector2(level.size.x + 200.0, -200.0), scale: new Vector2(200.0, 350.0), rotation: new Vector2(0.0, 1.0));
         
         // Door
         world.spawnActor(new Door(), new Vector2(level.size.x / 2, 0.0));
