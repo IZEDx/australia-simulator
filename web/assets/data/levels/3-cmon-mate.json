@@ -1,6 +1,6 @@
 {
     "spawnText": "C'mon mate...",
-    "size": [1500.0, 2000.0],
+    "size": [2000.0, 1500.0],
     "actors": [
         {
             "type": "bigredspider",
@@ -17,18 +17,6 @@
         {
             "type": "bigspider",
             "location": [1020.0, 1200.0]
-        },
-        {
-            "type": "spider",
-            "location": [120.0, 500.0]
-        },
-        {
-            "type": "spider",
-            "location": [120.0, 1000.0]
-        },
-        {
-            "type": "spider",
-            "location": [120.0, 1200.0]
         }
     ]
 }

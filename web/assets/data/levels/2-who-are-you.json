@@ -1,6 +1,6 @@
 {
     "spawnText": "Who are you?",
-    "size": [1500.0, 2000.0],
+    "size": [2000.0, 1500.0],
     "actors": [
         {
             "type": "bigspider",
