@@ -279,7 +279,7 @@ nav > button.active > .checkbox > i {
     top: -500%;
     width: 100%;
     height: 550%;
-    background-image: url('./assets/img/lpc_house_insides/door_32x48.png');
+    background-image: url('./assets/img/lpc_house_insides/door1_32x48.png');
     background-size: 100% 100%;
     transition: transform ease-out 0.25s, background-color 0.25s;
     transform-origin: left;
