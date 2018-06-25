@@ -77,8 +77,6 @@ class GameMode {
         world.spawnActor(new Shrub(), new Vector2(-200.0, -200.0), scale: new Vector2(200.0, 350.0), rotation: new Vector2(0.0, 1.0));
         world.spawnActor(new Shrub(), new Vector2(level.size.x + 200.0, -200.0), scale: new Vector2(200.0, 350.0), rotation: new Vector2(0.0, 1.0));
         
-        // Door
-        world.spawnActor(new Door(), new Vector2(level.size.x / 2, 0.0));
 
         // Spawn Actors
         for (final data in level.actors) 
@@ -93,6 +91,9 @@ class GameMode {
             if (actor is Enemy) enemyCount++;
         }
 
+        // Door
+        world.spawnActor(new Door(), new Vector2(level.size.x / 2, 0.0));
+        
         // Update State
         world.onActorRemoved.listen((a) {
             if (--enemyCount == 0) gameOverEvent.add(true);
