@@ -132,6 +132,12 @@ Actor _parseActor(String actorType) {
     case "bigspider":     actor = new BigSpider();    break;
     case "spider":        actor = new Spider();       break;
     case "box":           actor = new Box();          break;
+    case "smallbed":      actor = new SmallBed();     break;
+    case "bigbed":        actor = new BigBed();       break;
+    case "lamp":          actor = new Lamp();         break;
+    case "table":         actor = new Table();        break;
+    case "board":         actor = new Board();        break;
+    case "flower":        actor = new Flower();       break;
     default:              actor = new Actor();        break;
   }
   return actor;
