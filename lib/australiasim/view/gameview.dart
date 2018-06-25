@@ -82,7 +82,7 @@ class GameView extends DOMView {
             show(get("selectLevel"));
             final levelSelection = get("levelSelection");
 
-            for (var i = 0; i < _levelManager.unlocked; i++) {
+            for (var i = 0; i <= _levelManager.unlocked && i < _levelManager.size; i++) {
                 final level = _levelManager.get(i);
                 if (get("level-${i}") == null) {
                     levelSelection.appendHtml("<button class='btn' id='level-${i}'>Level ${i + 1}</button>");
