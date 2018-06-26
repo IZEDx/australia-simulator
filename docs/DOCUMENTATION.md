@@ -74,26 +74,85 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
 
 -   Programmdokumentation: https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html
 
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
 ## 1 - Einleitung
+---
 
 Australia Simulator ist ein Mobile-First Einzelspieler Webgame von Niklas Kühtmann und Thomas Urner für das Modul "Webtechnologie Projekt" im SoSe 2018 an der Fachhochschule-Lübeck.
 
 Diese Dokumentation soll einen Überblick über das Konzept und die Architektur leisten, wobei genauere Details in der [Programmdokumentation](https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html) zu finden sind.
 
+Außerdem sind hier die Anforderungen dokumentiert, und wie diese gelöst werden.
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
 ## 2 - Anforderungen und Konzept
+---
 
 ### 2.1 - Spielkonzept: Australia Simulator
 
-Das Spiel Australia Simulator ist ein top-down Arcade Game, bei welchem der Spieler versuchen muss, die wilden Tiere aus seinem Haus zu verscheuchen, bevor diese sich einnisten und die Zeit abläuft oder der Spieler von denen verletzt wird. 
+Das Spiel Australia Simulator ist ein top-down Arcade Game, bei welchem der Spieler versuchen muss, Spinnen aus seinem Haus zu verscheuchen.
 
 Dabei sieht der Spieler seinen Character in der Mitte des Bildschirms und kann sich in einem 360° Radius bewegen, abhängig davon, wohin der Spieler mit dem Finger zeigt. 
 
-Im Haus laufen abhängig vom derzeitigen Level unterschiedlich viele und schnelle Gegner rum, welche - wenn der Spieler zu nah kommt - versuchen werden vor diesem abzuhauen. Das Ziel ist es, alle dieser Gegner aus dem Haus zu vertreiben, bevor sie ihren "Coziness"-Balken auffüllen (sich anfangen heimisch zu fühlen). Hat der Spieler alle Gegner vetrieben, so hat er das Level bestanden und das nächste Level kann geladen werden.
+Im Haus laufen abhängig vom derzeitigen Level unterschiedlich viele und schnelle Gegner rum, welche - wenn der Spieler zu nah kommt - versuchen werden vor diesem abzuhauen. Das Ziel ist es, alle dieser Gegner aus dem Haus zu verscheuchen, bevor sie ihren Wohlfühl-Faktor voll aufgefüllt haben (sich anfangen heimisch zu fühlen). Dabei kann der Spieler den Wohlfühl-Faktor eines Gegner senken, indem er diesen vor sich her scheucht. Hat der Spieler alle Gegner vertrieben, so hat er das Level bestanden und das nächste Level kann geladen werden.
+
+Der Spieler ist allerdings nicht unverwundbar, pro Level hat er zwei Leben. Er verliert ein Leben, wenn er aus Versehen einen Gegner berührt, wobei die Gegner allerdings niemals direkt angreifen werden. Hier kämpft jeder um's Überleben.
+
+Sollte nun entweder ein Gegner seinen Wohlfühl-Faktor voll aufgefüllt haben, oder der Spieler alle seine Leben verlieren, so endet das Spiel und der Spieler hat verloren. Er kann das Level nun erneut versuchen.
+
+&nbsp;
 
 ### 2.2 - Anforderungen
 
 #### __AF-1:__ Single-Player-Game als Single-Page-App
-_Australia Simulator_ ist ein Singleplayer-Spiel als Single-Page-App, das in Dart entwickelt wurde.
+_Australia Simulator_ ist ein Singleplayer-Spiel als Single-Page-App, welches in Dart entwickelt wurde.
 Alle Assets sind relativ adressiert und es wird kein Backend benötigt. Jeglicher Fortschritt wird direkt im Browser des Users gespeichert und somit kann _Australia Simulator_ statisch vertrieben werden.
 
 #### __AF-2:__ Balance zwischen technischer Komplexität und Spielkonzept
