@@ -67,7 +67,7 @@ class Pawn extends Actor
         }
         else
         {
-            for(var actor in collisions)
+            for(final actor in collisions)
             {
                 actor.collideEvent.add(this);
                 this.collideEvent.add(actor);
@@ -118,7 +118,7 @@ class Pawn extends Actor
     {
         List<Actor> tColl = new List<Actor>();
 
-        for(var actor in world.actors)
+        for(final actor in world.actors)
         {
             if(actor != this && this.isCollidingWith(actor, destLocation))
               tColl.add(actor);
