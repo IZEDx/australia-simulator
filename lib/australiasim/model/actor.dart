@@ -55,10 +55,7 @@ class Actor {
 
     /// World
     World get world => _world;
-
-    /// Is this actor still placed in a valid world
-    bool get valid => world != null;
-
+    
     /// Sets new [name]
     set name(String name) => _name = name;
     /// Name
