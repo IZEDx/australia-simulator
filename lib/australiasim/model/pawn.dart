@@ -75,7 +75,7 @@ class Pawn extends Actor
                 // Edge sliding
                 if(!actor.isCircleCollider)
                 {
-                    List<Vector2> normals = Actor.getColliderBoxNormals(actor.getBoxColliderCorners(actor.location));
+                    List<Vector2> normals = Actor.getColliderBoxNormals(actor.getColliderBoxCorners(actor.location));
 
                     normals.add(-normals[0]);
                     normals.add(-normals[1]);
