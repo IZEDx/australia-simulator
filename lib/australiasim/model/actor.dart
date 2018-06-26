@@ -13,7 +13,7 @@ class Actor {
     /// Rotation
     Vector2 _rotation = new Vector2(0.0, -1.0);
 
-    /// Scale
+    /// Scale ([colliderBoxExtent] only used for collision calculations)
     Vector2 _scale = new Vector2(100.0, 100.0);
 
     /// Collider dimensions 
@@ -177,7 +177,7 @@ class Actor {
             normals.addAll(getColliderBoxNormals(corners1));
             normals.addAll(getColliderBoxNormals(corners2));
 
-            for(var normal in normals)
+            for(final normal in normals)
             {
                 List<double> dots1 = new List<double>();
                 List<double> dots2 = new List<double>();
