@@ -63,7 +63,7 @@ class GameController
         gameMode.onGameOver.listen(_gameOver);
 
         // Add listener for movement
-        gameView.setupInput((touch)
+        gameView.onInput.listen((touch)
         {
             if (_running) gameMode.moveCharacter(touch);
         });
