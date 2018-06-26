@@ -1,0 +1,13 @@
+License
+-------
+
+CC-BY-SA 3.0:
+- http://creativecommons.org/licenses/by-sa/3.0/
+GNU GPL 3.0:
+- http://www.gnu.org/licenses/gpl-3.0.html
+
+Generated using: http://gaurav.munjal.us/Universal-LPC-Spritesheet-Character-Generator/
+
+Credits: http://gaurav.munjal.us/Universal-LPC-Spritesheet-Character-Generator/Universal-LPC-spritesheet/AUTHORS.txt
+
+

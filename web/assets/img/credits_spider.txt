@@ -1,0 +1,11 @@
+License
+-------
+
+CC-BY-SA 3.0:
+- http://creativecommons.org/licenses/by-sa/3.0/
+GNU GPL 3.0:
+- http://www.gnu.org/licenses/gpl-3.0.html
+
+Spiders by: Stephen "Redshrike" Challener (graphic artist) & William.Thompsonj (contributor)
+
+Found at: https://opengameart.org/content/lpc-spider
