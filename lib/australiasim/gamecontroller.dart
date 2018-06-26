@@ -90,7 +90,7 @@ class GameController
 
         // Keep ticking while the gamemode is running.
         // The gamemode will run 3 seconds longer after the gameover, keep the enemies moving.
-        while (gameMode.running) {
+        while (gameMode.isRunning) {
             await gameView.timeout(interval); // Wait for interval
 
             final now = window.performance.now() / 1000;

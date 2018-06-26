@@ -13,7 +13,7 @@ class World
     void stop() => _running = false;
 
     /// Is the game running?
-    bool get running => _running;
+    bool get isRunning => _running;
 
     /// IDs of all actors
     List<int> _UIDstore = [];
@@ -66,7 +66,7 @@ class World
 
         this.actors.add(actor);
 
-        if (running) actor.beginPlay();
+        if (isRunning) actor.beginPlay();
         _actorSpawnedEvent.add(actor);
 
         return actor;
@@ -86,7 +86,7 @@ class World
 
     /// Starts the game
     void beginPlay() {
-        if (!running) start();
+        if (!isRunning) start();
         this.actors.forEach((actor) => actor.beginPlay());
     }
 }

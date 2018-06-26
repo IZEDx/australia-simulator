@@ -32,7 +32,7 @@ class GameView extends DOMView {
     StreamController<Level> _selectLevelEvent = new StreamController();
 
     /// If the game is currently running
-    get running => this._gameMode.running;
+    get running => this._gameMode.isRunning;
 
     /// GameView constructor
     GameView(GameMode this._gameMode, LevelManager this._levelManager) {

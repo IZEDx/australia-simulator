@@ -48,7 +48,7 @@ class GameMode {
     void stop() => !loaded ? null : world.stop();
 
     /// Is the game running?
-    bool get running   => loaded && world.running;
+    bool get isRunning   => loaded && world.isRunning;
 
     /// is the game loaded?
     bool get loaded => world != null;
@@ -56,7 +56,7 @@ class GameMode {
     /// Loads and inits a new [level]
     void load(Level level) 
     {
-        if (running) return;
+        if (isRunning) return;
 
         // Set State
         enemyCount = 0;
@@ -103,12 +103,12 @@ class GameMode {
     /// Moves the current player character in this game by a given [velocity]
     void moveCharacter(Vector2 t) 
     {
-        if (running && player != null) player.walk(t);
+        if (isRunning && player != null) player.walk(t);
     }
 
     /// Used for operations which need to be done in short intervals where [deltaTime] specifies the time since the last tick
     void tick(double deltaTime)
     {
-        if (running && world != null) world.tick(deltaTime);
+        if (isRunning && world != null) world.tick(deltaTime);
     }
 }
