@@ -6,7 +6,7 @@ class GameController
 {
 
     /// Tick interval
-    static final interval = new Duration(milliseconds: 32);
+    static final interval = new Duration(milliseconds: 22);
 
     /// Model instance
     GameMode gameMode;
@@ -69,7 +69,7 @@ class GameController
         });
     }
 
-    /// Starts the game by loading a level and ticking the gamemode.
+    /// Starts the game by loading a level ([lvldata]) and ticking the gamemode.
     _runGame(Level lvldata) async
     {
         // Prevent multiple starts, less necessary than multiple gameovers, but reasonable.
@@ -100,8 +100,9 @@ class GameController
     }
 
     /// Ends the game by showing endscreen and animating the character.
-    /// Then the main menu will be shown.
-    _gameOver(won) async
+    /// Then the main menu will be shown. 
+    /// [won] indicated whether the game over was issues by a win / loss
+    _gameOver(bool won) async
     {
         // Prevent multiple gameovers if enemies do stuff after it has ended
         if (!_running) return;
