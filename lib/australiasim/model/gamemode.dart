@@ -70,9 +70,7 @@ class GameMode {
         world.spawnActor(new Box(), new Vector2(level.size.x / 2,   level.size.y),      scale: new Vector2(wallWidth + level.size.x, wallWidth));
         world.spawnActor(new Box(), new Vector2(0.0,                level.size.y / 2),  scale: new Vector2(wallWidth, level.size.y + wallWidth));
         world.spawnActor(new Box(), new Vector2(level.size.x,       level.size.y / 2),  scale: new Vector2(wallWidth, level.size.y + wallWidth));
-
-        //world.spawnActor(new Board(), new Vector2(level.size.x / 2,   level.size.y / 2), rotation: new Vector2(0.0, 1.0));
-
+        
         // Trees
         world.spawnActor(new Shrub(), new Vector2(-200.0, -200.0), scale: new Vector2(200.0, 350.0), rotation: new Vector2(0.0, 1.0));
         world.spawnActor(new Shrub(), new Vector2(level.size.x + 200.0, -200.0), scale: new Vector2(200.0, 350.0), rotation: new Vector2(0.0, 1.0));
@@ -101,9 +99,9 @@ class GameMode {
     }
 
     /// Moves the current player character in this game by a given [velocity]
-    void moveCharacter(Vector2 t) 
+    void moveCharacter(Vector2 velocity) 
     {
-        if (isRunning && player != null) player.walk(t);
+        if (isRunning && player != null) player.walk(velocity);
     }
 
     /// Used for operations which need to be done in short intervals where [deltaTime] specifies the time since the last tick
