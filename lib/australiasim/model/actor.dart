@@ -55,10 +55,7 @@ class Actor {
 
     /// World
     World get world => _world;
-
-    /// Is this actor still placed in a valid world
-    bool get valid => world != null;
-
+    
     /// Sets new [name]
     set name(String name) => _name = name;
     /// Name
@@ -170,8 +167,8 @@ class Actor {
         }
         else
         {
-            final corners1 = this.getBoxColliderCorners(destLocation);
-            final corners2 = other.getBoxColliderCorners(other.location);
+            final corners1 = this.getColliderBoxCorners(destLocation);
+            final corners2 = other.getColliderBoxCorners(other.location);
         
             List<Vector2> normals = new List<Vector2>();
             normals.addAll(getColliderBoxNormals(corners1));
@@ -200,7 +197,7 @@ class Actor {
     }
     
     /// Returns list of corners this actor had with a box collider on [destLocation]
-    List<Vector2> getBoxColliderCorners(Vector2 destLocation)
+    List<Vector2> getColliderBoxCorners(Vector2 destLocation)
     {
         List<Vector2> tList = new List<Vector2>();
         final radians = atan2(this.rotation.x, this.rotation.y);
