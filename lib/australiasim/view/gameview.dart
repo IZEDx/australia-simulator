@@ -29,9 +29,9 @@ class GameView extends DOMView {
     Vector2 _touchOrigin = new Vector2.zero(); 
     
     /// When a level has been chosen to play
-    Stream<Level> onSelectLevel;
+    Stream<int> onSelectLevel;
     /// Used to broadcast select level events
-    StreamController<Level> _selectLevelEvent = new StreamController();
+    StreamController<int> _selectLevelEvent = new StreamController();
 
     /// If the game is currently running
     get isRunning => this._gameMode.isRunning;
@@ -59,10 +59,10 @@ class GameView extends DOMView {
             final levelSelection = get("levelSelection");
 
             for (var i = 0; i <= _levelManager.unlocked && i < _levelManager.size; i++) {
-                final level = _levelManager.get(i);
                 if (get("level-${i}") == null) {
+                    final lvlidx = i;
                     levelSelection.appendHtml("<button class='btn' id='level-${i}'>Level ${i + 1}</button>");
-                    get("level-${i}").onClick.listen((e) => _selectLevelEvent.add(level));
+                    get("level-${i}").onClick.listen((e) => _selectLevelEvent.add(lvlidx));
                 }
             }
         }
@@ -330,7 +330,7 @@ class GameView extends DOMView {
     _setupListeners()
     {
         // Throw a selectLevelEvent with the current level when startGame was clicked
-        get("startGame").onClick.listen((e) => _selectLevelEvent.add(_levelManager.get(_levelManager.current)));
+        get("startGame").onClick.listen((e) => _selectLevelEvent.add(_levelManager.current));
 
         // Touch listeners
         _inputLayer.onTouchStart.listen(_handleTouchStart);

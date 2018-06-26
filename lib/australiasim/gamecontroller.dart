@@ -70,11 +70,17 @@ class GameController
     }
 
     /// Starts the game by loading a level ([lvldata]) and ticking the gamemode.
-    _runGame(Level lvldata) async
+    _runGame(int lvlidx) async
     {
         // Prevent multiple starts, less necessary than multiple gameovers, but reasonable.
         if (_running) return;
         _running = true;
+
+        // Prevent loading of non existing level
+        if (lvlidx < 0 || lvlidx >= levelManager.size) return;
+
+        // Get the data for the level
+        final lvldata = levelManager.get(lvlidx);
 
         // Load the level into the gamemode
         gameMode.load(lvldata);
@@ -82,6 +88,17 @@ class GameController
         gameView.openGameView();
         // Start the gamemode
         gameMode.start();
+
+        if (lvlidx + 1 == levelManager.size)
+        {
+
+            Door door = gameMode.world.actors.where((a) => a is Door).first;
+
+            // Feedback when user touches door
+            new Observable(door.onCollide)
+                .where( (Actor a) => a is Character )
+                .listen( (a) => _specialGameOver() );
+        }
         
         // Show the spawntext of the level for 4 seconds
         gameView.hintBig(lvldata.spawnText, new Duration(seconds: 4));
@@ -90,13 +107,21 @@ class GameController
 
         // Keep ticking while the gamemode is running.
         // The gamemode will run 3 seconds longer after the gameover, keep the enemies moving.
-        while (gameMode.isRunning) {
+        while (gameMode.isRunning)
+        {
             await gameView.timeout(interval); // Wait for interval
 
             final now = window.performance.now() / 1000;
             gameMode.tick(now - _lastTick); // Run tick through model with deltatime
             _lastTick = now; // Reset last tick
         }
+    }
+
+    _specialGameOver() async
+    {
+        Future ret = _gameOver(true);
+        gameView.hide(gameView.get("Character"));
+        return ret;
     }
 
     /// Ends the game by showing endscreen and animating the character.
