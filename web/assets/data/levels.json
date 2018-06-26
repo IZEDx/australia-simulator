@@ -10,5 +10,17 @@
     },
     {
         "path": "./assets/data/levels/3-cmon-mate.json"
+    },
+    {
+        "path": "./assets/data/levels/4-i-always-close-the-door.json"
+    },
+    {
+        "path": "./assets/data/levels/5-but-the-window.json"
+    },
+    {
+        "path": "./assets/data/levels/6-i-dont-have-a-window.json"
+    },
+    {
+        "path": "./assets/data/levels/7-get-out.json"
     }
 ]
