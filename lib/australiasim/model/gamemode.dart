@@ -80,7 +80,7 @@ class GameMode {
         for (final data in level.actors) 
         {
             Actor actor = world.spawnActor(
-                data.instance(), 
+                data.factory(), 
                 data.location, 
                 scale: data.scale,
                 rotation: data.rotation
