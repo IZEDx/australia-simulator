@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="API docs for the Table class from the australiasim library, for the Dart programming language.">
+  <title>Table class - australiasim library - Dart API</title>
+  <!-- required because all the links are pseudo-absolute -->
+  <base href="..">
+
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:500,400italic,300,400' type='text/css'>
+  <link rel="stylesheet" href="static-assets/prettify.css">
+  <link rel="stylesheet" href="static-assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static-assets/styles.css">
+  <link rel="icon" href="static-assets/favicon.png">
+
+  <!-- Do not remove placeholder -->
+  <!-- Header Placeholder -->
+</head>
+
+<body>
+
+<div id="overlay-under-drawer"></div>
+
+<header class="container-fluid" id="title">
+  <nav class="navbar navbar-fixed-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 contents">
+          <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+          <ol class="breadcrumbs gt-separated hidden-xs">
+            <li><a href="index.html">australia_simulator</a></li>
+            <li><a href="australiasim/australiasim-library.html">australiasim</a></li>
+            <li class="self-crumb">Table</li>
+          </ol>
+          <div class="self-name">Table</div>
+          <form class="search navbar-right" role="search">
+            <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+          </form>
+        </div> <!-- /col -->
+      </div> <!-- /row -->
+    </div> <!-- /container -->
+  </nav>
+
+  <div class="container masthead">
+    <div class="row">
+      <div class="col-sm-12 contents">
+        <ol class="breadcrumbs gt-separated visible-xs">
+          <li><a href="index.html">australia_simulator</a></li>
+          <li><a href="australiasim/australiasim-library.html">australiasim</a></li>
+          <li class="self-crumb">Table</li>
+        </ol>
+        <div class="title-description">
+          <h1 class="title">
+            <span class="kind">class</span> Table
+          </h1>
+        </div>
+        <ul class="subnav">
+          <li><a href="australiasim/Table-class.html#instance-properties">Properties</a></li>
+          <li><a href="australiasim/Table-class.html#constructors">Constructors</a></li>
+          <li><a href="australiasim/Table-class.html#operators">Operators</a></li>
+          <li><a href="australiasim/Table-class.html#instance-methods">Methods</a></li>
+        </ul>
+      </div> <!-- /col -->
+    </div> <!-- /row -->
+  </div> <!-- /container -->
+
+</header>
+
+<div class="container body">
+  <div class="row">
+
+  <div class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <h5><a href="index.html">australia_simulator</a></h5>
+    <h5><a href="australiasim/australiasim-library.html">australiasim</a></h5>
+
+    <ol>
+      <li class="section-title"><a href="australiasim/australiasim-library.html#constants">Constants</a></li>
+      <li><a href="australiasim/wallWidth-constant.html">wallWidth</a></li>
+    
+      <li class="section-title"><a href="australiasim/australiasim-library.html#typedefs">Typedefs</a></li>
+      <li><a href="australiasim/ActorFactory.html">ActorFactory</a></li>
+    
+      <li class="section-title"><a href="australiasim/australiasim-library.html#properties">Properties</a></li>
+      <li><a href="australiasim/mainController.html">mainController</a></li>
+    
+    
+      <li class="section-title"><a href="australiasim/australiasim-library.html#enums">Enums</a></li>
+      <li><a href="australiasim/EnemyState-class.html">EnemyState</a></li>
+    
+      <li class="section-title"><a href="australiasim/australiasim-library.html#classes">Classes</a></li>
+      <li><a href="australiasim/Actor-class.html">Actor</a></li>
+      <li><a href="australiasim/ActorData-class.html">ActorData</a></li>
+      <li><a href="australiasim/BigBed-class.html">BigBed</a></li>
+      <li><a href="australiasim/BigRedSpider-class.html">BigRedSpider</a></li>
+      <li><a href="australiasim/BigSpider-class.html">BigSpider</a></li>
+      <li><a href="australiasim/Board-class.html">Board</a></li>
+      <li><a href="australiasim/Box-class.html">Box</a></li>
+      <li><a href="australiasim/Chair-class.html">Chair</a></li>
+      <li><a href="australiasim/Character-class.html">Character</a></li>
+      <li><a href="australiasim/DOMView-class.html">DOMView</a></li>
+      <li><a href="australiasim/Door-class.html">Door</a></li>
+      <li><a href="australiasim/Enemy-class.html">Enemy</a></li>
+      <li><a href="australiasim/Flower-class.html">Flower</a></li>
+      <li><a href="australiasim/GameController-class.html">GameController</a></li>
+      <li><a href="australiasim/GameMode-class.html">GameMode</a></li>
+      <li><a href="australiasim/GameView-class.html">GameView</a></li>
+      <li><a href="australiasim/Lamp-class.html">Lamp</a></li>
+      <li><a href="australiasim/Level-class.html">Level</a></li>
+      <li><a href="australiasim/LevelManager-class.html">LevelManager</a></li>
+      <li><a href="australiasim/Pawn-class.html">Pawn</a></li>
+      <li><a href="australiasim/Prop-class.html">Prop</a></li>
+      <li><a href="australiasim/Shrub-class.html">Shrub</a></li>
+      <li><a href="australiasim/SmallBed-class.html">SmallBed</a></li>
+      <li><a href="australiasim/Spider-class.html">Spider</a></li>
+      <li><a href="australiasim/Table-class.html">Table</a></li>
+      <li><a href="australiasim/Tree-class.html">Tree</a></li>
+      <li><a href="australiasim/World-class.html">World</a></li>
+    
+    </ol>
+  </div>
+
+  <div class="col-xs-12 col-sm-9 col-md-8 main-content">
+
+    <section class="desc markdown">
+      <p>Class for a table</p>
+    </section>
+    
+    <section>
+      <dl class="dl-horizontal">
+        <dt>Inheritance</dt>
+        <dd><ul class="gt-separated dark clazz-relationships">
+          <li>Object</li>
+          <li><a href="australiasim/Actor-class.html">Actor</a></li>
+          <li><a href="australiasim/Prop-class.html">Prop</a></li>
+          <li><a href="australiasim/Box-class.html">Box</a></li>
+          <li>Table</li>
+        </ul></dd>
+
+
+
+
+      </dl>
+    </section>
+
+
+
+
+    <section class="summary offset-anchor" id="constructors">
+      <h2>Constructors</h2>
+
+      <dl class="constructor-summary-list">
+        <dt id="Table" class="callable">
+          <span class="name"><a href="australiasim/Table/Table.html">Table</a></span><span class="signature">()</span>
+        </dt>
+        <dd>
+          <p></p>
+        </dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor inherited" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="collideEvent" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/collideEvent.html">collideEvent</a></span>
+          <span class="signature">&#8594; StreamController&lt;<a href="australiasim/Actor-class.html">Actor</a>&gt;</span>
+        </dt>
+        <dd class="inherited">
+          <p>Used to broadcast collide events</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="colliderBoxExtent" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/colliderBoxExtent.html">colliderBoxExtent</a></span>
+          <span class="signature">&#8594; Vector2</span>
+        </dt>
+        <dd class="inherited">
+          <p>Collider dimensions</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="hashCode" class="property inherited">
+          <span class="name"><a href="australiasim/Table/hashCode.html">hashCode</a></span>
+          <span class="signature">&#8594; int</span>
+        </dt>
+        <dd class="inherited">
+          <p>The hash code for this object.</p>
+          <div class="features">read-only, inherited</div>
+</dd>
+        <dt id="isCircleCollider" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/isCircleCollider.html">isCircleCollider</a></span>
+          <span class="signature">&#8594; bool</span>
+        </dt>
+        <dd class="inherited">
+          <p>Using a circle or box primitive for collision?</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="location" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/location.html">location</a></span>
+          <span class="signature">&#8594; Vector2</span>
+        </dt>
+        <dd class="inherited">
+          <p>Location</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="name" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/name.html">name</a></span>
+          <span class="signature">&#8594; String</span>
+        </dt>
+        <dd class="inherited">
+          <p>Name</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="onCollide" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/onCollide.html">onCollide</a></span>
+          <span class="signature">&#8594; Stream&lt;<a href="australiasim/Actor-class.html">Actor</a>&gt;</span>
+        </dt>
+        <dd class="inherited">
+          <p>Emits actors this actor collides with</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="onMove" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/onMove.html">onMove</a></span>
+          <span class="signature">&#8594; Stream&lt;Vector2&gt;</span>
+        </dt>
+        <dd class="inherited">
+          <p>Emits new position on change</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="onRotate" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/onRotate.html">onRotate</a></span>
+          <span class="signature">&#8594; Stream&lt;Vector2&gt;</span>
+        </dt>
+        <dd class="inherited">
+          <p>Emits new rotation on change</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="onScale" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/onScale.html">onScale</a></span>
+          <span class="signature">&#8594; Stream&lt;Vector2&gt;</span>
+        </dt>
+        <dd class="inherited">
+          <p>Emits new scale on change</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="rotation" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/rotation.html">rotation</a></span>
+          <span class="signature">&#8594; Vector2</span>
+        </dt>
+        <dd class="inherited">
+          <p>Rotation</p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="runtimeType" class="property inherited">
+          <span class="name"><a href="australiasim/Table/runtimeType.html">runtimeType</a></span>
+          <span class="signature">&#8594; Type</span>
+        </dt>
+        <dd class="inherited">
+          <p>A representation of the runtime type of the object.</p>
+          <div class="features">read-only, inherited</div>
+</dd>
+        <dt id="scale" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/scale.html">scale</a></span>
+          <span class="signature">&#8594; Vector2</span>
+        </dt>
+        <dd class="inherited">
+          <p>Sets new <code>scale</code></p>
+          <div class="features">read / write, inherited</div>
+</dd>
+        <dt id="world" class="property inherited">
+          <span class="name"><a href="australiasim/Actor/world.html">world</a></span>
+          <span class="signature">&#8594; <a href="australiasim/World-class.html">World</a></span>
+        </dt>
+        <dd class="inherited">
+          <p>World</p>
+          <div class="features">read-only, inherited</div>
+</dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor inherited" id="operators">
+      <h2>Operators</h2>
+      <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+          <span class="name"><a href="australiasim/Table/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="parameter-name">other</span></span>)
+            <span class="returntype parameter">&#8594; bool</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>The equality operator.</p>
+          <div class="features">inherited</div>
+</dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-methods">
+      <h2>Methods</h2>
+      <dl class="callables">
+        <dt id="initialize" class="callable">
+          <span class="name"><a href="australiasim/Table/initialize.html">initialize</a></span><span class="signature">(<wbr><span class="parameter" id="initialize-param-world"><span class="type-annotation"><a href="australiasim/World-class.html">World</a></span> <span class="parameter-name">world</span></span>)
+            <span class="returntype parameter">&#8594; dynamic</span>
+          </span>
+        </dt>
+        <dd>
+          <p>Called when the actor is instantiated in the <code>world</code></p>
+          
+</dd>
+        <dt id="beginPlay" class="callable inherited">
+          <span class="name"><a href="australiasim/Prop/beginPlay.html">beginPlay</a></span><span class="signature">(<wbr>)
+            <span class="returntype parameter">&#8594; void</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>Called when the level starts</p>
+          <div class="features">inherited</div>
+</dd>
+        <dt id="getColliderBoxCorners" class="callable inherited">
+          <span class="name"><a href="australiasim/Actor/getColliderBoxCorners.html">getColliderBoxCorners</a></span><span class="signature">(<wbr><span class="parameter" id="getColliderBoxCorners-param-destLocation"><span class="type-annotation">Vector2</span> <span class="parameter-name">destLocation</span></span>)
+            <span class="returntype parameter">&#8594; List&lt;Vector2&gt;</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>Returns list of corners this actor had with a box collider on <code>destLocation</code></p>
+          <div class="features">inherited</div>
+</dd>
+        <dt id="isCollidingWith" class="callable inherited">
+          <span class="name"><a href="australiasim/Actor/isCollidingWith.html">isCollidingWith</a></span><span class="signature">(<wbr><span class="parameter" id="isCollidingWith-param-other"><span class="type-annotation"><a href="australiasim/Actor-class.html">Actor</a></span> <span class="parameter-name">other</span>, [</span> <span class="parameter" id="isCollidingWith-param-destLocation"><span class="type-annotation">Vector2</span> <span class="parameter-name">destLocation</span></span> ])
+            <span class="returntype parameter">&#8594; bool</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>Is colliding with <code>other</code> on an optional <code>destLocation</code>?</p>
+          <div class="features">inherited</div>
+</dd>
+        <dt id="noSuchMethod" class="callable inherited">
+          <span class="name"><a href="australiasim/Table/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation">Invocation</span> <span class="parameter-name">invocation</span></span>)
+            <span class="returntype parameter">&#8594; dynamic</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>Invoked when a non-existent method or property is accessed.</p>
+          <div class="features">inherited</div>
+</dd>
+        <dt id="tick" class="callable inherited">
+          <span class="name"><a href="australiasim/Actor/tick.html">tick</a></span><span class="signature">(<wbr><span class="parameter" id="tick-param-deltaTime"><span class="type-annotation">double</span> <span class="parameter-name">deltaTime</span></span>)
+            <span class="returntype parameter">&#8594; void</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>Used for operations which need to be done in short intervals where <code>deltaTime</code> specifies the time since the last tick</p>
+          <div class="features">inherited</div>
+</dd>
+        <dt id="toString" class="callable inherited">
+          <span class="name"><a href="australiasim/Table/toString.html">toString</a></span><span class="signature">(<wbr>)
+            <span class="returntype parameter">&#8594; String</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>Returns a string representation of this object.</p>
+          <div class="features">inherited</div>
+</dd>
+      </dl>
+    </section>
+
+  </div> <!-- /.main-content -->
+
+  <div class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+    <h5>Table</h5>
+    <ol>
+    
+    
+    
+      <li class="section-title"><a href="australiasim/Table-class.html#constructors">Constructors</a></li>
+      <li><a href="australiasim/Table/Table.html">Table</a></li>
+    
+      <li class="section-title inherited">
+        <a href="australiasim/Table-class.html#instance-properties">Properties</a>
+      </li>
+      <li class="inherited"><a href="australiasim/Actor/collideEvent.html">collideEvent</a></li>
+      <li class="inherited"><a href="australiasim/Actor/colliderBoxExtent.html">colliderBoxExtent</a></li>
+      <li class="inherited"><a href="australiasim/Table/hashCode.html">hashCode</a></li>
+      <li class="inherited"><a href="australiasim/Actor/isCircleCollider.html">isCircleCollider</a></li>
+      <li class="inherited"><a href="australiasim/Actor/location.html">location</a></li>
+      <li class="inherited"><a href="australiasim/Actor/name.html">name</a></li>
+      <li class="inherited"><a href="australiasim/Actor/onCollide.html">onCollide</a></li>
+      <li class="inherited"><a href="australiasim/Actor/onMove.html">onMove</a></li>
+      <li class="inherited"><a href="australiasim/Actor/onRotate.html">onRotate</a></li>
+      <li class="inherited"><a href="australiasim/Actor/onScale.html">onScale</a></li>
+      <li class="inherited"><a href="australiasim/Actor/rotation.html">rotation</a></li>
+      <li class="inherited"><a href="australiasim/Table/runtimeType.html">runtimeType</a></li>
+      <li class="inherited"><a href="australiasim/Actor/scale.html">scale</a></li>
+      <li class="inherited"><a href="australiasim/Actor/world.html">world</a></li>
+    
+      <li class="section-title inherited"><a href="australiasim/Table-class.html#operators">Operators</a></li>
+      <li class="inherited"><a href="australiasim/Table/operator_equals.html">operator ==</a></li>
+    
+      <li class="section-title"><a href="australiasim/Table-class.html#instance-methods">Methods</a></li>
+      <li><a href="australiasim/Table/initialize.html">initialize</a></li>
+      <li class="inherited"><a href="australiasim/Prop/beginPlay.html">beginPlay</a></li>
+      <li class="inherited"><a href="australiasim/Actor/getColliderBoxCorners.html">getColliderBoxCorners</a></li>
+      <li class="inherited"><a href="australiasim/Actor/isCollidingWith.html">isCollidingWith</a></li>
+      <li class="inherited"><a href="australiasim/Table/noSuchMethod.html">noSuchMethod</a></li>
+      <li class="inherited"><a href="australiasim/Actor/tick.html">tick</a></li>
+      <li class="inherited"><a href="australiasim/Table/toString.html">toString</a></li>
+    </ol>
+  </div><!--/.sidebar-offcanvas-->
+
+</div> <!-- row -->
+</div> <!-- container -->
+
+<footer>
+  <div class="container-fluid">
+    <div class="container">
+      <p class="text-center">
+        <span class="no-break">
+          australia_simulator 0.1.1
+        </span>
+        &bull;
+        <span class="no-break">
+          <a href="https://www.dartlang.org">
+            <img src="static-assets/favicon.png" alt="Dart" title="Dart" width="16" height="16">
+          </a>
+        </span>
+        &bull;
+        <span class="copyright no-break">
+          <a href="http://creativecommons.org/licenses/by-sa/4.0/">cc license</a>
+        </span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="static-assets/typeahead.bundle.min.js"></script>
+<script src="static-assets/prettify.js"></script>
+<script src="static-assets/URI.js"></script>
+<script src="static-assets/script.js"></script>
+<!-- Do not remove placeholder -->
+<!-- Footer Placeholder -->
+
+</body>
+
+</html>

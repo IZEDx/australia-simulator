@@ -1,5 +1,6 @@
 part of australiasim;
 
+/// Class for a tree
 class Tree extends Box
 {
     @override

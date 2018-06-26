@@ -1,5 +1,6 @@
 part of australiasim;
 
+/// CLass for a board
 class Board extends Box
 {
     @override

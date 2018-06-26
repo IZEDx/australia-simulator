@@ -1,5 +1,6 @@
 part of australiasim;
 
+/// A big spider
 class BigSpider extends Spider
 {
     @override

@@ -1,5 +1,6 @@
 part of australiasim;
 
+/// Base class for a spider enemy
 class Spider extends Enemy
 {
     @override

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="API docs for the LevelManager class from the australiasim library, for the Dart programming language.">
+  <title>LevelManager class - australiasim library - Dart API</title>
+  <!-- required because all the links are pseudo-absolute -->
+  <base href="..">
+
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:500,400italic,300,400' type='text/css'>
+  <link rel="stylesheet" href="static-assets/prettify.css">
+  <link rel="stylesheet" href="static-assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static-assets/styles.css">
+  <link rel="icon" href="static-assets/favicon.png">
+
+  <!-- Do not remove placeholder -->
+  <!-- Header Placeholder -->
+</head>
+
+<body>
+
+<div id="overlay-under-drawer"></div>
+
+<header class="container-fluid" id="title">
+  <nav class="navbar navbar-fixed-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 contents">
+          <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+          <ol class="breadcrumbs gt-separated hidden-xs">
+            <li><a href="index.html">australia_simulator</a></li>
+            <li><a href="australiasim/australiasim-library.html">australiasim</a></li>
+            <li class="self-crumb">LevelManager</li>
+          </ol>
+          <div class="self-name">LevelManager</div>
+          <form class="search navbar-right" role="search">
+            <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+          </form>
+        </div> <!-- /col -->
+      </div> <!-- /row -->
+    </div> <!-- /container -->
+  </nav>
+
+  <div class="container masthead">
+    <div class="row">
+      <div class="col-sm-12 contents">
+        <ol class="breadcrumbs gt-separated visible-xs">
+          <li><a href="index.html">australia_simulator</a></li>
+          <li><a href="australiasim/australiasim-library.html">australiasim</a></li>
+          <li class="self-crumb">LevelManager</li>
+        </ol>
+        <div class="title-description">
+          <h1 class="title">
+            <span class="kind">class</span> LevelManager
+          </h1>
+        </div>
+        <ul class="subnav">
+          <li><a href="australiasim/LevelManager-class.html#instance-properties">Properties</a></li>
+          <li><a href="australiasim/LevelManager-class.html#constructors">Constructors</a></li>
+          <li><a href="australiasim/LevelManager-class.html#operators">Operators</a></li>
+          <li><a href="australiasim/LevelManager-class.html#instance-methods">Methods</a></li>
+        </ul>
+      </div> <!-- /col -->
+    </div> <!-- /row -->
+  </div> <!-- /container -->
+
+</header>
+
+<div class="container body">
+  <div class="row">
+
+  <div class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <h5><a href="index.html">australia_simulator</a></h5>
+    <h5><a href="australiasim/australiasim-library.html">australiasim</a></h5>
+
+    <ol>
+      <li class="section-title"><a href="australiasim/australiasim-library.html#constants">Constants</a></li>
+      <li><a href="australiasim/wallWidth-constant.html">wallWidth</a></li>
+    
+      <li class="section-title"><a href="australiasim/australiasim-library.html#typedefs">Typedefs</a></li>
+      <li><a href="australiasim/ActorFactory.html">ActorFactory</a></li>
+    
+      <li class="section-title"><a href="australiasim/australiasim-library.html#properties">Properties</a></li>
+      <li><a href="australiasim/mainController.html">mainController</a></li>
+    
+    
+      <li class="section-title"><a href="australiasim/australiasim-library.html#enums">Enums</a></li>
+      <li><a href="australiasim/EnemyState-class.html">EnemyState</a></li>
+    
+      <li class="section-title"><a href="australiasim/australiasim-library.html#classes">Classes</a></li>
+      <li><a href="australiasim/Actor-class.html">Actor</a></li>
+      <li><a href="australiasim/ActorData-class.html">ActorData</a></li>
+      <li><a href="australiasim/BigBed-class.html">BigBed</a></li>
+      <li><a href="australiasim/BigRedSpider-class.html">BigRedSpider</a></li>
+      <li><a href="australiasim/BigSpider-class.html">BigSpider</a></li>
+      <li><a href="australiasim/Board-class.html">Board</a></li>
+      <li><a href="australiasim/Box-class.html">Box</a></li>
+      <li><a href="australiasim/Chair-class.html">Chair</a></li>
+      <li><a href="australiasim/Character-class.html">Character</a></li>
+      <li><a href="australiasim/DOMView-class.html">DOMView</a></li>
+      <li><a href="australiasim/Door-class.html">Door</a></li>
+      <li><a href="australiasim/Enemy-class.html">Enemy</a></li>
+      <li><a href="australiasim/Flower-class.html">Flower</a></li>
+      <li><a href="australiasim/GameController-class.html">GameController</a></li>
+      <li><a href="australiasim/GameMode-class.html">GameMode</a></li>
+      <li><a href="australiasim/GameView-class.html">GameView</a></li>
+      <li><a href="australiasim/Lamp-class.html">Lamp</a></li>
+      <li><a href="australiasim/Level-class.html">Level</a></li>
+      <li><a href="australiasim/LevelManager-class.html">LevelManager</a></li>
+      <li><a href="australiasim/Pawn-class.html">Pawn</a></li>
+      <li><a href="australiasim/Prop-class.html">Prop</a></li>
+      <li><a href="australiasim/Shrub-class.html">Shrub</a></li>
+      <li><a href="australiasim/SmallBed-class.html">SmallBed</a></li>
+      <li><a href="australiasim/Spider-class.html">Spider</a></li>
+      <li><a href="australiasim/Table-class.html">Table</a></li>
+      <li><a href="australiasim/Tree-class.html">Tree</a></li>
+      <li><a href="australiasim/World-class.html">World</a></li>
+    
+    </ol>
+  </div>
+
+  <div class="col-xs-12 col-sm-9 col-md-8 main-content">
+
+    <section class="desc markdown">
+      <p>LevelManager loads and holds the level list and also
+offers operations on the localStorage to store and
+retrieve "unlocked" and "current" level</p>
+    </section>
+    
+
+
+
+
+    <section class="summary offset-anchor" id="constructors">
+      <h2>Constructors</h2>
+
+      <dl class="constructor-summary-list">
+        <dt id="LevelManager" class="callable">
+          <span class="name"><a href="australiasim/LevelManager/LevelManager.html">LevelManager</a></span><span class="signature">(<span class="parameter" id="-param-_path"><span class="type-annotation">String</span> <span class="parameter-name">_path</span></span>)</span>
+        </dt>
+        <dd>
+          <p>Constructor</p>
+        </dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="current" class="property">
+          <span class="name"><a href="australiasim/LevelManager/current.html">current</a></span>
+          <span class="signature">&#8594; int</span>
+        </dt>
+        <dd>
+          <p>Get the index of the level the user
+is currently at</p>
+          <div class="features">read / write</div>
+</dd>
+        <dt id="path" class="property">
+          <span class="name"><a href="australiasim/LevelManager/path.html">path</a></span>
+          <span class="signature">&#8594; String</span>
+        </dt>
+        <dd>
+          <p></p>
+          <div class="features">read-only</div>
+</dd>
+        <dt id="ready" class="property">
+          <span class="name"><a href="australiasim/LevelManager/ready.html">ready</a></span>
+          <span class="signature">&#8594; bool</span>
+        </dt>
+        <dd>
+          <p></p>
+          <div class="features">read-only</div>
+</dd>
+        <dt id="size" class="property">
+          <span class="name"><a href="australiasim/LevelManager/size.html">size</a></span>
+          <span class="signature">&#8594; int</span>
+        </dt>
+        <dd>
+          <p>How many levels exist, should check
+if ready first</p>
+          <div class="features">read-only</div>
+</dd>
+        <dt id="unlocked" class="property">
+          <span class="name"><a href="australiasim/LevelManager/unlocked.html">unlocked</a></span>
+          <span class="signature">&#8594; int</span>
+        </dt>
+        <dd>
+          <p>Gets the index of the highest level the user has unlocked</p>
+          <div class="features">read-only</div>
+</dd>
+        <dt id="hashCode" class="property inherited">
+          <span class="name"><a href="australiasim/LevelManager/hashCode.html">hashCode</a></span>
+          <span class="signature">&#8594; int</span>
+        </dt>
+        <dd class="inherited">
+          <p>The hash code for this object.</p>
+          <div class="features">read-only, inherited</div>
+</dd>
+        <dt id="runtimeType" class="property inherited">
+          <span class="name"><a href="australiasim/LevelManager/runtimeType.html">runtimeType</a></span>
+          <span class="signature">&#8594; Type</span>
+        </dt>
+        <dd class="inherited">
+          <p>A representation of the runtime type of the object.</p>
+          <div class="features">read-only, inherited</div>
+</dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor inherited" id="operators">
+      <h2>Operators</h2>
+      <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+          <span class="name"><a href="australiasim/LevelManager/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="parameter-name">other</span></span>)
+            <span class="returntype parameter">&#8594; bool</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>The equality operator.</p>
+          <div class="features">inherited</div>
+</dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-methods">
+      <h2>Methods</h2>
+      <dl class="callables">
+        <dt id="get" class="callable">
+          <span class="name"><a href="australiasim/LevelManager/get.html">get</a></span><span class="signature">(<wbr><span class="parameter" id="get-param-level"><span class="type-annotation">int</span> <span class="parameter-name">level</span></span>)
+            <span class="returntype parameter">&#8594; <a href="australiasim/Level-class.html">Level</a></span>
+          </span>
+        </dt>
+        <dd>
+          <p>Returns a level if it exists,
+throws a RangeError if it does not exist.</p>
+          
+</dd>
+        <dt id="load" class="callable">
+          <span class="name"><a href="australiasim/LevelManager/load.html">load</a></span><span class="signature">(<wbr>)
+            <span class="returntype parameter">&#8594; Future</span>
+          </span>
+        </dt>
+        <dd>
+          <p>Loads all levels</p>
+          
+</dd>
+        <dt id="noSuchMethod" class="callable inherited">
+          <span class="name"><a href="australiasim/LevelManager/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation">Invocation</span> <span class="parameter-name">invocation</span></span>)
+            <span class="returntype parameter">&#8594; dynamic</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>Invoked when a non-existent method or property is accessed.</p>
+          <div class="features">inherited</div>
+</dd>
+        <dt id="toString" class="callable inherited">
+          <span class="name"><a href="australiasim/LevelManager/toString.html">toString</a></span><span class="signature">(<wbr>)
+            <span class="returntype parameter">&#8594; String</span>
+          </span>
+        </dt>
+        <dd class="inherited">
+          <p>Returns a string representation of this object.</p>
+          <div class="features">inherited</div>
+</dd>
+      </dl>
+    </section>
+
+  </div> <!-- /.main-content -->
+
+  <div class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+    <h5>LevelManager</h5>
+    <ol>
+    
+    
+    
+      <li class="section-title"><a href="australiasim/LevelManager-class.html#constructors">Constructors</a></li>
+      <li><a href="australiasim/LevelManager/LevelManager.html">LevelManager</a></li>
+    
+      <li class="section-title">
+        <a href="australiasim/LevelManager-class.html#instance-properties">Properties</a>
+      </li>
+      <li><a href="australiasim/LevelManager/current.html">current</a></li>
+      <li><a href="australiasim/LevelManager/path.html">path</a></li>
+      <li><a href="australiasim/LevelManager/ready.html">ready</a></li>
+      <li><a href="australiasim/LevelManager/size.html">size</a></li>
+      <li><a href="australiasim/LevelManager/unlocked.html">unlocked</a></li>
+      <li class="inherited"><a href="australiasim/LevelManager/hashCode.html">hashCode</a></li>
+      <li class="inherited"><a href="australiasim/LevelManager/runtimeType.html">runtimeType</a></li>
+    
+      <li class="section-title inherited"><a href="australiasim/LevelManager-class.html#operators">Operators</a></li>
+      <li class="inherited"><a href="australiasim/LevelManager/operator_equals.html">operator ==</a></li>
+    
+      <li class="section-title"><a href="australiasim/LevelManager-class.html#instance-methods">Methods</a></li>
+      <li><a href="australiasim/LevelManager/get.html">get</a></li>
+      <li><a href="australiasim/LevelManager/load.html">load</a></li>
+      <li class="inherited"><a href="australiasim/LevelManager/noSuchMethod.html">noSuchMethod</a></li>
+      <li class="inherited"><a href="australiasim/LevelManager/toString.html">toString</a></li>
+    </ol>
+  </div><!--/.sidebar-offcanvas-->
+
+</div> <!-- row -->
+</div> <!-- container -->
+
+<footer>
+  <div class="container-fluid">
+    <div class="container">
+      <p class="text-center">
+        <span class="no-break">
+          australia_simulator 0.1.1
+        </span>
+        &bull;
+        <span class="no-break">
+          <a href="https://www.dartlang.org">
+            <img src="static-assets/favicon.png" alt="Dart" title="Dart" width="16" height="16">
+          </a>
+        </span>
+        &bull;
+        <span class="copyright no-break">
+          <a href="http://creativecommons.org/licenses/by-sa/4.0/">cc license</a>
+        </span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="static-assets/typeahead.bundle.min.js"></script>
+<script src="static-assets/prettify.js"></script>
+<script src="static-assets/URI.js"></script>
+<script src="static-assets/script.js"></script>
+<!-- Do not remove placeholder -->
+<!-- Footer Placeholder -->
+
+</body>
+
+</html>

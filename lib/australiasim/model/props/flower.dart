@@ -1,5 +1,6 @@
 part of australiasim;
 
+/// Class for a flower
 class Flower extends Box
 {
     @override

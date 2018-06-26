@@ -1,5 +1,6 @@
 part of australiasim;
 
+/// Class for a shrub
 class Shrub extends Tree
 {
     @override
