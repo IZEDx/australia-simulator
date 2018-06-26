@@ -34,7 +34,7 @@ class GameView extends DOMView {
     StreamController<Level> _selectLevelEvent = new StreamController();
 
     /// If the game is currently running
-    get running => this._gameMode.isRunning;
+    get isRunning => this._gameMode.isRunning;
 
     /// GameView constructor with given [_gameMode] and [_levelManager]
     GameView(GameMode this._gameMode, LevelManager this._levelManager) {
@@ -127,7 +127,7 @@ class GameView extends DOMView {
     /// Creates a new [actor] in the view based on the model.
     createActor(Actor actor) {
         // Check if running
-        if (!running) return;
+        if (!isRunning) return;
 
         // Check if Actor already exists.
         var el = get(actor.name);
@@ -343,7 +343,7 @@ class GameView extends DOMView {
     {
         e.preventDefault();
 
-        if (!running) return; // If game is not running, do nothing.
+        if (!isRunning) return; // If game is not running, do nothing.
 
         // Update origin
         _touchOrigin = new Vector2(e.touches[0].page.x, e.touches[0].page.y);
@@ -364,7 +364,7 @@ class GameView extends DOMView {
     {
         e.preventDefault();
 
-        if (!running) return; // If game is not running, do nothing.
+        if (!isRunning) return; // If game is not running, do nothing.
 
         // Add inputEvent with relative position of the touch to the origin
         _inputEvent.add( new Vector2(
@@ -378,7 +378,7 @@ class GameView extends DOMView {
     {
         e.preventDefault();
 
-        if (!running) return; // If game is not running, do nothing.
+        if (!isRunning) return; // If game is not running, do nothing.
 
         _inputEvent.add(new Vector2.zero()); // Reset velocity
 
