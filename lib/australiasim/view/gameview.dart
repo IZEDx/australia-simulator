@@ -21,20 +21,22 @@ class GameView extends DOMView {
 
     /// Stream of movement vectors
     Stream<Vector2> onInput;
+    /// Used to broadcast input events
     StreamController<Vector2> _inputEvent = new StreamController();
     
-    // To keep track of the position of the first touch in a row, 
-    // as each following touch is relative to it
+    /// To keep track of the position of the first touch in a row, 
+    /// as each following touch is relative to it
     Vector2 _touchOrigin = new Vector2.zero(); 
     
     /// When a level has been chosen to play
     Stream<Level> onSelectLevel;
+    /// Used to broadcast select level events
     StreamController<Level> _selectLevelEvent = new StreamController();
 
     /// If the game is currently running
     get running => this._gameMode.isRunning;
 
-    /// GameView constructor
+    /// GameView constructor with given [_gameMode] amd [_levelManager]
     GameView(GameMode this._gameMode, LevelManager this._levelManager) {
 
         onInput = _inputEvent.stream.asBroadcastStream();
@@ -45,7 +47,7 @@ class GameView extends DOMView {
         _setupListeners();
     }
 
-    /// Closes the game view and shows the menu.
+    /// Closes the game view and shows the menu where [failed] indicates whether the game was lost before
     closeGameView(bool failed) async {
         // Reset Game
         _gameLayer.setInnerHtml("");
@@ -111,7 +113,7 @@ class GameView extends DOMView {
         activate(_gameLayer);
     }
 
-    /// Shows a big hint label in the upper center of the screen for the given duration
+    /// Shows a big hint label with [text] in the upper center of the screen for the given [duration]
     hintBig(String text, Duration duration) async {
 
         // Setup Label
@@ -122,7 +124,7 @@ class GameView extends DOMView {
         await timeout(duration, before: () => activate(bigLabel), after:  () => deactivate(bigLabel));
     }
 
-    /// Creates a new Actor in the view based on the model.
+    /// Creates a new [actor] in the view based on the model.
     createActor(Actor actor) {
         // Check if running
         if (!running) return;
@@ -153,13 +155,13 @@ class GameView extends DOMView {
         if (actor is Prop) _applyProp(el, actor);
     }
 
-    /// Removes the Actor from the view.
+    /// Removes the [actor] from the view.
     removeActor(Actor actor)
     {
         remove(actor.name);
     }
 
-    /// Creates a new Character in the View based on the model.
+    /// Creates a new Character ([char]) in the View based on the model.
     _createCharacter(Character char)
     {
         // Create Character
@@ -207,7 +209,7 @@ class GameView extends DOMView {
         _updateLives(char.charLives);
     }
 
-    /// Turns an Actor Element into a Pawn.
+    /// Turns an Actor Element ([el]) into a [pawn].
     _applyPawn(Element el, Pawn pawn)
     {
         // Mark as pawn
@@ -237,7 +239,7 @@ class GameView extends DOMView {
         }
     }
 
-    /// Turns an Actor Element into a Prop.
+    /// Turns an Actor Element ([el]) into a [prop].
     _applyProp(Element el, Prop prop)
     {
         // Mark as prop
@@ -270,7 +272,7 @@ class GameView extends DOMView {
         }
     }
 
-    /// Turns an Actor Element into a Door.
+    /// Turns an Actor Element ([el]) into a [door].
     _applyDoor(Element el, Door door) {
 
         // Mark as door
@@ -292,7 +294,7 @@ class GameView extends DOMView {
             } );
     }
 
-    /// Turns an Actor Element into an Enemy.
+    /// Turns an Actor Element ([el]) into an [enemy].
     _applyEnemy(Element el, Enemy enemy) {
 
         // Mark as enemy
@@ -336,7 +338,7 @@ class GameView extends DOMView {
         _inputLayer.onTouchEnd.listen(_handleTouchEnd);
     }
 
-    /// Gets called when the user starts a touch
+    /// Gets called when the user starts a touch ([e])
     _handleTouchStart(TouchEvent e)
     {
         e.preventDefault();
@@ -357,7 +359,7 @@ class GameView extends DOMView {
         get("world").classes.add("changing");
     }
 
-    /// Gets called when the user moves the touch
+    /// Gets called when the user moves the touch ([e])
     _handleTouchMove(TouchEvent e)
     {
         e.preventDefault();
@@ -371,7 +373,7 @@ class GameView extends DOMView {
         ));
     }
         
-    /// Gets called when the user stops the touch
+    /// Gets called when the user stops the touch ([e])
     _handleTouchEnd(TouchEvent e)
     {
         e.preventDefault();
