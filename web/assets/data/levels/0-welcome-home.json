@@ -13,7 +13,8 @@
         },
         {
             "type": "flower",
-            "location": [800.0, 600.0]
+            "location": [300.0, 250.0],
+            "rotation": [0.05, 0.95]
         }
     ]
 }
