@@ -52,9 +52,14 @@
 
 Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
 
-## 0 - Struktur
+## 0 - Verzeichnis
 ---
 
+### 0.1 Struktur
+
+    0. Verzeichnis
+        0.1 Struktur
+        0.2 Links
     1. Einleitung
     2. Anforderung und Konzept
         2.1 Spielkonzept: Australia Simulator
@@ -65,9 +70,15 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
         3.3 Controller
             3.3.1 Input
 
+### 0.2 Links
+
+-   Programmdokumentation: https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html
+
 ## 1 - Einleitung
 
-Willkommen in Australien.
+Australia Simulator ist ein Mobile-First Einzelspieler Webgame von Niklas Kühtmann und Thomas Urner für das Modul "Webtechnologie Projekt" im SoSe 2018 an der Fachhochschule-Lübeck.
+
+Diese Dokumentation soll einen Überblick über das Konzept und die Architektur leisten, wobei genauere Details in der [Programmdokumentation](https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html) zu finden sind.
 
 ## 2 - Anforderungen und Konzept
 
