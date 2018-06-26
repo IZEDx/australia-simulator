@@ -330,54 +330,61 @@ class GameView extends DOMView {
         // Throw a selectLevelEvent with the current level when startGame was clicked
         get("startGame").onClick.listen((e) => _selectLevelEvent.add(_levelManager.get(_levelManager.current)));
 
+        // Touch listeners
+        _inputLayer.onTouchStart.listen(_handleTouchStart);
+        _inputLayer.onTouchMove.listen(_handleTouchMove);
+        _inputLayer.onTouchEnd.listen(_handleTouchEnd);
+    }
 
-        // On Touch Start
-        _inputLayer.onTouchStart.listen((e) {
-            e.preventDefault();
+    /// Gets called when the user starts a touch
+    _handleTouchStart(TouchEvent e)
+    {
+        e.preventDefault();
 
-            if (!running) return; // If game is not running, do nothing.
+        if (!running) return; // If game is not running, do nothing.
 
-            // Update origin
-            _touchOrigin = new Vector2(e.touches[0].page.x, e.touches[0].page.y);
+        // Update origin
+        _touchOrigin = new Vector2(e.touches[0].page.x, e.touches[0].page.y);
 
-            // Move the knob to the origin
-            move(_inputKnob, _touchOrigin - new Vector2(25.0, 25.0));
+        // Move the knob to the origin
+        move(_inputKnob, _touchOrigin - new Vector2(25.0, 25.0));
 
-            // Indicate the character is moving and show the input knob
-            activate(get("Character"));
-            activate(_inputKnob);
+        // Indicate the character is moving and show the input knob
+        activate(get("Character"));
+        activate(_inputKnob);
 
-            // Mark world as changing for potential optimizations in css
-            get("world").classes.add("changing");
-        });
+        // Mark world as changing for potential optimizations in css
+        get("world").classes.add("changing");
+    }
 
-        // On Touch Move
-        _inputLayer.onTouchMove.listen((e) {
-            e.preventDefault();
+    /// Gets called when the user moves the touch
+    _handleTouchMove(TouchEvent e)
+    {
+        e.preventDefault();
 
-            if (!running) return; // If game is not running, do nothing.
+        if (!running) return; // If game is not running, do nothing.
 
-            // Add inputEvent with relative position of the touch to the origin
-            _inputEvent.add( new Vector2(
-                (e.touches[0].page.x - _touchOrigin.x) / _pixelScale,
-                (e.touches[0].page.y - _touchOrigin.y) / _pixelScale
-            ));
-        });
+        // Add inputEvent with relative position of the touch to the origin
+        _inputEvent.add( new Vector2(
+            (e.touches[0].page.x - _touchOrigin.x) / _pixelScale,
+            (e.touches[0].page.y - _touchOrigin.y) / _pixelScale
+        ));
+    }
+        
+    /// Gets called when the user stops the touch
+    _handleTouchEnd(TouchEvent e)
+    {
+        e.preventDefault();
 
-        // On Touch End
-        _inputLayer.onTouchEnd.listen((e) {
-            e.preventDefault();
+        if (!running) return; // If game is not running, do nothing.
 
-            if (!running) return; // If game is not running, do nothing.
+        _inputEvent.add(new Vector2.zero()); // Reset velocity
 
-            _inputEvent.add(new Vector2.zero()); // Reset velocity
+        // Deactive movement indications
+        deactivate(get("Character"));
+        deactivate(_inputKnob);
 
-            // Deactive movement indications
-            deactivate(get("Character"));
-            deactivate(_inputKnob);
-
-            // Remove changing class
-            get("world").classes.remove("changing");
-        });
+        // Remove changing class
+        get("world").classes.remove("changing");
     }
 }
