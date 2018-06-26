@@ -9,7 +9,7 @@ Willkommen in Australien.
 ### 2.1 - Anforderungen
 
 #### __AF-1:__ Single-Player-Game als Single-Page-App
-_Australia Simulator_ ist ein Singleplayer-Spiel als Single-Page-Application, das in Dart entwickelt wurde.
+_Australia Simulator_ ist ein Singleplayer-Spiel als Single-Page-App, das in Dart entwickelt wurde.
 Alle Assets sind relativ adressiert und es wird kein Backend benötigt. Jeglicher Fortschritt wird direkt im Browser des Users gespeichert und somit kann _Australia Simulator_ statisch vertrieben werden.
 
 #### __AF-2:__ Balance zwischen technischer Komplexität und Spielkonzept
@@ -26,17 +26,17 @@ Die gesamte Gamelogik läuft in Echtzeit mit pixel-genauen Positionen und einer 
 
 #### __AF-3:__ DOM-Tree basiert
 
-_Australia Simulator_ verwendet ein MVC Model, bei dem der DOM-Tree das View darstellt und entsprechend das Spiel rendert und auf events im Model reagiert.
+_Australia Simulator_ verwendet ein MVC Model, bei dem der DOM-Tree das View darstellt und entsprechend das Spiel rendert und auf Events im Model reagiert.
 
-Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose Elemente, die benötigt werden für die Spielobjekte und frei in der Spielwelt bewegt und animiert werden können.
+Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose - absolute positionierte - Elemente, die frei in der Spielwelt bewegt und animiert werden können.
 
-Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer komplett geupdated werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-change``` lassen sich Performance-relevante Elemente (z.B. Spielwelt und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen.
+Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer komplett geupdated werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-change``` lassen sich Performance-relevante Elemente (z.B. Spielwelt und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen. Genauere Informationen zur Verwendung von ```will-change``` in unserem View finden sich 3.2
 
 #### __AF-4:__ Target device: Smartphone
 
-_Australia Simulator_ wird eine responsive PWA und somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns eine Touch-and-Move Steuerung ausgedacht, bei der der Spieler mit der Maus oder per Touchscreen irgendwo auf der Karte gedrückt hält und der Character bewegt sich dorthin. Sollte der Spieler wieder los lassen oder von einem Hinderniss blockiert werden bleibt der Character stehen.
+_Australia Simulator_ ist eine mobile-first Single-Page-App und somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns eine Touch-and-Move Steuerung ausgedacht, bei der der Spieler mit der Maus oder per Touchscreen auf dem Bildschirm ziehen kann und der Character bewegt sich entsprechend. Sollte der Spieler wieder los lassen bleibt der Character stehen.
 
-Für Desktop bietet sich allerdings darüberhinaus auch noch eine Pfeiltasten Bedienung an.
+Diese Eingabemethode ähnelt einem virtuellen Joy-/Analogstick auf dem Bildschirm.
 
 
 #### __AF-5:__ Mobile First Prinzip
@@ -49,7 +49,7 @@ Das gesamte Spiel kann mit nur einer einzigen Eingabemethode gespielt werden und
 
 #### __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen
 
-_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, welche extra konfiguriert werden können, wobei die jeweilige Karte in der Größe festgelegt werden kann. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner und dem Wohlfühlsfaktor der Gegner, sowie der zugehörigen Steigungsrate.
+_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, welche extra konfiguriert werden können, wobei die jeweilige Karte in der Größe festgelegt werden kann. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner und dem Wohlfühl-Faktor der Gegner, sowie der zugehörigen Steigungsrate.
 
 #### __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren
 
