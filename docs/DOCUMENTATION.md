@@ -9,19 +9,20 @@ Willkommen in Australien.
 ### 2.1 - Anforderungen
 
 #### __AF-1:__ Single-Player-Game als Single-Page-App
-_Australia Simulator_ wird als Progressive Web App mit einem Serviceworker konzipiert, dies stellt weitere technische Anforderungen an das Projekt mit dem resultat, dass die fertige PWA Responsive als Website oder Mobile App funktioniert.
-
-Außerdem wird durch die PWA ein Service Worker benötigt, der relevante Dateien für das Spiel aktiv cachen kann, sodass das Spiel dann auch im Offline-Modus funktioniert.
-
-Multiplayer-Funktionen sind nicht eingeplant.
+_Australia Simulator_ ist ein Singleplayer-Spiel als Single-Page-Application, das in Dart entwickelt wurde.
+Alle Assets sind relativ adressiert und es wird kein Backend benötigt. Jeglicher Fortschritt wird direkt im Browser des Users gespeichert und somit kann _Australia Simulator_ statisch vertrieben werden.
 
 #### __AF-2:__ Balance zwischen technischer Komplexität und Spielkonzept
 
-In _Australia Simulator_ muss der Spieler versuchen verschiedene wilde und gefährliche Tiere aus seinem Haus zu verscheuchen, ohne dabei die Tiere zu berühren. 
+In _Australia Simulator_ muss der Spieler versuchen verschiedene gefährliche Tiere aus seinem Haus zu verscheuchen, ohne dabei die Tiere zu berühren, ansonsten verliert der Spieler ein Leben und hat dieser keine Leben mehr, so hat er verloren.
 
-Die Tiere/Gegner müssen also entsprechend vor dem Spieler abhauen ("es hat mehr Angst als du") und gegebenfalls im Haus idlen bzw. sich zufällig bewegen.
+Die Gegner fliehen also entsprechend vor dem Spieler oder bewegen sich zufällig im Haus.
 
-Die Logik für die Gegner erhöht die technische Komplexität enorm, deswegen steht noch offen, wie ausführlich diese implementiert werden kann.
+Mit der Zeit erhöht sich der Wohlfühl-Faktor der Gegner, der Spieler kann diesen aber reduzieren, indem er die Gegner scheucht. Erreicht ein Gegner seinen vollen Wohlfühl-Faktor, so hat der Spieler verloren.
+
+Schafft es der Spieler aber vorher alle Gegner aus dem Haus zu verscheuchen, so hat der Spieler gewonnen und das nächste Level kann geladen werden.
+
+Die gesamte Gamelogik läuft in Echtzeit mit pixel-genauen Positionen und einer zentrierten Kamera über dem Spieler.
 
 #### __AF-3:__ DOM-Tree basiert
 
