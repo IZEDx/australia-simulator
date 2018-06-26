@@ -50,7 +50,7 @@
 
 &nbsp;
 
-&nbsp;
+Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
 
 ## 0 - Struktur
 ---
