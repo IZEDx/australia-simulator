@@ -123,7 +123,7 @@
     <section class="summary source-code" id="source">
       <h2><span>Source</span> </h2>
       <pre class="prettyprint language-dart">void tick(double deltaTime) {
-   for (var actor in actors) actor.tick(deltaTime);
+   this.actors.forEach((actor) =&gt; actor.tick(deltaTime));
     }</pre>
     </section>
 
