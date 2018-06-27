@@ -218,8 +218,8 @@ Diese Dokumentation soll einen Überblick über das Konzept und die Architektur 
 | TF-4 | DOM-Tree als View / No-Canvas
 | TF-5 | Mobile First
 | TF-6 | SmartPhone Bedienung
-| TF-8 | Level-Parametrisierung per JSON/XML/etc.
-| TF-9 | Client-seitige Speicherung
+| TF-7 | Level-Parametrisierung per JSON/XML/etc.
+| TF-8 | Client-seitige Speicherung
 
 &nbsp;
 
