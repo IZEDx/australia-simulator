@@ -306,11 +306,20 @@ Hier noch ein Auszug aus einem Level:
 
 ### 4.2 - Parametrisierungskonzept
 
-TODO
+Es gibt keine externe/datei-basierte Konfigurationsmöglichkeit für Australia-Simulator, bis auf die Level-Daten welche im vorigen Punkt erläutert werden.
+
+Allerdings gibt es zwei relevante Konstanten die im Programmcode bearbeitet werden können:
+
+-   In ```gamecontroller.dart```: interval beschreibt den tick interval, indem updates im Model ausgeführt werden sollen.
+-   In ```gameview.dart```: pixelScale beschreibt den Skalierungsfaktor, mit dem zwischen den Einheiten im Model und Pixeln auf dem Screen umgewandelt wird.
 
 
+## 5 - Libraries
+---
 
-### 5.1 Nachweis der funktionalen Anforderungen
+## 6 - Nachweis der Anforderungen
+
+### 6.1 Nachweis der funktionalen Anforderungen
 
 #### __AF-1:__ Single-Player-Game als Single-Page-App - ERFÜLLT
 
@@ -357,14 +366,14 @@ Der Stand der freigeschalteten Levels wird im HTML5 Web Storage (localStorage) d
 Gegeben.
 
 
-### 5.2 Nachweis der Dokumentationsanforderungen
+### 6.2 Nachweis der Dokumentationsanforderungen
 
 TODO
 
-### 5.3 Nachweis der Einhaltung technischer Randbedingungen
+### 6.3 Nachweis der Einhaltung technischer Randbedingungen
 
 TODO
 
-### 5.4 Verantwortlichkeiten im Projekt
+### 6.4 Verantwortlichkeiten im Projekt
 
 TODO
