@@ -136,13 +136,16 @@ class Enemy extends Pawn
     {
         if (!_isEmbattled())
         {
-            final rand = new Vector2.random().normalized();               
-            this.rotation = (-this.rotation) * 10.0 + rand * 8.5;
+            if (other is Pawn) 
+            {
+                this.rotation = this.location - other.location;
+            }
+            else
+            {
+                final rand = new Vector2.random().normalized();               
+                this.rotation = (-this.rotation) * 10.0 + rand * 9.0;
+            }
         } 
-        else if (other is Pawn) 
-        {
-            this.rotation = this.location - other.location;
-        }
     }
 
     /// Is this pawn embattled by the player?

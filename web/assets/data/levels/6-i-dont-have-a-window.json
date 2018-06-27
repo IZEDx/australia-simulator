@@ -72,8 +72,9 @@
         },
         {
             "type": "bigbed",
-            "location": [1450.0, 850.0],
-            "rotation": [0.3, 0.7]
+            "location": [1450.0, 870.0],
+            "rotation": [0.3, 0.7],
+            "scale": [230.0, 260.0]
         },
         {
             "type": "lamp",
