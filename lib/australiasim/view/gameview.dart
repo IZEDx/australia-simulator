@@ -58,7 +58,7 @@ class GameView extends DOMView {
         get("startGame").setInnerHtml(failed ? "RETRY!" : _levelManager.current > 0 ? "CONTINUE!" : "ENTER!");
 
         if (_levelManager.unlocked > 0) {
-            show(get("selectLevel"));
+            show(get("showLevels"));
             final levelSelection = get("levelSelection");
 
             for (var i = 0; i <= _levelManager.unlocked && i < _levelManager.size; i++) {

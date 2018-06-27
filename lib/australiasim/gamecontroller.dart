@@ -44,18 +44,32 @@ class GameController
         // Show the main menu
         gameView.closeGameView(false);
 
-        // Open level selection.
-        gameView.get("selectLevel").onClick.listen((e)
+        // Open level selection
+        gameView.get("showLevels").onClick.listen((e)
         {
             gameView.hide(gameView.get("menu"));
             gameView.show(gameView.get("levelSelection"));
         });
 
         // Close level selection
-        gameView.get("showMenu").onClick.listen((e)
+        gameView.get("closeLevels").onClick.listen((e)
         {
             gameView.show(gameView.get("menu"));
             gameView.hide(gameView.get("levelSelection"));
+        });
+
+        // Open credits
+        gameView.get("showCredits").onClick.listen((e)
+        {
+            gameView.hide(gameView.get("menu"));
+            gameView.show(gameView.get("credits"));
+        });
+
+        // Close credits
+        gameView.get("closeCredits").onClick.listen((e)
+        {
+            gameView.show(gameView.get("menu"));
+            gameView.hide(gameView.get("credits"));
         });
 
         // Add listener for game start and end

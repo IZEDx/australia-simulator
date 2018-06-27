@@ -102,6 +102,23 @@ nav {
   opacity: 1;
 }
 
+#credits {
+    color: #cccccc;
+}
+
+#credits .text {
+    box-sizing: border-box;
+    font-family: 'Helvetica', regular;
+    background-color: #000000;
+    padding: 20px;
+    width: 800px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+#credits .text a {
+    color: #cccccc;
+}
 
 nav > button {
   box-sizing: border-box;
