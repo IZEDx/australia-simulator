@@ -47,6 +47,7 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
             3.3.1 Spielstart
             3.3.2 Spielablauf
             3.3.3 LevelManager
+            3.3.4 Input
     4. Level- und Parametrisierungskonzept
         4.1 Levelkonzept
         4.2 Parametrisierungskonzept
@@ -62,8 +63,6 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
 
 -   Programmdokumentation: https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html
 -   UML-Klassendiagramm: https://izedx.github.io/australia-simulator/docs/uml.jpg
-
-&nbsp;
 
 &nbsp;
 
@@ -325,11 +324,17 @@ Das Spiel kann über das Hauptmenü gestartet werden. Der Spieler kann dabei üb
 
 Während dem Spiel tickt der GameController und ruft alle paar Millisekunden den GameMode auf, dieser leitet den Tick weiter. Jetzt wartet der GameController außerdem auf das GameOver Event aus dem Model, wonach er dann das Spiel beendet.
 
-#### 3.3.3 LevelManager
+#### 3.3.3 - LevelManager
 
 Der LevelManager, sowie seine Hilfsklassen Level und ActorData werden verwendet um als JSON vorliegende Levels zu parsen und ihre Informationen dem GameView und GameController zur Verfügung zu stellen.
 
-&nbsp;
+#### 3.3.4 - Input
+
+Beim Input und Update des Views verwenden wir ein Eventsystem, bei dem der ```GameController``` auf ein Input-Event im View horcht und dieses dann an das Model weiterreicht. Das Model wird dann mit jedem Tick aktualisiert, in welchem es dann mit der Eingabe arbeitet und Events wirft, sobald etwas für den View oder Controller relevantes passiert.
+
+Als Beispiel, wie der ```GameController``` Events vom ```GameView``` weiterreicht an das Model und das Model dann ein Event wirft, wenn etwas passiert, haben wir ein simplifiziertes Sequenz-Diagramm vom PlayerMovement.
+
+![PlayerMovement](./playermovement.jpg)
 
 &nbsp;
 
@@ -339,35 +344,6 @@ Der LevelManager, sowie seine Hilfsklassen Level und ActorData werden verwendet 
 
 &nbsp;
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
 
 ## 4 - Level- und Parametrisierungskonzept
 ---
@@ -391,7 +367,7 @@ Ein Auszug aus der ```levels.json```:
 ```
 
 Jedes Level enthält dann einen Text, welcher beim Start angezeigt werden soll (```spawnText```), 
-eine Größe, wie groß das Level sein soll (```size```) und eine Liste mit Actors, welche erstellt werden sollen (```actors```). Jeder Actor kann dabei durch seinen ```type``` bestimmt werden und mit ```
+eine Größe, wie groß das Level sein soll (```size```) und eine Liste mit Actors, welche erstellt werden sollen (```actors```). Jeder Actor wird dabei durch seinen ```type``` bestimmt und weitere Spawnparameter können durch ```rotation```, ```location``` und ```scale``` gesetzt werden.
 
 
 Hier noch ein Auszug aus einem Level:
@@ -431,22 +407,18 @@ Hier noch ein Auszug aus einem Level:
 
 ### 4.2 - Parametrisierungskonzept
 
-Es gibt keine externe/datei-basierte Konfigurationsmöglichkeit für Australia-Simulator, bis auf die Level-Daten welche im vorigen Punkt erläutert werden.
+Es gibt keine externe/datei-basierte Konfigurationsmöglichkeit für Australia-Simulator, bis auf die Level-Daten welche im vorigen Punkt erläutert wurden.
 
-Allerdings gibt es zwei relevante Konstanten die im Programmcode bearbeitet werden können:
+Allerdings gibt es einige relevante Konstanten die im Programmcode bearbeitet werden können:
 
--   In ```gamecontroller.dart```: interval beschreibt den tick interval, indem updates im Model ausgeführt werden sollen.
--   In ```gameview.dart```: pixelScale beschreibt den Skalierungsfaktor, mit dem zwischen den Einheiten im Model und Pixeln auf dem Screen umgewandelt wird.
--   In ```enemy.dart```: recoverTime bezeichnet die Zeit, die ein Gegner benötigt, um nach dem Verfolgungszustand wieder in den idle zu fallen.
--   In ```enemy.dart```: changeDirMinTime bezeichnet die Zeit, die ein Gegner mindestens wartet, bis er die Laufrichtung wechselt.
--   In ```enemy.dart```: changeDirMaxTime bezeichnet die Zeit, die ein Gegner maximal wartet, bis er die Laufrichtung wechselt.
--   In ```enemy.dart```: cozynessIncSpeed bezeichnet den Rate mit der die cozyness eines Gegners zunimmt, wenn er im idle ist.
--   In ```enemy.dart```: cozynessDecSpeed bezeichnet den Rate mit der die cozyness eines Gegners abnimmt, wenn er verfolgt wird.
--   In ```gamemode.dart```: wallWidth bezeichnet die Dicke der Außenwände.
-
-&nbsp;
-
-&nbsp;
+-   In ```gamecontroller.dart```: &nbsp; ```interval``` beschreibt den Tick-Intervall, in dem Updates im Model ausgeführt werden sollen.
+-   In ```view/gameview.dart```: &nbsp; ```pixelScale``` beschreibt den Skalierungsfaktor, mit dem zwischen den Einheiten im Model und Pixeln auf dem Screen umgewandelt wird.
+-   In ```model/pawns/enemy.dart```: &nbsp; ```recoverTime``` bezeichnet die Zeit, die ein Gegner benötigt, um nach dem Verfolgungszustand wieder in den Idle zu fallen.
+-   In ```model/pawns/enemy.dart```: &nbsp; ```changeDirMinTime``` bezeichnet die Zeit, die ein Gegner mindestens wartet, bis er die Laufrichtung wechselt.
+-   In ```model/pawns/enemy.dart```: &nbsp; ```changeDirMaxTime``` bezeichnet die Zeit, die ein Gegner maximal wartet, bis er die Laufrichtung wechselt.
+-   In ```model/pawns/enemy.dart```: &nbsp; ```cozynessIncSpeed``` bezeichnet die Rate mit der der Wohlfühl-Faktor eines Gegners zunimmt, wenn er im Idle ist.
+-   In ```model/pawns/enemy.dart```: &nbsp; ```cozynessDecSpeed``` bezeichnet die Rate mit der die Wohlfühl-Faktor eines Gegners abnimmt, wenn er verfolgt wird.
+-   In ```model/gamemode.dart```: &nbsp; ```wallWidth``` bezeichnet die Dicke der Außenwände.
 
 &nbsp;
 
@@ -455,11 +427,11 @@ Allerdings gibt es zwei relevante Konstanten die im Programmcode bearbeitet werd
 ## 5 - Libraries
 ---
 
-Wir verwenden für Australia Simulator zwei externe Dependencies: ```vector_math``` und ```rxdart```, wobei vector_math die Vector2-Klasse zur Verfügung stellt, welche wir im gesamten Projekt verwenden.
+Wir verwenden für Australia Simulator zwei externe Dependencies: ```vector_math``` und ```rxdart```, wobei ```vector_math``` die Vector2-Klasse zur Verfügung stellt, welche wir im gesamten Projekt verwenden.
 
-```rxdart``` allerdings bietet uns erweiterte Dart-Streams mit denen wir - insbesondere was zeitliche Operationen angehen - mehr Möglichkeiten haben.
+```rxdart``` bietet uns erweiterte Dart-Streams, die uns - insbesondere bei zeitliche Operationen - mehr Möglichkeiten bieten.
 
-Zur Veranschaulichung ein Beispiel aus der ```model/pawns/character.dart```, wie ```rxdart``` in Australia Simulator zum Einsatz kommt.
+Zur Veranschaulichung ein Beispiel aus der Datei ```model/pawns/character.dart```, wie ```rxdart``` in Australia Simulator zum Einsatz kommt.
 
 ```dart
 new Observable(this.onCollide)
@@ -468,7 +440,7 @@ new Observable(this.onCollide)
     .listen( (Actor a) => this._touchedEnemy());
 ```
 
-&nbsp;
+Hier wird ein Observable auf dem ```onCollide```-Event vom Character erstellt, bei dem maximal jede Sekunde, wenn der Spieler mit einem Gegner kollidiert, die ```_touchedEnemy()```-Methode aufgerufen wird.
 
 &nbsp;
 
@@ -485,7 +457,7 @@ new Observable(this.onCollide)
 ## 6 - Nachweis der Anforderungen
 ---
 
-### 6.1 Nachweis der funktionalen Anforderungen
+### 6.1 - Nachweis der funktionalen Anforderungen
 
 #### __AF-1:__ Single-Player-Game als Single-Page-App - ERFÜLLT
 
@@ -507,44 +479,44 @@ Bei dem LevelManager wird von dem MVC Pattern abgewichen (gameview.dart, gamecon
 
 #### __AF-4:__ Target device: Smartphone ERFÜLLT
 
-_Australia Simulator_ ist eine mobile-first Single-Page-App und somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns für die Emulation eines Analogsticks an einer beliebigen Position des Touchscreens entschieden. Sollte der Spieler wieder los lassen bleibt der Character stehen (s. AF-2).
+_Australia Simulator_ ist eine mobile-first Single-Page-App und sollte somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns für die Emulation eines Analogsticks an einer beliebigen Position des Touchscreens entschieden. Sollte der Spieler wieder los lassen bleibt der Character stehen (s. AF-2).
 
 #### __AF-5:__ Mobile First Prinzip ERFÜLLT
 
 Die Optik, Menüs und die Steuerung (vgl. AF-2) sind bewusst so entworfen, dass sie sich gut zum lageunabhängigen Spielen mit einem Smartphone eignen. 
-Auf einem Desktop PC ist eine Eingabe mit der Maus, analog zum Touchinput, möglich.
+Auf einem Desktop PC ist eine Eingabe mit der Maus, analog zum TouchInput, möglich.
 
 #### __AF-6:__ Das Spiel muss schnell und intuitiv erfassbar sein und Spielfreude erzeugen - ERFÜLLT
 
 Das gesamte Spiel kann mit nur einer einzigen Eingabemethode gespielt werden (vgl. AF-2)  und ist entsprechend intuitiv aufzugreifen. Spätestens nach einer verlorenen Runde der jeweiligen Lose-Bedingungen (Ein Gegner erreicht vollen Wohlfühlfaktor bzw. Spieler verliert alle Leben) sollte das Spielekonzept offensichtlich sein.
-Wie viel Spielspaß dieses Spiel am Ende tatsächlich erzeugen kann und wie lange das Spiel diesen aufrecht erhalten kann, muss in einem späteren Schritt eventuell nachbalanciert werden, bzw. hängt von den Präferenzen, der Spieler ab.
+Wie viel Spielspaß dieses Spiel am Ende tatsächlich erzeugen kann und wie lange das Spiel diesen aufrecht erhalten kann, müsste in einem späteren Schritt eventuell nachbalanciert werden, bzw. hängt von den Präferenzen, der Spieler ab.
 
 #### __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen - ERFÜLLT
 
-_Australia Simulator_ bietet mehr als sieben im Schwierigkeitsgrad aufsteigende Levels an, welche extra in JSON vorliegen und konfiguriert werden können, wobei das jeweilige Level in der Größe festgelegt werden kann. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner und die zu dem Level gehörigen Props (s. level.dart, gamecontroller.dart).
+_Australia Simulator_ bietet mehr als sieben im Schwierigkeitsgrad aufsteigende Level, welche extra in JSON vorliegen und konfiguriert werden können, wobei das jeweilige Level in der Größe festgelegt werden kann. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner und die zu dem Level gehörigen Props (s. level.dart, gamecontroller.dart).
 
 #### __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren - ERFÜLLT
 
-Der Stand der freigeschalteten Levels wird im HTML5 Web Storage (localStorage) des Clients abgespeichert (s. level.dart).
+Der Stand der freigeschalteten Level wird im HTML5 Web Storage (localStorage) des Clients abgespeichert (s. level.dart).
 
 #### __AF-9:__ Dokumentation
 
-Gegeben.
+Gegeben. Siehe dieses Dokument oder die Programmdokumentation (s. 0.2 oder ./doc/api/)
 
 &nbsp;
 
-### 6.2 Nachweis der Dokumentationsanforderungen
+### 6.2 - Nachweis der Dokumentationsanforderungen
 
 | Id  | Kurztitel              | Erfüllt | Erläuterung                                                                                                                                                                                                                 |
 |:-----:|------------------------|:---------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | D-1 | Dokumentationsvorlage  | x       | Es wurde sich stark an der SnakeDart Dokumentation orientiert. Wobei wir jedoch mit Markdown gearbeitet haben, was Seitenzahlen nicht explizit unterstützt.                                                                          |
-| D-2 | Projektdokumentation   | x       | gegeben                                                                                                                                                                                                                     |
-| D-3 | Quelltextdokumentation | x       |  Es wurden alle Klassen gemäß "Effective Dart" Guidelines dokumentiert. Es wure dartdoc generiert (zu finden unter 0.2 bzw. ./doc/api/).  Es wurde darauf geachtet weitesgehend "selbstdokumentierenden" Code zu schreiben. |
-| D-4 | Libraries              | x       | Alle genutzten Libraries werden in der pubspec.yaml aufgeführt. Zusätzlich wurden die 3rd party libraries vector_math  und rxdart unter 5. angegeben                                                                        |
+| D-2 | Projektdokumentation   | x       | Gegeben.                                                                                                                                                                                                                     |
+| D-3 | Quelltextdokumentation | x       |  Es wurden alle Klassen gemäß "Effective Dart" Guidelines dokumentiert. Es wurde dartdoc generiert (zu finden unter 0.2 bzw. ./doc/api/).  Es wurde darauf geachtet weitestgehend "selbst-dokumentierenden" Code zu schreiben. |
+| D-4 | Libraries              | x       | Alle genutzten Libraries werden in der pubspec.yaml aufgeführt. Zusätzlich wurden die 3rd party libraries vector_math  und rxdart unter 5. angegeben.                                                                        |
 
 &nbsp;
 
-### 6.3 Nachweis der Einhaltung technischer Randbedingungen
+### 6.3 - Nachweis der Einhaltung technischer Randbedingungen
 
 | Id   | Kurztitel                                | Erfüllt | Teilw. erfüllt | Erläuterung |
 |------|------------------------------------------|---------|----------------|-------------|
@@ -571,25 +543,27 @@ Gegeben.
 
 &nbsp;
 
-### 6.4 Verantwortlichkeiten im Projekt
+### 6.4 - Verantwortlichkeiten im Projekt
 
 Der Großteil des Projekts ist in Zusammenarbeit entstanden, wobei im Laufe der Entwicklung die meisten Additions gegenseitig korrigiert, ergänzt oder dokumentiert wurden. Allerdings gab es unterschiedliche Fokuspunkte - wer sich auf was fokussiert hat - und ein paar größtenteils individuelle Leistungen (mit minimalen Ergänzungen des jeweils Anderen), dies ist nachfolgend dokumentiert.
 
-| Komponente | Detail         | Asset                                       | Niklas Kühtmann | Thomas Urner | Anmerkungen                       |
-|------------|----------------|---------------------------------------------|:-----------------:|:--------------:|-----------------------------------|
-| Model      | Actor          | lib/australiasim/model/actor.dart           | U               | V            |                                   |
-|            | World          | lib/australiasim/model/world.dart           | V               | U            |                                   |
-|            | GameMode       | lib/australiasim/model/gamemode.dart        | V               | U            |                                   |
-|            | Pawn           | lib/australiasim/model/pawn.dart            | U               | V            |                                   |
-|            | Character      | lib/australiasim/model/pawns/character.dart | U               | V            |                                   |
-|            | Enemy          | lib/australiasim/model/pawns/enemy.dart     |                 | V            |                                   |
-|            | Props          | lib/australiasim/model/props/*.*            | U               | V            | trivial                           |
-|            | Enemies        | lib/australiasim/model/pawns/enemies/*.*    | V               |              | trivial                           |
-| Controller | GameController | lib/australiasim/gamecontroller.dart        | V               |              |                                   |
-|            | LevelManager   | lib/australiasim/level.dart                 | V               |              |                                   |
-| View       | GameView       | lib/australiasim/view/gameview.dart         | V               | U            |                                   |
-|            |                | lib/australiasim/view/domview.dart          | V               |              |                                   |
-| Levels     |                | web/assets/data/levels/*.*                  | V               | V            | Wurden in Zusammenarbeit erstellt |
+| Komponente | Detail         | Asset                                       | Niklas Kühtmann | Thomas Urner | Anmerkungen                                      |
+|------------|----------------|---------------------------------------------|-----------------|--------------|--------------------------------------------------|
+| Model      | Actor          | lib/australiasim/model/actor.dart           | U               | V            |                                                  |
+|            | World          | lib/australiasim/model/world.dart           | V               | U            |                                                  |
+|            | GameMode       | lib/australiasim/model/gamemode.dart        | V               | U            |                                                  |
+|            | Pawn           | lib/australiasim/model/pawn.dart            | U               | V            |                                                  |
+|            | Character      | lib/australiasim/model/pawns/character.dart | U               | V            |                                                  |
+|            | Enemy          | lib/australiasim/model/pawns/enemy.dart     |                 | V            |                                                  |
+|            | Props          | lib/australiasim/model/props/*.*            | U               | V            | trivial                                          |
+|            | Enemies        | lib/australiasim/model/pawns/enemies/*.*    | V               |              | trivial                                          |
+| Controller | GameController | lib/australiasim/gamecontroller.dart        | V               |              |                                                  |
+|            | LevelManager   | lib/australiasim/level.dart                 | V               |              |                                                  |
+| View       | GameView       | lib/australiasim/view/gameview.dart         | V               | U            |                                                  |
+|            |                | lib/australiasim/view/domview.dart          | V               |              |                                                  |
+|            | Gestaltung     | web/styles.css / web/index.html                    | V               |              |                                                  |
+|            |                | web/assets/data/img /*.*                   | U               | V            | trivial; Character generieren, Bilder bearbeiten |
+| Levels     |                | web/assets/data/levels/*.*                  | V               | V            | Wurden in Zusammenarbeit erstellt                |
 
 > V: Verantwortlich - U: Unterstützend
 
@@ -598,6 +572,6 @@ Der Großteil des Projekts ist in Zusammenarbeit entstanden, wobei im Laufe der 
 ## 7 - Lizenz und Einverständniserklärung
 ---
 Für den Programmcode von Australia Simulator gilt die MIT Lizenz,
-die verwendeten Sprites/Texturen sind dual-lizenziert unter der CC-BY-SA 3.0 Lizenz und GNU GPL 3.0 Lizenz. Weitere Credits finden sich im Spiel auf der Credits Seite.
+die verwendeten Sprites/Texturen sind dual-lizenziert unter der CC-BY-SA 3.0 Lizenz und GNU GPL 3.0 Lizenz. Weitere Credits finden sich im Spiel auf der Credits-Seite im Hauptmenü.
 
-Wir sind hiermit Einverstanden, dass Australia Simulator öffentlich zugänglich bereitgestellt wird.
+Hiermit erklären wir uns damit einverstanden, dass Australia Simulator öffentlich zugänglich bereitgestellt werden darf.
