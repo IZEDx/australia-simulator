@@ -230,12 +230,17 @@ Der View wird zur Darstellung des Models verwendet und vom Controller initiiert.
 
 Wir verwenden im View ein DOM-Element für die 2D Welt - dem Haus - in welchem wir dann die Actor frei bewegen können. 
 
+Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose - absolute positionierte - Elemente, die frei in der Spielwelt bewegt und animiert werden können.
+
+Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer komplett geupdated werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-change``` lassen sich Performance-relevante Elemente (z.B. Spielwelt und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen. 
+
 Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden, hierfür wird er im View fest in der Mitte des Bildschirms erstellt und wenn er sich bewegt wird die Welt im Hintergrund in Relation zum Character bewegt, statt ihm selber.
 
 Um dies auch mit Überblick zu bewerkstelligen basiert der GameView, welcher bestimmt, wie genau das Spiel dargestellt wird, auf dem DOMView, eine Parentklasse, die häufige DOM-Operation abstrahiert und außerdem ein Verzeichnis für die DOM-Elementreferenzen anbietet.
 
 Der GameView reagiert auf ActorSpawn bzw. Remove Events der World und erstellt bzw. entfernt die jeweiligen DOM-Elemente. Weiterhin hört er auf Transform-Events, die von den gespawnten Actors emittiert werden und passt die jeweiligen Transforms im DOM an.
 Weiterhin stellt er den View der Menüs dar und emittiert Steuerungsevents auf die der GameController reagiert.
+
 
 
 ### 3.3 - Controller
@@ -247,7 +252,7 @@ Er horcht auf die Eingaben des Spielers zur Steuerung der Spielfigur und gibt si
 #### 3.3.1 LevelManager
 
 Der LevelManager, sowie seine Hilfsklassen Level und ActorData werden verwendet um als JSON vorliegende Levels zu parsen und ihre Informationen dem GameView und GameController zur Verfügung zu stellen.
-Bei dem LevelManager wird von dem MVC Pattern abgewichen, weil sich eine Anbindung an den Controller und den View analog zum Model sehr gut eignen, jedoch betrachten wir ihn als Controller Klasse, da Input (in Form der vorliegenden Level-JSONs) stattfindet.
+
 
 ## 4 - Level- und Parametrisierungskonzept
 ---
@@ -303,57 +308,49 @@ Hier noch ein Auszug aus einem Level:
 
 TODO
 
-## 5 - Nachweis der Anforderungen
----
+
 
 ### 5.1 Nachweis der funktionalen Anforderungen
 
-#### __AF-1:__ Single-Player-Game als Single-Page-App
+#### __AF-1:__ Single-Player-Game als Single-Page-App - ERFÜLLT
+
 _Australia Simulator_ ist ein Singleplayer-Spiel als Single-Page-App, welches in Dart entwickelt wurde.
 Alle Assets sind relativ adressiert und es wird kein Backend benötigt. Jeglicher Fortschritt wird direkt im Browser des Users gespeichert und somit kann _Australia Simulator_ statisch vertrieben werden.
 
-#### __AF-2:__ Balance zwischen technischer Komplexität und Spielkonzept
+#### __AF-2:__ Balance zwischen technischer Komplexität und Spielkonzept - ERFÜLLT
 
-In _Australia Simulator_ muss der Spieler versuchen verschiedene gefährliche Tiere aus seinem Haus zu verscheuchen, ohne dabei die Tiere zu berühren, ansonsten verliert der Spieler ein Leben und hat dieser keine Leben mehr, so hat er verloren.
+In _Australia Simulator_ muss der Spieler versuchen verschiedene gefährliche Tiere aus seinem Haus zu verscheuchen, ohne dabei die Tiere zu berühren, ansonsten verliert der Spieler ein Leben und hat dieser keine Leben mehr, so hat er verloren. 
+Die Gegner fliehen also entsprechend vor dem Spieler oder bewegen sich zufällig rotationsbasiert im Haus (s. Enemy.dart); es wird keine komplexe KI für eine vergleichbar gute Spielerfahrung benötigt.
+Die Bedienung erfolgt intuitiv mittels eines simulierten Analogsticks, welcher bei einer Berührung des Bildschirms hervorgehoben wird.
 
-Die Gegner fliehen also entsprechend vor dem Spieler oder bewegen sich zufällig im Haus.
 
-Mit der Zeit erhöht sich der Wohlfühl-Faktor der Gegner, der Spieler kann diesen aber reduzieren, indem er die Gegner scheucht. Erreicht ein Gegner seinen vollen Wohlfühl-Faktor, so hat der Spieler verloren.
+#### __AF-3:__ DOM-Tree basiert - TEILWEISE ERFÜLLT (s. Begründung)
 
-Schafft es der Spieler aber vorher alle Gegner aus dem Haus zu verscheuchen, so hat der Spieler gewonnen und das nächste Level kann geladen werden.
+_Australia Simulator_ verwendet ein MVC Model, bei dem der DOM-Tree das View darstellt und entsprechend das Spiel rendert und auf Events im Model reagiert (vgl. 3.; UML).
 
-Die gesamte Gamelogik läuft in Echtzeit mit pixel-genauen Positionen und einer zentrierten Kamera über dem Spieler.
+Bei dem LevelManager wird von dem MVC Pattern abgewichen (gameview.dart, gamecontroller.dart), weil sich eine Anbindung an den Controller und den View analog zum Model sehr gut eignet ohne unnötige Umwege für die View Klasse zu nehmen (vgl. 3.; UML), jedoch betrachten wir ihn als Controller Klasse, da Input in Form der vorliegenden Level-JSONs stattfindet. Zur Initialisierung verwendet der GameController die Informationen aus dem LevelManager um das GameMode mit den bereitgestellten Levelinformationen zu starten (vgl. _runGame() in gamecontroller.dart).
 
-#### __AF-3:__ DOM-Tree basiert
-
-_Australia Simulator_ verwendet ein MVC Model, bei dem der DOM-Tree das View darstellt und entsprechend das Spiel rendert und auf Events im Model reagiert.
-
-Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose - absolute positionierte - Elemente, die frei in der Spielwelt bewegt und animiert werden können.
-
-Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer komplett geupdated werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-change``` lassen sich Performance-relevante Elemente (z.B. Spielwelt und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen. Genauere Informationen zur Verwendung von ```will-change``` in unserem View finden sich 3.2
-
-#### __AF-4:__ Target device: Smartphone
+#### __AF-4:__ Target device: Smartphone ERFÜLLT
 
 _Australia Simulator_ ist eine mobile-first Single-Page-App und somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns eine Touch-and-Move Steuerung ausgedacht, bei der der Spieler mit der Maus oder per Touchscreen auf dem Bildschirm ziehen kann und der Character bewegt sich entsprechend. Sollte der Spieler wieder los lassen bleibt der Character stehen.
 
-Diese Eingabemethode ähnelt einem virtuellen Joy-/Analogstick auf dem Bildschirm.
+#### __AF-5:__ Mobile First Prinzip ERFÜLLT
 
+Die Optik, Menüs und die Steuerung (vgl. AF-2) sind bewusst so entworfen, dass sie sich gut zum lageunabhängigen Spielen mit einem Smartphone eignen. 
+Auf einem Desktop PC ist eine Eingabe mit der Maus, analog zum Touchinput, möglich.
 
-#### __AF-5:__ Mobile First Prinzip
+#### __AF-6:__ Das Spiel muss schnell und intuitiv erfassbar sein und Spielfreude erzeugen - ERFÜLLT
 
-Für erweiterte UI Interaktionen, wie z.B. das wegdrücken von Modals am Anfang einer Runde bieten sich neben klassischen Eingabearten (Close-Button obere rechte Ecke vom Widget) außerdem Touchscreen Interaktionen an, wie das Wegswipen vom Widget. Da wo es angebracht ist, wollen wir die Interaktionen für Touchscreens vereinfachen.
+Das gesamte Spiel kann mit nur einer einzigen Eingabemethode gespielt werden (vgl. AF-2)  und ist entsprechend intuitiv aufzugreifen. Spätestens nach einer verlorenen Runde der jeweiligen Lose-Bedingungen (Ein Gegner erreicht vollen Wohlfühlfaktor bzw. Spieler verliert alle Leben) sollte das Spielekonzept offensichtlich sein.
+Wie viel Spielspaß dieses Spiel am Ende tatsächlich erzeugen kann und wie lange das Spiel diesen aufrecht erhalten kann, muss in einem späteren Schritt eventuell nachbalanciert werden, bzw. hängt von den Präferenzen, der Spieler ab.
 
-#### __AF-6:__ Das Spiel muss schnell und intuitiv erfassbar sein und Spielfreude erzeugen
+#### __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen - ERFÜLLT
 
-Das gesamte Spiel kann mit nur einer einzigen Eingabemethode gespielt werden und ist entsprechend intuitiv aufzugreifen. Wie viel Spielspaß dieses Spiel am Ende tatsächlich erzeugen kann und wielange das Spiel diesen aufrecht erhalten kann, muss in einem späteren Schritt balanciert werden.
+_Australia Simulator_ bietet mehr als sieben im Schwierigkeitsgrad aufsteigende Levels an, welche extra in JSON vorliegen und konfiguriert werden können, wobei das jeweilige Level in der Größe festgelegt werden kann. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner und die zu dem Level gehörigen Props (s. level.dart, gamecontroller.dart).
 
-#### __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen
+#### __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren - ERFÜLLT
 
-_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, welche extra konfiguriert werden können, wobei die jeweilige Karte in der Größe festgelegt werden kann. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner und dem Wohlfühl-Faktor der Gegner, sowie der zugehörigen Steigungsrate.
-
-#### __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren
-
-Es ist vorgesehen den Levelfortschritt im localStorage abzuspeichern, damit der Spieler dort weitermachen kann, wo er aufgehört hat. Weitere Daten, wie Einstellungen für das Spiel etc. können ebenfalls im localStorage abgespeichert werden.
+Der Stand der freigeschalteten Levels wird im HTML5 Web Storage (localStorage) des Clients abgespeichert (s. level.dart).
 
 #### __AF-9:__ Dokumentation
 
