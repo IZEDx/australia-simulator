@@ -252,16 +252,13 @@ Wir verwenden im View ein DOM-Element für die 2D Welt - dem Haus - in welchem w
 
 Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose - absolute positionierte - Elemente, die frei in der Spielwelt bewegt und animiert werden können.
 
-Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer komplett geupdated werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-change``` lassen sich Performance-relevante Elemente (z.B. Spielwelt und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen. 
-
 Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden, hierfür wird er im View fest in der Mitte des Bildschirms erstellt und wenn er sich bewegt wird die Welt im Hintergrund in Relation zum Character bewegt, statt ihm selber.
 
-Um dies auch mit Überblick zu bewerkstelligen basiert der GameView, welcher bestimmt, wie genau das Spiel dargestellt wird, auf dem DOMView, eine Parentklasse, die häufige DOM-Operation abstrahiert und außerdem ein Verzeichnis für die DOM-Elementreferenzen anbietet.
+Um dies auch mit Überblick zu bewerkstelligen basiert der GameView (in ```view/gameview.dart```) auf dem DOMView (in ```view/domview.dart```), eine Parentklasse, die häufige DOM-Operation abstrahiert und außerdem ein Verzeichnis für die DOM-Elementreferenzen anbietet.
 
-Der GameView reagiert auf ActorSpawn bzw. Remove Events der World und erstellt bzw. entfernt die jeweiligen DOM-Elemente. Weiterhin hört er auf Transform-Events, die von den gespawnten Actors emittiert werden und passt die jeweiligen Transforms im DOM an.
-Weiterhin stellt er den View der Menüs dar und emittiert Steuerungsevents auf die der GameController reagiert.
+Der GameView reagiert auf Actor Spawn- bzw. Remove-Events der World und erstellt bzw. entfernt die jeweiligen DOM-Elemente. Weiterhin hört er auf Transform-Events, die von den erstellten Actors emittiert werden und passt die jeweiligen Transforms im DOM an.
 
-
+Dabei kann der GameView vom GameController zwischen zwei Hauptmodi hin- und her geschaltet werden, dem Game und das Menü. Das Menü kann außerdem zwischen drei weiteren Modi wechseln: Hauptmenü, Level-Auswahl und Credits.
 
 ### 3.3 - Controller
 
