@@ -72,11 +72,12 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
     4. Level- und Parametrisierungskonzept
         4.1 Levelkonzept
         4.2 Parametrisierungskonzept
-    5. Nachweis der Anforderungen
-        5.1 Nachweis der funktionalen Anforderungen
-        5.2 Nachweis der Dokumentationsanforderungen
-        5.3 Nachweis der Einhaltung technischer Randbedingungen
-        5.4 Verantwortlichkeiten im Projekt
+    5. Libraries
+    6. Nachweis der Anforderungen
+        6.1 Nachweis der funktionalen Anforderungen
+        6.2 Nachweis der Dokumentationsanforderungen
+        6.3 Nachweis der Einhaltung technischer Randbedingungen
+        6.4 Verantwortlichkeiten im Projekt
 
 
 ### 0.2 Links
@@ -144,7 +145,43 @@ Außerdem sind hier die Anforderungen dokumentiert, und wie diese gelöst werden
 ## 2 - Anforderungen und Konzept
 ---
 
-### 2.1 - Spielkonzept: Australia Simulator
+### 2.1 - Anforderungen
+
+| Id   | Anforderung   |
+| :--: | ------------- |
+| AF-1 | Single-Player-Game als Single-Page-App |
+| AF-2 | Balance zwischen technischer Komplexität und Spielkonzept |
+| AF-3 | Target Device: SmartPhone |
+| AF-4 | DOM-Tree-basiert |
+| AF-5 | Mobile First Prinzip |
+| AF-6 | Das Spiel muss schnell und intuitiv erfassbar sein und Spielfreude erzeugen.  |
+| AF-7 | Das Spiel muss ein Levelkonzept vorsehen  |
+| AF-8 | Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren  |
+| AF-9 | Dokumentation |
+
+&nbsp;
+
+| Id   | Dokumentationsanforderung   |
+| :--: | --------------------------- |
+| D-1  | Dokumentationsvorlage |
+| D-2  | Projektdokumentation |
+| D-3  | Quelltextdokumentation |
+| D-4  | Libraries |
+
+&nbsp;
+
+| Id   | Technische Randbedingungen   |
+| :--: | ---------------------------- |
+| TF-1 | Statische HTML-Single-Page-App
+| TF-2 | Alle Ressourcen relativ addressiert
+| TF-3 | MVC-Architektur
+| TF-4 | DOM-Tree als View / No-Canvas
+| TF-5 | Mobile First
+| TF-6 | SmartPhone Bedienung
+| TF-8 | Level-Parametrisierung per JSON/XML/etc.
+| TF-9 | Client-seitige Speicherung
+
+### 2.2 - Spielkonzept: Australia Simulator
 
 Das Spiel Australia Simulator ist ein top-down Arcade Game, bei welchem der Spieler versuchen muss, Spinnen aus seinem Haus zu verscheuchen.
 
@@ -157,10 +194,6 @@ Der Spieler ist allerdings nicht unverwundbar, pro Level hat er zwei Leben. Er v
 Sollte nun entweder ein Gegner seinen Wohlfühl-Faktor voll aufgefüllt haben, oder der Spieler alle seine Leben verlieren, so endet das Spiel und der Spieler hat verloren. Er kann das Level nun erneut versuchen.
 
 &nbsp;
-
-### 2.2 - Anforderungen
-
-TODO
 
 ## 3 - Architektur
 ---
