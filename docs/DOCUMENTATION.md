@@ -254,7 +254,50 @@ Bei dem LevelManager wird von dem MVC Pattern abgewichen, weil sich eine Anbindu
 
 ### 4.1 - Levelkonzept
 
-TODO
+Das Levelkonzept von Australia Simulator ist - wie in Punkt 3.3.1 beschrieben - komplett in die ```level.dart``` abstrahiert. Dort ist der LevelManager zu finden, welcher eine JSON-Datei einliest mit eine Liste von Leveln und Verweisen auf deren JSON-Dateien. Für jedes Level in der Liste lädt er dann ebenfalls die JSON-Datei, und fügt sie dann zur Levelliste hinzu.
+
+Ein Auszug aus der ```levels.json```:
+
+```json
+[
+    {
+        "path": "./assets/data/levels/0-welcome-home.json"
+    },
+    {
+        "path": "./assets/data/levels/1-this-is-my-house.json"
+    },
+    ...
+]
+```
+
+Jedes Level enthält dann einen Text, welcher beim Start angezeigt werden soll (```spawnText```), 
+eine Größe, wie groß das Level sein soll (```size```) und eine Liste mit Actors, welche erstellt werden sollen (```actors```). Jeder Actor kann dabei durch seinen ```type``` bestimmt werden und mit ```
+
+Hier noch ein Auszug aus einem Level:
+
+```json
+{
+    "spawnText": "Welcome Home!",
+    "size": [1200.0, 900.0],
+    "actors": [
+        {
+            "type": "spider",
+            "location": [600.0, 700.0]
+        },
+        {
+            "type": "table",
+            "location": [300.0, 300.0],
+            "rotation": [0.1, 0.9]
+        },
+        {
+            "type": "flower",
+            "location": [300.0, 250.0],
+            "rotation": [0.05, 0.95]
+        }
+    ]
+}
+```
+
 
 ### 4.2 - Parametrisierungskonzept
 
