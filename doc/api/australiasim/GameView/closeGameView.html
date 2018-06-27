@@ -140,7 +140,7 @@
     get(&quot;startGame&quot;).setInnerHtml(failed ? &quot;RETRY!&quot; : _levelManager.current &gt; 0 ? &quot;CONTINUE!&quot; : &quot;ENTER!&quot;);
 
     if (_levelManager.unlocked &gt; 0) {
-        show(get(&quot;selectLevel&quot;));
+        show(get(&quot;showLevels&quot;));
         final levelSelection = get(&quot;levelSelection&quot;);
 
         for (var i = 0; i &lt;= _levelManager.unlocked &amp;&amp; i &lt; _levelManager.size; i++) {
