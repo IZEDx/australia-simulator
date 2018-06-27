@@ -69,6 +69,15 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
         3.2 View
         3.3 Controller
             3.3.1 Input
+    4. Level- und Parametrisierungskonzept
+        4.1 Levelkonzept
+        4.2 Parametrisierungskonzept
+    5. Nachweis der Anforderungen
+        5.1 Nachweis der funktionalen Anforderungen
+        5.2 Nachweis der Dokumentationsanforderungen
+        5.3 Nachweis der Einhaltung technischer Randbedingungen
+        5.4 Verantwortlichkeiten im Projekt
+
 
 ### 0.2 Links
 
@@ -151,58 +160,10 @@ Sollte nun entweder ein Gegner seinen Wohlfühl-Faktor voll aufgefüllt haben, o
 
 ### 2.2 - Anforderungen
 
-#### __AF-1:__ Single-Player-Game als Single-Page-App
-_Australia Simulator_ ist ein Singleplayer-Spiel als Single-Page-App, welches in Dart entwickelt wurde.
-Alle Assets sind relativ adressiert und es wird kein Backend benötigt. Jeglicher Fortschritt wird direkt im Browser des Users gespeichert und somit kann _Australia Simulator_ statisch vertrieben werden.
-
-#### __AF-2:__ Balance zwischen technischer Komplexität und Spielkonzept
-
-In _Australia Simulator_ muss der Spieler versuchen verschiedene gefährliche Tiere aus seinem Haus zu verscheuchen, ohne dabei die Tiere zu berühren, ansonsten verliert der Spieler ein Leben und hat dieser keine Leben mehr, so hat er verloren.
-
-Die Gegner fliehen also entsprechend vor dem Spieler oder bewegen sich zufällig im Haus.
-
-Mit der Zeit erhöht sich der Wohlfühl-Faktor der Gegner, der Spieler kann diesen aber reduzieren, indem er die Gegner scheucht. Erreicht ein Gegner seinen vollen Wohlfühl-Faktor, so hat der Spieler verloren.
-
-Schafft es der Spieler aber vorher alle Gegner aus dem Haus zu verscheuchen, so hat der Spieler gewonnen und das nächste Level kann geladen werden.
-
-Die gesamte Gamelogik läuft in Echtzeit mit pixel-genauen Positionen und einer zentrierten Kamera über dem Spieler.
-
-#### __AF-3:__ DOM-Tree basiert
-
-_Australia Simulator_ verwendet ein MVC Model, bei dem der DOM-Tree das View darstellt und entsprechend das Spiel rendert und auf Events im Model reagiert.
-
-Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose - absolute positionierte - Elemente, die frei in der Spielwelt bewegt und animiert werden können.
-
-Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer komplett geupdated werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-change``` lassen sich Performance-relevante Elemente (z.B. Spielwelt und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen. Genauere Informationen zur Verwendung von ```will-change``` in unserem View finden sich 3.2
-
-#### __AF-4:__ Target device: Smartphone
-
-_Australia Simulator_ ist eine mobile-first Single-Page-App und somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns eine Touch-and-Move Steuerung ausgedacht, bei der der Spieler mit der Maus oder per Touchscreen auf dem Bildschirm ziehen kann und der Character bewegt sich entsprechend. Sollte der Spieler wieder los lassen bleibt der Character stehen.
-
-Diese Eingabemethode ähnelt einem virtuellen Joy-/Analogstick auf dem Bildschirm.
-
-
-#### __AF-5:__ Mobile First Prinzip
-
-Für erweiterte UI Interaktionen, wie z.B. das wegdrücken von Modals am Anfang einer Runde bieten sich neben klassischen Eingabearten (Close-Button obere rechte Ecke vom Widget) außerdem Touchscreen Interaktionen an, wie das Wegswipen vom Widget. Da wo es angebracht ist, wollen wir die Interaktionen für Touchscreens vereinfachen.
-
-#### __AF-6:__ Das Spiel muss schnell und intuitiv erfassbar sein und Spielfreude erzeugen
-
-Das gesamte Spiel kann mit nur einer einzigen Eingabemethode gespielt werden und ist entsprechend intuitiv aufzugreifen. Wie viel Spielspaß dieses Spiel am Ende tatsächlich erzeugen kann und wielange das Spiel diesen aufrecht erhalten kann, muss in einem späteren Schritt balanciert werden.
-
-#### __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen
-
-_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, welche extra konfiguriert werden können, wobei die jeweilige Karte in der Größe festgelegt werden kann. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner und dem Wohlfühl-Faktor der Gegner, sowie der zugehörigen Steigungsrate.
-
-#### __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren
-
-Es ist vorgesehen den Levelfortschritt im localStorage abzuspeichern, damit der Spieler dort weitermachen kann, wo er aufgehört hat. Weitere Daten, wie Einstellungen für das Spiel etc. können ebenfalls im localStorage abgespeichert werden.
-
-#### __AF-9:__ Dokumentation
-
-Gegeben.
+TODO
 
 ## 3 - Architektur
+---
 
 Australia Simulator folgt der MVC-Architektur, bei der wir Interaktionen und Ausgaben/View vom Model trennen. Entscheidende Rolle spielt hierbei der GameController, da er View und Model erstellt und auf User-Interaktionen und Timern horcht und diese an das Model weiterleitet.
 
@@ -275,3 +236,83 @@ Im Controller horchen wir auf den Input und leiten diesen dann an das Model weit
 ```
 
 Events vom Model an das View muss der Controller nicht selbst weiterleiten, da der View direkt auf den Events des Models horchen kann und sich so up-to-date halten kann. Allerdings ist der Controller dafür verantwortlich weiteren User-Input zu verarbeiten, wie z.B. das Starten eines Spiels und das entsprechende Setup des Views und Models.
+
+## 4 - Level- und Parametrisierungskonzept
+---
+
+### 4.1 - Levelkonzept
+
+TODO
+
+### 4.2 - Parametrisierungskonzept
+
+TODO
+
+## 5 - Nachweis der Anforderungen
+---
+
+### 5.1 Nachweis der funktionalen Anforderungen
+
+#### __AF-1:__ Single-Player-Game als Single-Page-App
+_Australia Simulator_ ist ein Singleplayer-Spiel als Single-Page-App, welches in Dart entwickelt wurde.
+Alle Assets sind relativ adressiert und es wird kein Backend benötigt. Jeglicher Fortschritt wird direkt im Browser des Users gespeichert und somit kann _Australia Simulator_ statisch vertrieben werden.
+
+#### __AF-2:__ Balance zwischen technischer Komplexität und Spielkonzept
+
+In _Australia Simulator_ muss der Spieler versuchen verschiedene gefährliche Tiere aus seinem Haus zu verscheuchen, ohne dabei die Tiere zu berühren, ansonsten verliert der Spieler ein Leben und hat dieser keine Leben mehr, so hat er verloren.
+
+Die Gegner fliehen also entsprechend vor dem Spieler oder bewegen sich zufällig im Haus.
+
+Mit der Zeit erhöht sich der Wohlfühl-Faktor der Gegner, der Spieler kann diesen aber reduzieren, indem er die Gegner scheucht. Erreicht ein Gegner seinen vollen Wohlfühl-Faktor, so hat der Spieler verloren.
+
+Schafft es der Spieler aber vorher alle Gegner aus dem Haus zu verscheuchen, so hat der Spieler gewonnen und das nächste Level kann geladen werden.
+
+Die gesamte Gamelogik läuft in Echtzeit mit pixel-genauen Positionen und einer zentrierten Kamera über dem Spieler.
+
+#### __AF-3:__ DOM-Tree basiert
+
+_Australia Simulator_ verwendet ein MVC Model, bei dem der DOM-Tree das View darstellt und entsprechend das Spiel rendert und auf Events im Model reagiert.
+
+Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose - absolute positionierte - Elemente, die frei in der Spielwelt bewegt und animiert werden können.
+
+Dies hat außerdem zur Folge, dass die HTML Elemente nicht immer komplett geupdated werden müssen, sondern lediglich - sobald benötigt - manipuliert. Mithilfe von ```will-change``` lassen sich Performance-relevante Elemente (z.B. Spielwelt und Gegner) außerdem in ihrer Position verändern, ohne einen Re-Render der HTML Engine zu erzwingen. Das Positionsupdate wird hierbei von der GPU übernommen. Genauere Informationen zur Verwendung von ```will-change``` in unserem View finden sich 3.2
+
+#### __AF-4:__ Target device: Smartphone
+
+_Australia Simulator_ ist eine mobile-first Single-Page-App und somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns eine Touch-and-Move Steuerung ausgedacht, bei der der Spieler mit der Maus oder per Touchscreen auf dem Bildschirm ziehen kann und der Character bewegt sich entsprechend. Sollte der Spieler wieder los lassen bleibt der Character stehen.
+
+Diese Eingabemethode ähnelt einem virtuellen Joy-/Analogstick auf dem Bildschirm.
+
+
+#### __AF-5:__ Mobile First Prinzip
+
+Für erweiterte UI Interaktionen, wie z.B. das wegdrücken von Modals am Anfang einer Runde bieten sich neben klassischen Eingabearten (Close-Button obere rechte Ecke vom Widget) außerdem Touchscreen Interaktionen an, wie das Wegswipen vom Widget. Da wo es angebracht ist, wollen wir die Interaktionen für Touchscreens vereinfachen.
+
+#### __AF-6:__ Das Spiel muss schnell und intuitiv erfassbar sein und Spielfreude erzeugen
+
+Das gesamte Spiel kann mit nur einer einzigen Eingabemethode gespielt werden und ist entsprechend intuitiv aufzugreifen. Wie viel Spielspaß dieses Spiel am Ende tatsächlich erzeugen kann und wielange das Spiel diesen aufrecht erhalten kann, muss in einem späteren Schritt balanciert werden.
+
+#### __AF-7:__ Das Spiel muss ein Levelkonzept vorsehen
+
+_Australia Simulator_ wird mindestens sieben im Schwierigkeitsgrad aufsteigende Level anbieten, welche extra konfiguriert werden können, wobei die jeweilige Karte in der Größe festgelegt werden kann. Weitere Einstellungsmöglichkeiten für die Level beinhalten: Anzahl der Gegner, Art der Gegner, Geschwindigkeit der Gegner und dem Wohlfühl-Faktor der Gegner, sowie der zugehörigen Steigungsrate.
+
+#### __AF-8:__ Ggf. erforderliche Speicherkonzepte sind Client-seitig zu realisieren
+
+Es ist vorgesehen den Levelfortschritt im localStorage abzuspeichern, damit der Spieler dort weitermachen kann, wo er aufgehört hat. Weitere Daten, wie Einstellungen für das Spiel etc. können ebenfalls im localStorage abgespeichert werden.
+
+#### __AF-9:__ Dokumentation
+
+Gegeben.
+
+
+### 5.2 Nachweis der Dokumentationsanforderungen
+
+TODO
+
+### 5.3 Nachweis der Einhaltung technischer Randbedingungen
+
+TODO
+
+### 5.4 Verantwortlichkeiten im Projekt
+
+TODO
