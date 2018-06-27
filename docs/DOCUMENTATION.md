@@ -204,7 +204,10 @@ Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden
 
 ### 3.3 - Controller
 
-Der Controller ist das zentrale Nervensystem des Spiels, er erstellt das Model und den View und verbindet diese miteinander. Er horcht auf die Eingaben des Spielers und updated das Model entsprechend.
+Der GameController ist das zentrale Nervensystem des Spiels, er erstellt das Model und den View und verbindet diese miteinander. Der Controller steuert den groben Ablauf des Spieles (Wechsel zwischen Menü und Gameplay), initialisiert das GameMode der aktuellen Session und tickt das Model.
+Er horcht auf die Eingaben des Spielers zur Steuerung der Spielfigur und gibt sie entsprechend an das Model weiter.
+
+
 
 #### 3.3.1 Input
 
