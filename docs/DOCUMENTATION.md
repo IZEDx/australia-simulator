@@ -329,7 +329,8 @@ Wir verwenden im View ein DOM-Element für die 2D Welt - dem Haus - in welchem w
 
 Das Spiel verwendet kein festes Grid in dem Spielobjekte von Zelle zu Zelle verschoben werden können, sondern stattdessen lose - absolute positionierte - Elemente, die frei in der Spielwelt bewegt und animiert werden können.
 
-Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden, hierfür wird er im View fest in der Mitte des Bildschirms erstellt und wenn er sich bewegt wird die Welt im Hintergrund in Relation zum Character bewegt, statt ihm selber.
+Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden, hierfür wird er im View fest in der Mitte des Bildschirms erstellt und wenn er sich bewegt wird die Welt im Hintergrund relativ zum Character bewegt, statt ihm selbst.
+Währenddessen wird das ```will-change``` property auf der Welt aktiviert, das soll die Performance beim Transform verbessern, indem das Element im Speicher gehalten wird. Dies konnten wir allerdings nicht eindeutig nachvollziehen.
 
 Um dies auch mit Überblick zu bewerkstelligen basiert der GameView (in ```view/gameview.dart```) auf dem DOMView (in ```view/domview.dart```), eine Parentklasse, die häufige DOM-Operation abstrahiert und außerdem ein Verzeichnis für die DOM-Elementreferenzen anbietet.
 
