@@ -6,8 +6,6 @@ environment:
   sdk: '>=1.24.0 <2.0.0'
 
 dependencies:
-  browser: ^0.10.0
-  start:   ">=0.2.7 <0.3.0"
   vector_math: any
   rxdart: ^0.15.0
 #  path: ^1.4.1

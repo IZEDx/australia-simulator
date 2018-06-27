@@ -317,6 +317,19 @@ Allerdings gibt es zwei relevante Konstanten die im Programmcode bearbeitet werd
 ## 5 - Libraries
 ---
 
+Wir verwenden für Australia Simulator zwei externe Dependencies: ```vector_math``` und ```rxdart```, wobei vector_math die Vector2-Klasse zur Verfügung stellt, welche wir im gesamten Projekt verwenden.
+
+```rxdart``` allerdings bietet uns erweiterte Dart-Streams mit denen wir - insbesondere was zeitliche Operationen angehen - mehr Möglichkeiten haben.
+
+Zur Veranschaulichung ein Beispiel aus der ```model/pawns/character.dart```, wie ```rxdart``` in Australia Simulator zum Einsatz kommt.
+
+```dart
+new Observable(this.onCollide)
+    .where( (Actor a) => a is Enemy )
+    .throttle( new Duration(seconds: 1) )
+    .listen( (Actor a) => this._touchedEnemy());
+```
+
 ## 6 - Nachweis der Anforderungen
 
 ### 6.1 Nachweis der funktionalen Anforderungen

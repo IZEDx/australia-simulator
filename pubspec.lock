@@ -19,12 +19,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.15.2+15"
-  browser:
-    description:
-      name: browser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.0+3"
   charcode:
     description:
       name: charcode
@@ -55,24 +49,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.3"
-  http_server:
-    description:
-      name: http_server
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.6"
   logging:
     description:
       name: logging
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.3+1"
-  mime:
-    description:
-      name: mime
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.5"
   path:
     description:
       name: path
@@ -103,12 +85,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.2"
-  start:
-    description:
-      name: start
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.7"
   utf:
     description:
       name: utf
