@@ -143,7 +143,7 @@ class Enemy extends Pawn
             else
             {
                 final rand = new Vector2.random().normalized();               
-                this.rotation = (-this.rotation) * 10.0 + rand * 9.0;
+                this.rotation = (-this.rotation) * 10.0 + rand * 8.5;
             }
         } 
     }
