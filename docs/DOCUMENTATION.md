@@ -105,16 +105,6 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
 
 &nbsp;
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
 ## 1 - Einleitung
 ---
 
@@ -123,6 +113,34 @@ Australia Simulator ist ein Mobile-First Einzelspieler Webgame von Niklas Kühtm
 Diese Dokumentation soll einen Überblick über das Konzept und die Architektur leisten, wobei genauere Details in der [Programmdokumentation](https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html) zu finden sind.
 
 Außerdem sind hier die Anforderungen dokumentiert, und wie diese gelöst werden.
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
 
 &nbsp;
 
@@ -180,6 +198,8 @@ Außerdem sind hier die Anforderungen dokumentiert, und wie diese gelöst werden
 | TF-6 | SmartPhone Bedienung
 | TF-8 | Level-Parametrisierung per JSON/XML/etc.
 | TF-9 | Client-seitige Speicherung
+
+&nbsp;
 
 ### 2.2 - Spielkonzept: Australia Simulator
 
