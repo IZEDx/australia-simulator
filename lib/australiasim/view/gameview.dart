@@ -36,7 +36,7 @@ class GameView extends DOMView {
     /// If the game is currently running
     get isRunning => this._gameMode.isRunning;
 
-    /// GameView constructor with given [_gameMode] and [_levelManager]
+    /// GameView constructor with given [gameMode] and [levelManager]
     GameView(GameMode this._gameMode, LevelManager this._levelManager) {
 
         onInput = _inputEvent.stream.asBroadcastStream();
