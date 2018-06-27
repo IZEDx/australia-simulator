@@ -559,6 +559,18 @@ Gegeben.
 
 &nbsp;
 
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
 ### 6.4 Verantwortlichkeiten im Projekt
 
 Der Großteil des Projekts ist in Zusammenarbeit entstanden, wobei im Laufe der Entwicklung die meisten Additions gegenseitig korrigiert, ergänzt oder dokumentiert wurden. Allerdings gab es unterschiedliche Fokuspunkte - wer sich auf was fokussiert hat - und ein paar größtenteils individuelle Leistungen (mit minimalen Ergänzungen des jeweils Anderen), dies ist nachfolgend dokumentiert.
