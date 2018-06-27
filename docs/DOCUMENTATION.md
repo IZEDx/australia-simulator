@@ -61,8 +61,9 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
 
 ### 0.2 Links
 
--   Programmdokumentation: https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html
--   UML-Klassendiagramm: https://izedx.github.io/australia-simulator/docs/uml.jpg
+-   __Programmdokumentation:__ https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html
+-   __UML-Klassendiagramm:__ https://izedx.github.io/australia-simulator/docs/uml.jpg
+-   __PlayerMovement-Sequenzdiagramm:__ https://izedx.github.io/australia-simulator/docs/playermovement.jpg
 
 &nbsp;
 
