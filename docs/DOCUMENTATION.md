@@ -348,6 +348,7 @@ new Observable(this.onCollide)
 ```
 
 ## 6 - Nachweis der Anforderungen
+---
 
 ### 6.1 Nachweis der funktionalen Anforderungen
 
@@ -406,6 +407,8 @@ TODO
 
 ### 6.4 Verantwortlichkeiten im Projekt
 
+Der Großteil des Projekts ist in Zusammenarbeit entstanden, wobei im Laufe der Entwicklung die meisten Additions gegenseitig korrigiert, ergänzt oder dokumentiert wurden. Allerdings gab es unterschiedliche Fokuspunkte - wer sich auf was fokussiert hat - und ein paar größtenteils individuelle Leistungen (mit minimalen Ergänzungen des jeweils Anderen), dies ist nachfolgend dokumentiert.
+
 | Komponente | Detail         | Asset                                       | Niklas Kühtmann | Thomas Urner | Anmerkungen                       |
 |------------|----------------|---------------------------------------------|-----------------|--------------|-----------------------------------|
 | Model      | Actor          | lib/australiasim/model/actor.dart           | U               | V            |                                   |
@@ -421,3 +424,5 @@ TODO
 | View       | GameView       | lib/australiasim/view/gameview.dart         | V               | U            |                                   |
 |            |                | lib/australiasim/view/domview.dart          | V               |              |                                   |
 | Levels     |                | web/assets/data/levels/*.*                  | V               | V            | Wurden in Zusammenarbeit erstellt |
+
+> V: Verantwortlich - U: Unterstützend
