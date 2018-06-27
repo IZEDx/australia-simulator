@@ -68,7 +68,9 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
         3.1 Model
         3.2 View
         3.3 Controller
-            3.3.1 LevelManager
+            3.3.1 Spielstart
+            3.3.2 Spielablauf
+            3.3.3 LevelManager
     4. Level- und Parametrisierungskonzept
         4.1 Levelkonzept
         4.2 Parametrisierungskonzept
@@ -110,9 +112,7 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
 
 Australia Simulator ist ein Mobile-First Einzelspieler Webgame von Niklas Kühtmann und Thomas Urner für das Modul "Webtechnologie Projekt" im SoSe 2018 an der Fachhochschule-Lübeck.
 
-Diese Dokumentation soll einen Überblick über das Konzept und die Architektur leisten, wobei genauere Details in der [Programmdokumentation](https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html) zu finden sind.
-
-Außerdem sind hier die Anforderungen dokumentiert, und wie diese gelöst werden.
+Diese Dokumentation soll einen Überblick über das Konzept und die Architektur leisten, wobei genauere Details in der [Programmdokumentation](https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html) zu finden sind. (Siehe 0.2)
 
 &nbsp;
 
@@ -265,8 +265,15 @@ Dabei kann der GameView vom GameController zwischen zwei Hauptmodi hin- und her 
 Der GameController ist das zentrale Nervensystem des Spiels, er erstellt das Model und den View und verbindet diese miteinander. Der Controller steuert den groben Ablauf des Spieles (Wechsel zwischen Menü und Gameplay), initialisiert das GameMode der aktuellen Session und tickt das Model.
 Er horcht auf die Eingaben des Spielers zur Steuerung der Spielfigur und gibt sie entsprechend an das Model weiter.
 
+#### 3.3.1 - Spielstart
 
-#### 3.3.1 LevelManager
+Das Spiel kann über das Hauptmenü gestartet werden. Der Spieler kann dabei über den ```ENTER/CONTINUE/RETRY``` Button das aktuelle Level laden, oder über den ```Select Level``` ein Level laden, welches er zuvor freigeschaltet hat.
+
+#### 3.3.2 - Spielablauf
+
+Während dem Spiel tickt der GameController und ruft alle paar Millisekunden den GameMode auf, dieser leitet den Tick weiter. Jetzt wartet der GameController außerdem auf das GameOver Event aus dem Model, wonach er dann das Spiel beendet.
+
+#### 3.3.3 LevelManager
 
 Der LevelManager, sowie seine Hilfsklassen Level und ActorData werden verwendet um als JSON vorliegende Levels zu parsen und ihre Informationen dem GameView und GameController zur Verfügung zu stellen.
 
