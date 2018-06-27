@@ -34,7 +34,10 @@ class GameView extends DOMView {
     StreamController<int> _selectLevelEvent = new StreamController();
 
     /// If the game is currently running
-    get isRunning => this._gameMode.isRunning;
+    bool get isRunning => this._gameMode.isRunning;
+
+    /// Used by the input listeners to only fire when needed.
+    bool _isMoving = false;
 
     /// GameView constructor with given [gameMode] and [levelManager]
     GameView(GameMode this._gameMode, LevelManager this._levelManager) {
@@ -333,20 +336,63 @@ class GameView extends DOMView {
         get("startGame").onClick.listen((e) => _selectLevelEvent.add(_levelManager.current));
 
         // Touch listeners
-        _inputLayer.onTouchStart.listen(_handleTouchStart);
-        _inputLayer.onTouchMove.listen(_handleTouchMove);
-        _inputLayer.onTouchEnd.listen(_handleTouchEnd);
+        _inputLayer.onTouchStart
+            .where((v) => isRunning)
+            .map((e) {
+                e.preventDefault();
+                return new Vector2(e.touches[0].page.x, e.touches[0].page.y);
+            })
+            .listen(_handleInputStart);
+
+        _inputLayer.onTouchMove
+            .where((v) => isRunning)
+            .map((e) {
+                e.preventDefault();
+                return new Vector2(e.touches[0].page.x, e.touches[0].page.y);
+            })
+            .listen(_handleInputMove);
+
+        _inputLayer.onTouchEnd
+            .map((e) {
+                e.preventDefault();
+                return new Vector2.zero(); // Reset to zero on end
+            })
+            .where((v) => isRunning)
+            .listen(_handleInputEnd);
+
+        // Mouse Listeners
+        _inputLayer.onMouseDown
+            .where((v) => isRunning)
+            .map((e) {
+                e.preventDefault();
+                _isMoving = true;
+                return new Vector2(e.page.x, e.page.y);
+            })
+            .listen(_handleInputStart);
+            
+        _inputLayer.onMouseMove
+            .where((v) => isRunning && _isMoving)
+            .map((e) {
+                e.preventDefault();
+                return new Vector2(e.page.x, e.page.y);
+            })
+            .listen(_handleInputMove);
+
+        _inputLayer.onMouseUp
+            .map((e) {
+                e.preventDefault();
+                _isMoving = false;
+                return new Vector2.zero(); // Reset to zero on end
+            })
+            .where((v) => isRunning)
+            .listen(_handleInputEnd);
     }
 
-    /// Gets called when the user starts a touch ([e])
-    _handleTouchStart(TouchEvent e)
+    /// Gets called when the user starts a touch ([vec])
+    _handleInputStart(Vector2 vec)
     {
-        e.preventDefault();
-
-        if (!isRunning) return; // If game is not running, do nothing.
-
         // Update origin
-        _touchOrigin = new Vector2(e.touches[0].page.x, e.touches[0].page.y);
+        _touchOrigin = vec;
 
         // Move the knob to the origin
         move(_inputKnob, _touchOrigin - new Vector2(25.0, 25.0));
@@ -359,28 +405,17 @@ class GameView extends DOMView {
         get("world").classes.add("changing");
     }
 
-    /// Gets called when the user moves the touch ([e])
-    _handleTouchMove(TouchEvent e)
+    /// Gets called when the user moves the touch ([vec])
+    _handleInputMove(Vector2 vec)
     {
-        e.preventDefault();
-
-        if (!isRunning) return; // If game is not running, do nothing.
-
         // Add inputEvent with relative position of the touch to the origin
-        _inputEvent.add( new Vector2(
-            (e.touches[0].page.x - _touchOrigin.x) / _pixelScale,
-            (e.touches[0].page.y - _touchOrigin.y) / _pixelScale
-        ));
+        _inputEvent.add( (vec - _touchOrigin) / _pixelScale);
     }
         
-    /// Gets called when the user stops the touch ([e])
-    _handleTouchEnd(TouchEvent e)
+    /// Gets called when the user stops the touch ([vec])
+    _handleInputEnd(Vector2 vec)
     {
-        e.preventDefault();
-
-        if (!isRunning) return; // If game is not running, do nothing.
-
-        _inputEvent.add(new Vector2.zero()); // Reset velocity
+        _inputEvent.add(vec); // Reset velocity
 
         // Deactive movement indications
         deactivate(get("Character"));
