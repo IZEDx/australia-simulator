@@ -214,14 +214,24 @@ Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert si
 
 ### 3.1 - Model
 
-Das Model umfasst das GameMode Entity, eine World Entity, sowie Objekte, welche sich in einem Level befinden und von einer Basisklasse (Actor) erben. Actor enthält die grundlegenden Informationen über ein Spielobjekt (Spielfigur, Teile der Welt, ...), um es in einem Level zu positionieren, sowie Kollision abfragen zu können.
+Das Grundgerüst des Models beschränkt sich im grob gesehen auf drei Klassen;
+GameMode, World und Actor.
 
-So wird zu Beginn eines Spieles die Welt von dem Gamemode aufgebaut (Architektur / Props, Gegner, Player spawnen). 
+Das GameMode steuert den Spielablauf.
 Zu jeder Zeit kommuniziert der GameController nur mit dem GameMode, welches das Spiel verwaltet und die Interaktionen der Nutzer an seine Spielfigur weiterleitet.
+Es implementiert die Spielregeln und leitet den Model Tick (hot loop; welcher für u.a. Bewegungsberechnungen benutzt wird) von dem GameController an die World weiter.
+Zu Beginn eines Spieles wird die Welt von dem GameMode aufgebaut (Props, Gegner und Player spawnen). 
 
-Während das Spiel läuft werden alle beweglichen Objekte (Spielfiguren) "getickt" (hot loop) um die nötigen Berechnungen zu machen, die für das Spiel benötigt werden (positionsupdate, collision, ...).
+Die World bezeichnet das Objekt, welches die Spielwelt repräsentiert. Sie wird benutzt um jede Art von Actors in das laufende Spiel zu bringen / entfernen und hält eine Liste der aktuell im Level existierenden Actors. Weiterhin gibt sie den Model Tick an alle Actors weiter.
 
-Zu einem Levelwechsel wird zuerst das aktuelle Level gecleared und dann durch eine neue World ersetzt.
+Actor dient als Basisklasse für alle Objekte, die in einer World existieren (Props, Pawns) und mit der Spielfigur interagieren können. Sie implementiert die abstrakten Basismethoden (tick, initialize, beginPlay), welche von in den Childclasses verwendet werden, die Worldtransforms, sowie Kollisionsabfragen für Box- und Circleprimitives. 
+
+Pawn implementiert das Movement, welches die Spielfigur, unter Berücksichtigung von möglichen Kollisionen auf dem Weg, auf dem direkten Weg zu einer Position laufen lässt.
+
+Enemy implementiert ein zufälliges Movement für alle Gegner, sowie die „Fliehfunktionalität“.
+
+Ein Character ist die Spielfigur, die der Spieler steuert. Sie reagiert auf Kollisionen mit Gegnern und beinhaltet die aktuellen Leben des Spielers.
+
 
 ### 3.2 - View
 
