@@ -68,7 +68,7 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
         3.1 Model
         3.2 View
         3.3 Controller
-            3.3.1 Input
+            3.3.1 LevelManager
     4. Level- und Parametrisierungskonzept
         4.1 Levelkonzept
         4.2 Parametrisierungskonzept
@@ -165,23 +165,20 @@ TODO
 ## 3 - Architektur
 ---
 
-Australia Simulator folgt der MVC-Architektur, bei der wir Interaktionen und Ausgaben/View vom Model trennen. Entscheidende Rolle spielt hierbei der GameController, da er View und Model erstellt und auf User-Interaktionen und Timern horcht und diese an das Model weiterleitet.
-
-Der GameView ist für DOM-Manipulation vorgesehen, deswegen erstellt er das Spielfeld und horcht auf Model-Events um den DOM-Tree up-to-date zu halten.
-
-Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert sich an bekannten Spiele-Engines wie z.B. der Unreal Engine, allerdings sehr stark auf die Bedürfnisse für dieses Projekt zugeschnitten.
+Australia Simulator folgt der MVC-Architektur, bei der wir Interaktionen und Ausgaben/View vom Model trennen. 
+Im Folgenden werden die Basisklassen erläutert; detailliertere Dokumentation der Implementationsdetails liegen dieser Abgabe als dartdoc bei (./doc/api), bzw. sind unter 0.2 Links zu finden.
 
 ![UML-Diagramm](./uml.jpg)
 
 ### 3.1 - Model
 
-Das Grundgerüst des Models beschränkt sich grob gesehen auf drei Klassen;
+Das Grundgerüst des Models beschränkt sich im Allgemeinen auf drei Klassen;
 GameMode, World und Actor.
 
 Das GameMode steuert den Spielablauf.
 Zu jeder Zeit kommuniziert der GameController nur mit dem GameMode, welches das Spiel verwaltet und die Interaktionen der Nutzer an seine Spielfigur weiterleitet.
 Es implementiert die Spielregeln und leitet den Model-Tick (hot loop; welcher für u.a. Bewegungsberechnungen benutzt wird) von dem GameController an die World weiter.
-Zu Beginn eines Spieles wird die Welt von dem GameMode aufgebaut (Props, Gegner und Player spawnen). 
+Zu Beginn eines Spieles wird die Welt von dem GameMode aufgebaut (Props, Gegner und Player spawnen); zum Ende wird ein GameOver Event emittiert auf welches der GameController reagiert
 
 Die World bezeichnet das Objekt, welches die Spielwelt repräsentiert. Sie wird benutzt um jede Art von Actors in das laufende Spiel zu bringen / entfernen und hält eine Liste der aktuell im Level existierenden Actors. Weiterhin gibt sie den Model-Tick an alle Actors weiter.
 
@@ -200,11 +197,13 @@ Der View wird zur Darstellung des Models verwendet und vom Controller initiiert.
 
 Wir verwenden im View ein DOM-Element für die 2D Welt - dem Haus - in welchem wir dann die Actor frei bewegen können. 
 
-Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden, hierfür wird der Character im View fest in der Mitte des Bildschirms erstellt und wenn er sich bewegt wird die Welt im Hintergrund in Relation zum Character bewegt, statt dem Character selbst.
+Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden, hierfür wird er im View fest in der Mitte des Bildschirms erstellt und wenn er sich bewegt wird die Welt im Hintergrund in Relation zum Character bewegt, statt ihm selber.
 
-Um dies auch mit Überblick zu bewerkstelligen basiert der GameView, welcher bestimmt, wie genau das Spiel dargestellt wird, auf dem DOMView, eine Basisklasse die häufige DOM-Operation abstrahiert und außerdem ein Verzeichnis für die DOM-Elementreferenzen anbietet.
+Um dies auch mit Überblick zu bewerkstelligen basiert der GameView, welcher bestimmt, wie genau das Spiel dargestellt wird, auf dem DOMView, eine Parentklasse, die häufige DOM-Operation abstrahiert und außerdem ein Verzeichnis für die DOM-Elementreferenzen anbietet.
 
-Genauere Implementationsdetails finden sich in der [GameView Klasse](https://izedx.github.io/australia-simulator/doc/api/australiasim/GameView-class.html).
+Der GameView reagiert auf ActorSpawn bzw. Remove Events der World und erstellt bzw. entfernt die jeweiligen DOM-Elemente. Weiterhin hört er auf Transform-Events, die von den gespawnten Actors emittiert werden und passt die jeweiligen Transforms im DOM an.
+Weiterhin stellt er den View der Menüs dar und emittiert Steuerungsevents auf die der GameController reagiert.
+
 
 ### 3.3 - Controller
 
@@ -212,37 +211,10 @@ Der GameController ist das zentrale Nervensystem des Spiels, er erstellt das Mod
 Er horcht auf die Eingaben des Spielers zur Steuerung der Spielfigur und gibt sie entsprechend an das Model weiter.
 
 
+#### 3.3.1 LevelManager
 
-#### 3.3.1 Input
-
-Im Controller horchen wir auf den Input und leiten diesen dann an das Model weiter, die entsprechende Eingabeposition die weitergeleitet wird ist relativ zur Position des Characters, also relativ zur Mitte des Bildschirms.
-
-```dart
-  onInput(onInput(Vector2 worldPos), onInputStop()) {
-    relay(TouchEvent e) {
-      e.preventDefault();
-      onInput(new Vector2(
-        e.touches[0].page.x - view.world.offset.left, 
-        e.touches[0].page.y - view.world.offset.top
-      ));
-    }
-
-    view.input.onTouchStart.listen((e) {
-      relay(e);
-    });
-
-    view.input.onTouchMove.listen((e) {
-      relay(e);
-    });
-
-    view.input.onTouchEnd.listen((e) {
-      e.preventDefault();
-      onInputStop();
-    });
-  }
-```
-
-Events vom Model an das View muss der Controller nicht selbst weiterleiten, da der View direkt auf den Events des Models horchen kann und sich so up-to-date halten kann. Allerdings ist der Controller dafür verantwortlich weiteren User-Input zu verarbeiten, wie z.B. das Starten eines Spiels und das entsprechende Setup des Views und Models.
+Der LevelManager, sowie seine Hilfsklassen Level und ActorData werden verwendet um als JSON vorliegende Levels zu parsen und ihre Informationen dem GameView und GameController zur Verfügung zu stellen.
+Bei dem LevelManager wird von dem MVC Pattern abgewichen, weil sich eine Anbindung an den Controller und den View analog zum Model sehr gut eignen, jedoch betrachten wir ihn als Controller Klasse, da Input (in Form der vorliegenden Level-JSONs) stattfindet.
 
 ## 4 - Level- und Parametrisierungskonzept
 ---
