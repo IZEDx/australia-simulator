@@ -16,7 +16,7 @@
         },
         {
             "type": "bigspider",
-            "location": [1200.0, 1000.0]
+            "location": [1135.0, 1000.0]
         },
         {
             "type": "bigspider",
@@ -52,6 +52,18 @@
             "type": "flower",
             "location": [650.0, 250.0],
             "rotation": [0.1, 0.9]
+        },
+        {
+            "type": "smallbed",
+            "location": [1200.0, 700.0],
+            "rotation": [0.2, 0.8],
+            "scale": [160.0, 243.0]
+        },
+        {
+            "type": "smallbed",
+            "location": [1640.0, 670.0],
+            "rotation": [-0.2, 0.8],
+            "scale": [160.0, 243.0]
         },
         {
             "type": "flower",
