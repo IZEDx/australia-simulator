@@ -134,8 +134,15 @@ class Enemy extends Pawn
     /// Handles collision with a given [other] actor
     void _collided(Actor other)
     {
-        if      ( !_isEmbattled() ) this.rotation = -this.rotation;
-        else if (   other is Pawn ) this.rotation = this.location - other.location;
+        if (!_isEmbattled())
+        {
+            final rand = new Vector2.random().normalized();               
+            this.rotation = (-this.rotation) * 10.0 + rand * 8.5;
+        } 
+        else if (other is Pawn) 
+        {
+            this.rotation = this.location - other.location;
+        }
     }
 
     /// Is this pawn embattled by the player?
