@@ -80,6 +80,7 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
         6.2 Nachweis der Dokumentationsanforderungen
         6.3 Nachweis der Einhaltung technischer Randbedingungen
         6.4 Verantwortlichkeiten im Projekt
+    7. Lizenz und Einverständniserklärung
 
 
 ### 0.2 Links
@@ -336,7 +337,12 @@ Allerdings gibt es zwei relevante Konstanten die im Programmcode bearbeitet werd
 
 -   In ```gamecontroller.dart```: interval beschreibt den tick interval, indem updates im Model ausgeführt werden sollen.
 -   In ```gameview.dart```: pixelScale beschreibt den Skalierungsfaktor, mit dem zwischen den Einheiten im Model und Pixeln auf dem Screen umgewandelt wird.
-
+-   In ```enemy.dart```: recoverTime bezeichnet die Zeit, die ein Gegner benötigt, um nach dem Verfolgungszustand wieder in den idle zu fallen.
+-   In ```enemy.dart```: changeDirMinTime bezeichnet die Zeit, die ein Gegner mindestens wartet, bis er die Laufrichtung wechselt.
+-   In ```enemy.dart```: changeDirMaxTime bezeichnet die Zeit, die ein Gegner maximal wartet, bis er die Laufrichtung wechselt.
+-   In ```enemy.dart```: cozynessIncSpeed bezeichnet den Rate mit der die cozyness eines Gegners zunimmt, wenn er im idle ist.
+-   In ```enemy.dart```: cozynessDecSpeed bezeichnet den Rate mit der die cozyness eines Gegners abnimmt, wenn er verfolgt wird.
+-   In ```gamemode.dart```: wallWidth bezeichnet die Dicke der Außenwände.
 
 ## 5 - Libraries
 ---
@@ -433,3 +439,11 @@ Der Großteil des Projekts ist in Zusammenarbeit entstanden, wobei im Laufe der 
 | Levels     |                | web/assets/data/levels/*.*                  | V               | V            | Wurden in Zusammenarbeit erstellt |
 
 > V: Verantwortlich - U: Unterstützend
+
+
+## 7 - Lizenz und Einverständniserklärung
+---
+Für den Programmcode von Australia Simulator gilt die MIT Lizenz,
+die verwendeten Sprites/Texturen sind dual-lizenziert unter der CC-BY-SA 3.0 Lizenz und GNU GPL 3.0 Lizenz. Weitere Credits finden sich im Spiel auf der Credits Seite.
+
+Wir sind hiermit Einverstanden, dass Australia Simulator öffentlich zugänglich bereitgestellt wird.
