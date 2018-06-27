@@ -10,39 +10,7 @@
 
 &nbsp;
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![Screenshot vom Spiel](./screenshot.png)
 
 &nbsp;
 
@@ -344,8 +312,6 @@ Dabei kann der GameView vom GameController zwischen zwei Hauptmodi hin- und her 
 
 &nbsp;
 
-&nbsp;
-
 ### 3.3 - Controller
 
 Der GameController ist das zentrale Nervensystem des Spiels, er erstellt das Model und den View und verbindet diese miteinander. Der Controller steuert den groben Ablauf des Spieles (Wechsel zwischen Menü und Gameplay), initialisiert das GameMode der aktuellen Session und tickt das Model.
@@ -408,7 +374,7 @@ Der LevelManager, sowie seine Hilfsklassen Level und ActorData werden verwendet 
 
 ### 4.1 - Levelkonzept
 
-Das Levelkonzept von Australia Simulator ist - wie in Punkt 3.3.1 beschrieben - komplett in die ```level.dart``` abstrahiert. Dort ist der LevelManager zu finden, welcher eine JSON-Datei einliest mit eine Liste von Leveln und Verweisen auf deren JSON-Dateien. Für jedes Level in der Liste lädt er dann ebenfalls die JSON-Datei, und fügt sie dann zur Levelliste hinzu.
+Das Levelkonzept von Australia Simulator ist - wie in Punkt 3.3.1 beschrieben - komplett in die ```level.dart``` abstrahiert. Dort ist der LevelManager zu finden, welcher eine JSON-Datei einliest mit einer Liste von Leveln und Verweisen auf deren JSON-Dateien. Für jedes Level in der Liste lädt er dann ebenfalls die JSON-Datei und fügt sie zu seiner Levelliste hinzu.
 
 Ein Auszug aus der ```levels.json```:
 
