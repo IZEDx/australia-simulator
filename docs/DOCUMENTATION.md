@@ -580,16 +580,16 @@ Gegeben.
 
 ### 6.3 Nachweis der Einhaltung technischer Randbedingungen
 
-| Id   | Kurztitel                                | Erfüllt | Teilw. erfüllt |         |
-|------|------------------------------------------|---------|----------------|---------|
-| TF-1 | Statische HTML-Single-Page-App           | x       |                | s. AF-1 |
-| TF-2 | Alle Ressourcen relativ adressiert       | x       |                | s. AF-1 |
-| TF-3 | MVC-Architektur                          |         | x              | s. AF-3 |
-| TF-4 | DOM-Tree als View / No-Canvas            | x       |                | s. AF-3 |
-| TF-5 | Mobile First                             | x       |                | s. AF-5 |
-| TF-6 | Smartphone Bedienung                     | x       |                | s. AF-5 |
-| TF-7 | Level-Parametrisierung per JSON/XML/etc. | x       |                | s. AF-7 |
-| TF-8 | Client-seitige Speicherung               | x       |                | s. AF-8 |
+| Id   | Kurztitel                                | Erfüllt | Teilw. erfüllt | Erläuterung |
+|------|------------------------------------------|---------|----------------|-------------|
+| TF-1 | Statische HTML-Single-Page-App           | x       |                | s. AF-1     |
+| TF-2 | Alle Ressourcen relativ adressiert       | x       |                | s. AF-1     |
+| TF-3 | MVC-Architektur                          |         | x              | s. AF-3     |
+| TF-4 | DOM-Tree als View / No-Canvas            | x       |                | s. AF-3     |
+| TF-5 | Mobile First                             | x       |                | s. AF-5     |
+| TF-6 | Smartphone Bedienung                     | x       |                | s. AF-5     |
+| TF-7 | Level-Parametrisierung per JSON/XML/etc. | x       |                | s. AF-7     |
+| TF-8 | Client-seitige Speicherung               | x       |                | s. AF-8     |
 
 &nbsp;
 
