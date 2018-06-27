@@ -50,6 +50,14 @@
 
 &nbsp;
 
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
 Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
 
 ## 0 - Verzeichnis
@@ -82,11 +90,14 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
         6.4 Verantwortlichkeiten im Projekt
     7. Lizenz und Einverständniserklärung
 
-
 ### 0.2 Links
 
 -   Programmdokumentation: https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html
+-   UML-Klassendiagramm: https://izedx.github.io/australia-simulator/docs/uml.jpg
 
+&nbsp;
+
+&nbsp;
 
 &nbsp;
 
@@ -114,6 +125,16 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
 Australia Simulator ist ein Mobile-First Einzelspieler Webgame von Niklas Kühtmann und Thomas Urner für das Modul "Webtechnologie Projekt" im SoSe 2018 an der Fachhochschule-Lübeck.
 
 Diese Dokumentation soll einen Überblick über das Konzept und die Architektur leisten, wobei genauere Details in der [Programmdokumentation](https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html) zu finden sind. (Siehe 0.2)
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
 
 &nbsp;
 
@@ -192,13 +213,21 @@ Diese Dokumentation soll einen Überblick über das Konzept und die Architektur 
 | Id   | Technische Randbedingungen   |
 | :--: | ---------------------------- |
 | TF-1 | Statische HTML-Single-Page-App
-| TF-2 | Alle Ressourcen relativ addressiert
+| TF-2 | Alle Ressourcen relativ adressiert
 | TF-3 | MVC-Architektur
 | TF-4 | DOM-Tree als View / No-Canvas
 | TF-5 | Mobile First
 | TF-6 | SmartPhone Bedienung
 | TF-8 | Level-Parametrisierung per JSON/XML/etc.
 | TF-9 | Client-seitige Speicherung
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
 
 &nbsp;
 
@@ -216,6 +245,48 @@ Sollte nun entweder ein Gegner seinen Wohlfühl-Faktor voll aufgefüllt haben, o
 
 &nbsp;
 
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
 ## 3 - Architektur
 ---
 
@@ -223,6 +294,10 @@ Australia Simulator folgt der MVC-Architektur, bei der wir Interaktionen und Aus
 Im Folgenden werden die Basisklassen erläutert; detailliertere Dokumentation der Implementationsdetails liegen dieser Abgabe als dartdoc bei (./doc/api), bzw. sind unter 0.2 Links zu finden.
 
 ![UML-Diagramm](./uml.jpg)
+
+&nbsp;
+
+&nbsp;
 
 ### 3.1 - Model
 
@@ -244,6 +319,7 @@ Enemy implementiert ein zufälliges Movement für alle Gegner, sowie die „Flie
 
 Ein Character ist die Spielfigur, die der Spieler steuert. Sie reagiert auf Kollisionen mit Gegnern und beinhaltet die aktuellen Leben des Spielers.
 
+&nbsp;
 
 ### 3.2 - View
 
@@ -260,6 +336,14 @@ Um dies auch mit Überblick zu bewerkstelligen basiert der GameView (in ```view/
 Der GameView reagiert auf Actor Spawn- bzw. Remove-Events der World und erstellt bzw. entfernt die jeweiligen DOM-Elemente. Weiterhin hört er auf Transform-Events, die von den erstellten Actors emittiert werden und passt die jeweiligen Transforms im DOM an.
 
 Dabei kann der GameView vom GameController zwischen zwei Hauptmodi hin- und her geschaltet werden, dem Game und das Menü. Das Menü kann außerdem zwischen drei weiteren Modi wechseln: Hauptmenü, Level-Auswahl und Credits.
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
 
 ### 3.3 - Controller
 
@@ -278,6 +362,45 @@ Während dem Spiel tickt der GameController und ruft alle paar Millisekunden den
 
 Der LevelManager, sowie seine Hilfsklassen Level und ActorData werden verwendet um als JSON vorliegende Levels zu parsen und ihre Informationen dem GameView und GameController zur Verfügung zu stellen.
 
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
 
 ## 4 - Level- und Parametrisierungskonzept
 ---
@@ -302,6 +425,7 @@ Ein Auszug aus der ```levels.json```:
 
 Jedes Level enthält dann einen Text, welcher beim Start angezeigt werden soll (```spawnText```), 
 eine Größe, wie groß das Level sein soll (```size```) und eine Liste mit Actors, welche erstellt werden sollen (```actors```). Jeder Actor kann dabei durch seinen ```type``` bestimmt werden und mit ```
+
 
 Hier noch ein Auszug aus einem Level:
 
@@ -328,6 +452,15 @@ Hier noch ein Auszug aus einem Level:
 }
 ```
 
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
 
 ### 4.2 - Parametrisierungskonzept
 
@@ -344,6 +477,14 @@ Allerdings gibt es zwei relevante Konstanten die im Programmcode bearbeitet werd
 -   In ```enemy.dart```: cozynessDecSpeed bezeichnet den Rate mit der die cozyness eines Gegners abnimmt, wenn er verfolgt wird.
 -   In ```gamemode.dart```: wallWidth bezeichnet die Dicke der Außenwände.
 
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
 ## 5 - Libraries
 ---
 
@@ -359,6 +500,20 @@ new Observable(this.onCollide)
     .throttle( new Duration(seconds: 1) )
     .listen( (Actor a) => this._touchedEnemy());
 ```
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
 
 ## 6 - Nachweis der Anforderungen
 ---
@@ -409,21 +564,31 @@ Der Stand der freigeschalteten Levels wird im HTML5 Web Storage (localStorage) d
 
 Gegeben.
 
+&nbsp;
 
 ### 6.2 Nachweis der Dokumentationsanforderungen
 
-TODO
+| Id  | Kurztitel              | Erfüllt | Erläuterung                                                                                                                                                                                                                 |
+|:-----:|------------------------|:---------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| D-1 | Dokumentationsvorlage  | x       | Es wurde sich stark an der SnakeDart Dokumentation orientiert. Wobei wir jedoch mit Markdown gearbeitet haben, was Seitenzahlen nicht explizit unterstützt.                                                                          |
+| D-2 | Projektdokumentation   | x       | gegeben                                                                                                                                                                                                                     |
+| D-3 | Quelltextdokumentation | x       |  Es wurden alle Klassen gemäß "Effective Dart" Guidelines dokumentiert. Es wure dartdoc generiert (zu finden unter 0.2 bzw. ./doc/api/).  Es wurde darauf geachtet weitesgehend "selbstdokumentierenden" Code zu schreiben. |
+| D-4 | Libraries              | x       | Alle genutzten Libraries werden in der pubspec.yaml aufgeführt. Zusätzlich wurden die 3rd party libraries vector_math  und rxdart unter 5. angegeben                                                                        |
+
+&nbsp;
 
 ### 6.3 Nachweis der Einhaltung technischer Randbedingungen
 
 TODO
+
+&nbsp;
 
 ### 6.4 Verantwortlichkeiten im Projekt
 
 Der Großteil des Projekts ist in Zusammenarbeit entstanden, wobei im Laufe der Entwicklung die meisten Additions gegenseitig korrigiert, ergänzt oder dokumentiert wurden. Allerdings gab es unterschiedliche Fokuspunkte - wer sich auf was fokussiert hat - und ein paar größtenteils individuelle Leistungen (mit minimalen Ergänzungen des jeweils Anderen), dies ist nachfolgend dokumentiert.
 
 | Komponente | Detail         | Asset                                       | Niklas Kühtmann | Thomas Urner | Anmerkungen                       |
-|------------|----------------|---------------------------------------------|-----------------|--------------|-----------------------------------|
+|------------|----------------|---------------------------------------------|:-----------------:|:--------------:|-----------------------------------|
 | Model      | Actor          | lib/australiasim/model/actor.dart           | U               | V            |                                   |
 |            | World          | lib/australiasim/model/world.dart           | V               | U            |                                   |
 |            | GameMode       | lib/australiasim/model/gamemode.dart        | V               | U            |                                   |
@@ -440,6 +605,7 @@ Der Großteil des Projekts ist in Zusammenarbeit entstanden, wobei im Laufe der 
 
 > V: Verantwortlich - U: Unterstützend
 
+&nbsp;
 
 ## 7 - Lizenz und Einverständniserklärung
 ---
