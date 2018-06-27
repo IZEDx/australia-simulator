@@ -1,0 +1,70 @@
+{
+    "spawnText": "\"But what about the window?\"",
+    "size": [2000.0, 1200.0],
+    "actors": [
+        {
+            "type": "bigredspider",
+            "location": [500.0, 750.0]
+        },
+        {
+            "type": "bigredspider",
+            "location": [1500.0, 700.0]
+        },
+        {
+            "type": "bigredspider",
+            "location": [1000.0, 780.0]
+        },
+        {
+            "type": "bigspider",
+            "location": [1200.0, 1000.0]
+        },
+        {
+            "type": "bigspider",
+            "location": [800.0, 1000.0]
+        },
+        {
+            "type": "board",
+            "location": [1200.0, -50.0]
+        },
+        {
+            "type": "board",
+            "location": [1300.0, -50.0]
+        },
+        {
+            "type": "board",
+            "location": [1400.0, -50.0]
+        },
+        {
+            "type": "board",
+            "location": [1500.0, -50.0]
+        },
+        {
+            "type": "table",
+            "location": [700.0, 80.0],
+            "rotation": [0.1, 0.9]
+        },
+        {
+            "type": "flower",
+            "location": [700.0, 0.0],
+            "rotation": [0.1, 0.9]
+        },
+        {
+            "type": "flower",
+            "location": [650.0, 250.0],
+            "rotation": [0.1, 0.9]
+        },
+        {
+            "type": "flower",
+            "location": [820.0, 300.0],
+            "rotation": [-0.1, 0.9]
+        },
+        {
+            "type": "flower",
+            "location": [550.0, 50.0]
+        },
+        {
+            "type": "flower",
+            "location": [850.0, 60.0]
+        }
+    ]
+}

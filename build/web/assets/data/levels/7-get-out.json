@@ -1,0 +1,108 @@
+{
+    "spawnText": "GET THE F*CK OUT OF MY HOUSE!",
+    "size": [2000.0, 1200.0],
+    "actors": [
+        {
+            "type": "bigredspider",
+            "location": [300.0, 750.0]
+        },
+        {
+            "type": "bigredspider",
+            "location": [1600.0, 700.0]
+        },
+        {
+            "type": "bigredspider",
+            "location": [1000.0, 780.0]
+        },
+        {
+            "type": "bigredspider",
+            "location": [1200.0, 1000.0]
+        },
+        {
+            "type": "bigredspider",
+            "location": [800.0, 1000.0]
+        },
+        {
+            "type": "bigspider",
+            "location": [300.0, 1000.0]
+        },
+        {
+            "type": "bigspider",
+            "location": [300.0, 600.0]
+        },
+        {
+            "type": "bigspider",
+            "location": [200.0, 800.0]
+        },
+        {
+            "type": "spider",
+            "location": [1800.0, 1000.0]
+        },
+        {
+            "type": "spider",
+            "location": [1800.0, 600.0]
+        },
+        {
+            "type": "spider",
+            "location": [1700.0, 800.0]
+        },
+        {
+            "type": "board",
+            "location": [1200.0, -50.0]
+        },
+        {
+            "type": "board",
+            "location": [1312.0, -50.0],
+            "rotation": [0.15, 0.85]
+        },
+        {
+            "type": "board",
+            "location": [1550.0, -5.0],
+            "rotation": [-1.0, 0.0]
+        },
+        {
+            "type": "board",
+            "location": [1424.0, -50.0]
+        },
+        {
+            "type": "table",
+            "location": [700.0, 80.0],
+            "rotation": [0.1, 0.9]
+        },
+        {
+            "type": "flower",
+            "location": [700.0, 0.0],
+            "rotation": [0.1, 0.9]
+        },
+        {
+            "type": "flower",
+            "location": [450.0, 850.0],
+            "rotation": [-0.15, 0.85]
+        },
+        {
+            "type": "flower",
+            "location": [960.0, 450.0],
+            "rotation": [0.3, 0.7]
+        },
+        {
+            "type": "flower",
+            "location": [250.0, 50.0],
+            "rotation": [-0.3, 0.7]
+        },
+        {
+            "type": "flower",
+            "location": [850.0, 60.0],
+            "rotation": [-0.1, 0.9]
+        },
+        {
+            "type": "bigbed",
+            "location": [1450.0, 850.0],
+            "rotation": [0.3, 0.7]
+        },
+        {
+            "type": "lamp",
+            "location": [1450.0, 850.0],
+            "rotation": [0.3, -1.0]
+        }
+    ]
+}
