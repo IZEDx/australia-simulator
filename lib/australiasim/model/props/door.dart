@@ -1,6 +1,6 @@
 part of australiasim;
 
-/// Class for the door
+/// The door
 class Door extends Box
 {
     @override

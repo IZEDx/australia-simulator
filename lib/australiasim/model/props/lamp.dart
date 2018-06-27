@@ -1,6 +1,6 @@
 part of australiasim;
 
-/// Class for a lamp
+/// A lamp
 class Lamp extends Box
 {
     @override

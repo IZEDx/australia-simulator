@@ -42,4 +42,4 @@ part "./australiasim/model/pawns/enemies/bigspider.dart";
 part "./australiasim/model/pawns/enemies/bigredspider.dart";
 
 /// Maincontroller which is running the game
-final mainController = new GameController();
+final GameController mainController = new GameController();

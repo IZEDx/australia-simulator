@@ -81,7 +81,7 @@ class World
 
      /// Used for operations which need to be done in short intervals where [deltaTime] specifies the time since the last tick
     void tick(double deltaTime) {
-        for (var actor in actors) actor.tick(deltaTime);
+        this.actors.forEach((actor) => actor.tick(deltaTime));
     }
 
     /// Starts the game

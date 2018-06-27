@@ -1,6 +1,6 @@
 part of australiasim;
 
-/// Class for a small bed
+/// A small bed
 class SmallBed extends Box
 {
     @override

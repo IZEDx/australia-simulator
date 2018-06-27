@@ -1,7 +1,7 @@
 part of australiasim;
 
 /// default wall width the game is using for the outer walls
-const wallWidth = 20.0;
+const double wallWidth = 20.0;
 
 /// Class for a gameinstance which represents the current game
 class GameMode {

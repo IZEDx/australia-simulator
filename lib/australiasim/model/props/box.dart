@@ -1,6 +1,6 @@
 part of australiasim;
 
-/// Class for a box shaped prop
+/// A box shaped prop
 class Box extends Prop 
 {
     @override

@@ -1,6 +1,6 @@
 part of australiasim;
 
-/// Class for a chair
+/// A chair
 class Chair extends Box
 {
     @override

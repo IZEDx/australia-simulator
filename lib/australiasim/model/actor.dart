@@ -115,7 +115,7 @@ class Actor {
 
     }
 
-    /// Is colliding with [other] on an optional [destLocation]?
+    /// Is colliding with [other] on current or optional [destLocation]?
     bool isCollidingWith(Actor other, [Vector2 destLocation])
     {
         if (destLocation == null) 

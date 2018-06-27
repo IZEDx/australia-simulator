@@ -1,6 +1,6 @@
 part of australiasim;
 
-/// Class for a table
+/// A table
 class Table extends Box
 {
     @override
