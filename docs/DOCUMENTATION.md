@@ -61,9 +61,9 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
         0.1 Struktur
         0.2 Links
     1. Einleitung
-    2. Anforderung und Konzept
-        2.1 Spielkonzept: Australia Simulator
-        2.2 Anforderungen
+    2. Anforderungen und Konzept
+        2.1 Anforderungen
+        2.2 Spielkonzept: Australia Simulator
     3. Architektur
         3.1 Model
         3.2 View
