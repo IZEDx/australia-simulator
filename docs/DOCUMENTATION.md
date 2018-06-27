@@ -523,7 +523,7 @@ new Observable(this.onCollide)
 #### __AF-1:__ Single-Player-Game als Single-Page-App - ERFÜLLT
 
 _Australia Simulator_ ist ein Singleplayer-Spiel als Single-Page-App, welches in Dart entwickelt wurde.
-Alle Assets sind relativ adressiert und es wird kein Backend benötigt. Jeglicher Fortschritt wird direkt im Browser des Users gespeichert und somit kann _Australia Simulator_ statisch vertrieben werden.
+Alle Assets sind relativ adressiert und es wird kein Backend benötigt. Jeglicher Fortschritt wird direkt im Browser des Users gespeichert und somit kann _Australia Simulator_ statisch vertrieben werden. (vgl. index.html)
 
 #### __AF-2:__ Balance zwischen technischer Komplexität und Spielkonzept - ERFÜLLT
 
@@ -540,7 +540,7 @@ Bei dem LevelManager wird von dem MVC Pattern abgewichen (gameview.dart, gamecon
 
 #### __AF-4:__ Target device: Smartphone ERFÜLLT
 
-_Australia Simulator_ ist eine mobile-first Single-Page-App und somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns eine Touch-and-Move Steuerung ausgedacht, bei der der Spieler mit der Maus oder per Touchscreen auf dem Bildschirm ziehen kann und der Character bewegt sich entsprechend. Sollte der Spieler wieder los lassen bleibt der Character stehen.
+_Australia Simulator_ ist eine mobile-first Single-Page-App und somit auf iOS und Android, sowie in modernen HTML5 Browsern gleich funktionieren. Als device-agnostic Eingabemethode haben wir uns für die Emulation eines Analogsticks an einer beliebigen Position des Touchscreens entschieden. Sollte der Spieler wieder los lassen bleibt der Character stehen (s. AF-2).
 
 #### __AF-5:__ Mobile First Prinzip ERFÜLLT
 
@@ -579,7 +579,16 @@ Gegeben.
 
 ### 6.3 Nachweis der Einhaltung technischer Randbedingungen
 
-TODO
+| Id   | Kurztitel                                | Erfüllt | Teilw. erfüllt |         |
+|------|------------------------------------------|---------|----------------|---------|
+| TF-1 | Statische HTML-Single-Page-App           | x       |                | s. AF-1 |
+| TF-2 | Alle Ressourcen relativ adressiert       | x       |                | s. AF-1 |
+| TF-3 | MVC-Architektur                          |         | x              | s. AF-3 |
+| TF-4 | DOM-Tree als View / No-Canvas            | x       |                | s. AF-3 |
+| TF-5 | Mobile First                             | x       |                | s. AF-5 |
+| TF-6 | Smartphone Bedienung                     | x       |                | s. AF-5 |
+| TF-7 | Level-Parametrisierung per JSON/XML/etc. | x       |                | s. AF-7 |
+| TF-8 | Client-seitige Speicherung               | x       |                | s. AF-8 |
 
 &nbsp;
 
