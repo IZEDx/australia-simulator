@@ -406,4 +406,18 @@ TODO
 
 ### 6.4 Verantwortlichkeiten im Projekt
 
-TODO
+| Komponente | Detail         | Asset                                       | Niklas Kühtmann | Thomas Urner | Anmerkungen                       |
+|------------|----------------|---------------------------------------------|-----------------|--------------|-----------------------------------|
+| Model      | Actor          | lib/australiasim/model/actor.dart           | U               | V            |                                   |
+|            | World          | lib/australiasim/model/world.dart           | V               | U            |                                   |
+|            | GameMode       | lib/australiasim/model/gamemode.dart        | V               | U            |                                   |
+|            | Pawn           | lib/australiasim/model/pawn.dart            | U               | V            |                                   |
+|            | Character      | lib/australiasim/model/pawns/character.dart | U               | V            |                                   |
+|            | Enemy          | lib/australiasim/model/pawns/enemy.dart     |                 | V            |                                   |
+|            | Props          | lib/australiasim/model/props/*.*            | U               | V            | trivial                           |
+|            | Enemies        | lib/australiasim/model/pawns/enemies/*.*    | V               |              | trivial                           |
+| Controller | GameController | lib/australiasim/gamecontroller.dart        | V               |              |                                   |
+|            | LevelManager   | lib/australiasim/level.dart                 | V               |              |                                   |
+| View       | GameView       | lib/australiasim/view/gameview.dart         | V               | U            |                                   |
+|            |                | lib/australiasim/view/domview.dart          | V               |              |                                   |
+| Levels     |                | web/assets/data/levels/*.*                  | V               | V            | Wurden in Zusammenarbeit erstellt |
