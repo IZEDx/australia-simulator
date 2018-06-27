@@ -175,17 +175,17 @@ Das Model des Spiels besteht aus mehreren Schichten an Klassen und orientiert si
 
 ### 3.1 - Model
 
-Das Grundgerüst des Models beschränkt sich im grob gesehen auf drei Klassen;
+Das Grundgerüst des Models beschränkt sich grob gesehen auf drei Klassen;
 GameMode, World und Actor.
 
 Das GameMode steuert den Spielablauf.
 Zu jeder Zeit kommuniziert der GameController nur mit dem GameMode, welches das Spiel verwaltet und die Interaktionen der Nutzer an seine Spielfigur weiterleitet.
-Es implementiert die Spielregeln und leitet den Model Tick (hot loop; welcher für u.a. Bewegungsberechnungen benutzt wird) von dem GameController an die World weiter.
+Es implementiert die Spielregeln und leitet den Model-Tick (hot loop; welcher für u.a. Bewegungsberechnungen benutzt wird) von dem GameController an die World weiter.
 Zu Beginn eines Spieles wird die Welt von dem GameMode aufgebaut (Props, Gegner und Player spawnen). 
 
-Die World bezeichnet das Objekt, welches die Spielwelt repräsentiert. Sie wird benutzt um jede Art von Actors in das laufende Spiel zu bringen / entfernen und hält eine Liste der aktuell im Level existierenden Actors. Weiterhin gibt sie den Model Tick an alle Actors weiter.
+Die World bezeichnet das Objekt, welches die Spielwelt repräsentiert. Sie wird benutzt um jede Art von Actors in das laufende Spiel zu bringen / entfernen und hält eine Liste der aktuell im Level existierenden Actors. Weiterhin gibt sie den Model-Tick an alle Actors weiter.
 
-Actor dient als Basisklasse für alle Objekte, die in einer World existieren (Props, Pawns) und mit der Spielfigur interagieren können. Sie implementiert die abstrakten Basismethoden (tick, initialize, beginPlay), welche von in den Childclasses verwendet werden, die Worldtransforms, sowie Kollisionsabfragen für Box- und Circleprimitives. 
+Actor dient als Basisklasse für alle Objekte, die in einer World existieren (Props, Pawns) und mit der Spielfigur interagieren können. Sie implementiert die abstrakten Basismethoden (tick, initialize, beginPlay), welche in den Childclasses überschrieben werden, die Worldtransforms, sowie Kollisionsabfragen für Box- und Circleprimitives. 
 
 Pawn implementiert das Movement, welches die Spielfigur, unter Berücksichtigung von möglichen Kollisionen auf dem Weg, auf dem direkten Weg zu einer Position laufen lässt.
 
@@ -196,11 +196,15 @@ Ein Character ist die Spielfigur, die der Spieler steuert. Sie reagiert auf Koll
 
 ### 3.2 - View
 
-Der View wird zur Darstellung des Models verwendet und vom Controller initiert. Er erstellt die DOM-Elemente die für das Model benötigt werden und reagiert auf Updates des Models zur Aktualisierung.
+Der View wird zur Darstellung des Models verwendet und vom Controller initiiert. Er erstellt die DOM-Elemente die für das Model benötigt werden und reagiert auf Updates des Models zur Aktualisierung.
 
-Wir verwenden im View ein DOM-Element für die 2D Welt - dem Haus, in dem gespielt wird - in welchem wir dann die Actor frei bewegen können. 
+Wir verwenden im View ein DOM-Element für die 2D Welt - dem Haus - in welchem wir dann die Actor frei bewegen können. 
 
-Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden, hierfür wird der Character im View fest in der Mitte des Bildschirms erstellt und wenn er sich bewegt wird die Welt im Hintergrund bewegt, statt dem Character selbst.
+Im View soll der Character immer in der Mitte des Bildschirms dargestellt werden, hierfür wird der Character im View fest in der Mitte des Bildschirms erstellt und wenn er sich bewegt wird die Welt im Hintergrund in Relation zum Character bewegt, statt dem Character selbst.
+
+Um dies auch mit Überblick zu bewerkstelligen basiert der GameView, welcher bestimmt, wie genau das Spiel dargestellt wird, auf dem DOMView, eine Basisklasse die häufige DOM-Operation abstrahiert und außerdem ein Verzeichnis für die DOM-Elementreferenzen anbietet.
+
+Genauere Implementationsdetails finden sich in der [GameView Klasse](https://izedx.github.io/australia-simulator/doc/api/australiasim/GameView-class.html).
 
 ### 3.3 - Controller
 
