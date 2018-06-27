@@ -68,7 +68,7 @@ Niklas Kühtmann, Thomas Urner - FH-Lübeck - SoSe 2018
         3.1 Model
         3.2 View
         3.3 Controller
-            3.3.1 Input
+            3.3.1 LevelManager
     4. Level- und Parametrisierungskonzept
         4.1 Levelkonzept
         4.2 Parametrisierungskonzept
@@ -211,37 +211,10 @@ Der GameController ist das zentrale Nervensystem des Spiels, er erstellt das Mod
 Er horcht auf die Eingaben des Spielers zur Steuerung der Spielfigur und gibt sie entsprechend an das Model weiter.
 
 
+#### 3.3.1 LevelManager
 
-#### 3.3.1 Input
-
-Im Controller horchen wir auf den Input und leiten diesen dann an das Model weiter, die entsprechende Eingabeposition die weitergeleitet wird ist relativ zur Position des Characters, also relativ zur Mitte des Bildschirms.
-
-```dart
-  onInput(onInput(Vector2 worldPos), onInputStop()) {
-    relay(TouchEvent e) {
-      e.preventDefault();
-      onInput(new Vector2(
-        e.touches[0].page.x - view.world.offset.left, 
-        e.touches[0].page.y - view.world.offset.top
-      ));
-    }
-
-    view.input.onTouchStart.listen((e) {
-      relay(e);
-    });
-
-    view.input.onTouchMove.listen((e) {
-      relay(e);
-    });
-
-    view.input.onTouchEnd.listen((e) {
-      e.preventDefault();
-      onInputStop();
-    });
-  }
-```
-
-Events vom Model an das View muss der Controller nicht selbst weiterleiten, da der View direkt auf den Events des Models horchen kann und sich so up-to-date halten kann. Allerdings ist der Controller dafür verantwortlich weiteren User-Input zu verarbeiten, wie z.B. das Starten eines Spiels und das entsprechende Setup des Views und Models.
+Der LevelManager, sowie seine Hilfsklassen Level und ActorData werden verwendet um als JSON vorliegende Levels zu parsen und ihre Informationen dem GameView und GameController zur Verfügung zu stellen.
+Bei dem LevelManager wird von dem MVC Pattern abgewichen, weil sich eine Anbindung an den Controller und den View analog zum Model sehr gut eignen, jedoch betrachten wir ihn als Controller Klasse, da Input (in Form der vorliegenden Level-JSONs) stattfindet.
 
 ## 4 - Level- und Parametrisierungskonzept
 ---
