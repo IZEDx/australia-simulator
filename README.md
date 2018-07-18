@@ -5,7 +5,7 @@
 ![QR-Code](./docs/qrcode.png)
 &nbsp;
 
-## [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)  | [Dokumentation](./docs/DOCUMENTATION.md) | [DartDocs](./doc/api/australiasim/australiasim-library.html)
+## [Spiel öffnen](https://izedx.github.io/australia-simulator/build/web)  | [Dokumentation](https://izedx.github.io/australia-simulator/docs/DOCUMENTATION.md) | [DartDocs](https://izedx.github.io/australia-simulator/doc/api/australiasim/australiasim-library.html)
 
 &nbsp;
 
